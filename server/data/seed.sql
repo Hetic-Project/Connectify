@@ -33,12 +33,13 @@ INSERT INTO `group` (
 );
 
 INSERT INTO `role` (`name`) 
-VALUES ('admin');
+VALUES ('888');
 
 INSERT INTO `page` (
+
 `name`,
-'banner',
-'picture'
+`banner`,
+`picture`
 
 ) VALUES (
     'admin',
@@ -69,11 +70,12 @@ INSERT INTO `user` (
     'VANDAL',
     'William',
     'williamvandal@gmail.com',
+    'mot de passe',
     'vandal.william',
     'profile picture url',
     'banner url',
     'compte activé',
-    '56515',
+    '888',
     '1353'
 );
 
@@ -97,7 +99,7 @@ INSERT INTO `comment` (
 
 ) VALUES (
     'PROMO WEB1 P2025',
-    '135',
+    '6513',
     '2651'
 );
 
@@ -107,9 +109,9 @@ INSERT INTO `member` (
 `role_id`
 
 ) VALUES (
-    '513',
+    '12',
     '6513',
-    '226'
+    '888'
 );
 
 INSERT INTO `role_page` (
@@ -118,7 +120,7 @@ INSERT INTO `role_page` (
 
 ) VALUES (
     '6513',
-    '226'
+    '888'
 );
 
 INSERT INTO `private_message` (
