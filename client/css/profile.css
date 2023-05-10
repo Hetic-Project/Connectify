@@ -13,3 +13,8 @@
     background-color: aqua;
     border-radius: 25px;
 }
+
+.modifierProfil {
+    cursor: pointer;
+    margin: 10px 50px;
+}

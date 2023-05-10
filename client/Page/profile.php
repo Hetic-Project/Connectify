@@ -5,21 +5,15 @@ session_start();
 
         <main class="main">
 
-<<<<<<< Updated upstream
-=======
-
-
-            <h1> eafyaigaufguizazaeada </h1>
->>>>>>> Stashed changes
             <img  class="banniereProfil" src="<?=  $gcef ?>">
             </img>
 
             <img class="PP" src="<?= $gcef ?>">
             </img>
 
-            <div class="img-btn">
-                <span class="modif">Modifier le Profil</span>
-            </div>
+
+            <btn class="modifierProfil"> Modifier le Profil</btn>
+           
 
 
             <div>
