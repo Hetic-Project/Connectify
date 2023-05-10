@@ -75,8 +75,8 @@ INSERT INTO `user` (
     'profile picture url',
     'banner url',
     'compte activé',
-    '888',
-    '1353'
+    'name',
+    'promo_name'
 );
 
 INSERT INTO `publication` (
@@ -109,9 +109,9 @@ INSERT INTO `member` (
 `role_id`
 
 ) VALUES (
-    '12',
-    '6513',
-    '888'
+    'name',
+    'firstname',
+    'name'
 );
 
 INSERT INTO `role_page` (
@@ -119,8 +119,8 @@ INSERT INTO `role_page` (
 `role_id`,
 
 ) VALUES (
-    '6513',
-    '888'
+    'firstname',
+    'name'
 );
 
 INSERT INTO `private_message` (
@@ -142,7 +142,7 @@ INSERT INTO `group_message` (
 ) VALUES (
     'contenu du message',
     '55',
-    '12'
+    'name'
 );
 
 
