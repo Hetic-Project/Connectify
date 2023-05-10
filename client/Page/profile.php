@@ -4,6 +4,9 @@ session_start();
 ?>
 
         <main class="main">
+
+
+
             <h1> azda da </h1>
             <img  class="banniereProfil" src="<?=  $gcef ?>">
             </img>
@@ -13,10 +16,7 @@ session_start();
 
             <div>
             </div>
-
-
-        
-
+             
         </main>
 </body>
 </html>
