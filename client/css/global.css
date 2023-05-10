@@ -20,8 +20,10 @@ body{
 .flex-content-header {
     display: flex;
     justify-content: space-between;
+    background-color: aqua;
     align-items: center;
-    width: 100hw;
+    width: 100vw;
+    height: 50px;
     padding: 15px 30px 15px 30px;
 }
 
@@ -29,6 +31,8 @@ body{
     margin-left: 15px;
 }
 
+
 .main-title {
     color: var(--primary-color);
+    text-decoration: none;
 }
