@@ -14,9 +14,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
+<<<<<<< Updated upstream
       <h1 class="titreAcceuil"> Connectify </h1>
       <a href="login.php"><button  class="buttonAccueil" type="button"> Connexion </button></a>
       <p class="texteAcceuil"> Le réseau des écoles. <br>Rejoignez-nous dès maintenant !</p>
       <a href="login.php"><button class="buttonAccueil" type="button"> Inscription </button></a>
+=======
+    <h1>xserdtfyghu</h1>
+>>>>>>> Stashed changes
 </body>
 </html>
