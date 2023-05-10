@@ -17,10 +17,6 @@ body{
     --margin : 15px;
 }
 
-.main{
-    margin: var(--margin);
-}
-
 .flex-content-header {
     display: flex;
     justify-content: space-between;
