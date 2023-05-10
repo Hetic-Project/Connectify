@@ -21,14 +21,17 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100hw;
+    height: 50px;
     padding: 15px 30px 15px 30px;
 }
 
 .iconMessage {
     margin-left: 15px;
+    
 }
+
 
 .main-title {
     color: var(--primary-color);
+    text-decoration: none;
 }
