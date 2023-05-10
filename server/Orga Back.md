@@ -10,7 +10,7 @@
 |POST| /delectAccount | userController  |  supprimer le compte d'un user |
 |POST| /researchAccount | userController | rechercher le compte d'un user|
 |POST| /addMemberLogin | userController | ajouter un membre |
-POST| /removeMemberLogin | userController | supprimer un membre |
+|POST| /removeMemberLogin | userController | supprimer un membre |
 |POST| /creatPost | userController | creer un poste |
 |POST| /commentPost | iserController | commenter un poste |
 |POST| /
