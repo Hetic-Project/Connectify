@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    position: relative;
+    background-color: #686868;
+
+}
+
+:root{
+    --primary-color : #5FB814;
+    --fontSize-title-h1 : 20px;
+    --fontSize-title-h2 : 17px;
+    --fontSize-texte : 14px;
+    --padding : 15px;
+    --margin : 15px;
+}
+
+.main{
+    margin: var(--margin);
+}
+
+.flex-content-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100hw;
+    padding: 0 30px 0 30px;
+}
+
+.iconMessage {
+    margin-left: 15px;
+}
