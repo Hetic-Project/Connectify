@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/1publication.css">
     <link rel="stylesheet" href="../css/creategroup.css">
+    <link rel="stylesheet" href="../css/createpost.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/message.css">
     <link rel="stylesheet" href="../css/pages.css">
