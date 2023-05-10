@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    position: relative;
+    background-color: #3D3D3D;
+    font-family: 'Kanit', sans-serif;
+}
+
+:root{
+    --primary-color : #5FB814;
+    --fontSize-title-h1 : 20px;
+    --fontSize-title-h2 : 17px;
+    --fontSize-texte : 14px;
+    --padding : 15px;
+    --margin : 15px;
+}
+
+.main{
+    margin: var(--margin);
+}
+
+.flex-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100hw;
+    padding: 15px 30px 15px 30px;
+}
+
+.iconMessage {
+    margin-left: 15px;
+}
+
+.main-title {
+    color: var(--primary-color);
+}
