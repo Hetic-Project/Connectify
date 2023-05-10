@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="../css/pages.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/publications.css">
-    <title>Billeterie-PHP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+    <title>Conectify</title>
 </head>
 <body>
     <header class="header">
