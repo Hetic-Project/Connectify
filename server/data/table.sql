@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS `group`, `role`, `page`, `promo`, `user`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
+DROP TABLE IF EXISTS `group`, `role`, `rubric`, `page`, `promo`, `user`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
 
 CREATE TABLE `group` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE `rubric` (
     banner VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
-)
+);
 
 CREATE TABLE `page` (
     id INT PRIMARY KEY AUTO_INCREMENT,

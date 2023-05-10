@@ -32,6 +32,31 @@ INSERT INTO `group` (
     'privés'
 );
 
+INSERT INTO `user` (
+`firstname`,
+`lastname`,
+`mail`,
+`password`,
+`username`,
+`picture`,
+`banner`,
+`active`,
+`role_id`,
+`promo_id`
+
+) VALUES (
+    'VANDAL',
+    'William',
+    'williamvandal@gmail.com',
+    'mot de passe',
+    'vandal.william',
+    'profile picture url',
+    'banner url',
+    'compte activé',
+    '555',
+    '666'
+);
+
 INSERT INTO `role` (`name`) 
 VALUES ('888');
 
@@ -67,31 +92,6 @@ INSERT INTO `promo` (
 
 ) VALUES (
     'PROMO WEB1 P2025'
-);
-
-INSERT INTO `user` (
-`firstname`,
-`lastname`,
-`mail`,
-`password`,
-`username`,
-`picture`,
-`banner`,
-`active`,
-`role_id`,
-`promo_id`
-
-) VALUES (
-    'VANDAL',
-    'William',
-    'williamvandal@gmail.com',
-    'mot de passe',
-    'vandal.william',
-    'profile picture url',
-    'banner url',
-    'compte activé',
-    'name',
-    'promo_name'
 );
 
 INSERT INTO `publication` (
