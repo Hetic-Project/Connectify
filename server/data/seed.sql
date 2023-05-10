@@ -35,11 +35,26 @@ INSERT INTO `group` (
 INSERT INTO `role` (`name`) 
 VALUES ('888');
 
+INSERT INTO `rubric` (
+
+`title`,
+`content`,
+`picture`,
+`banner`
+
+) VALUES (
+    'titre de la page',
+    'contenu de la page',
+    'picture url',
+    'banner url'
+);
+
 INSERT INTO `page` (
 
 `name`,
 `banner`,
-`picture`
+`picture`,
+`rubric_id`
 
 ) VALUES (
     'admin',
@@ -83,13 +98,15 @@ INSERT INTO `publication` (
 `title`,
 `content`,
 `picture`,
-`author_id`
+`author_id`,
+`group_id`
 
 ) VALUES (
     'Photo de classe',
     'photo réalisée par : Jean Charles',
     'picture url',
-    '284'
+    '284',
+    'name'
 );
 
 INSERT INTO `comment` (

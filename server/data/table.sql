@@ -18,11 +18,22 @@ CREATE TABLE `role` (
     updated_at TIMESTAMP
 );
 
+CREATE TABLE `rubric` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL,
+    banner VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+)
+
 CREATE TABLE `page` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     banner VARCHAR(255) NOT NULL,
     picture VARCHAR(255) NOT NULL,
+    rubric_id INT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -58,6 +69,7 @@ CREATE TABLE `publication` (
     content VARCHAR(255) NOT NULL,
     picture VARCHAR(255) NOT NULL,
     author_id INT NOT NULL,
+    group_id INT NOT NULL,
     FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
