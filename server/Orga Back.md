@@ -13,3 +13,4 @@
 POST| /removeMemberLogin | userController | supprimer un membre |
 |POST| /creatPost | userController | creer un poste |
 |POST| /commentPost | iserController | commenter un poste |
+|POST| /
