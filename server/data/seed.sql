@@ -32,6 +32,50 @@ INSERT INTO `group` (
     'privés'
 );
 
+INSERT INTO `role` (`name`) 
+VALUES ('élève'), ('prof'), ('admin'), ('membre');
+
+INSERT INTO `page` (
+
+`name`,
+`banner`,
+`picture`
+
+) VALUES (
+    'NEWS',
+    'banner url',
+    'picture url'
+);
+
+INSERT INTO `rubric` (
+
+`title`,
+`content`,
+`picture`,
+`banner`,
+`page_id`
+
+) VALUES (
+    'JOURNAL DE L''ECOLE ',
+    'Contenu du journal',
+    'picture url',
+    'banner url',
+    1
+), (
+    'HETIC EN FORCE',
+    'Description d''HETIC EN FORCE',
+    'picture url',
+    'banner url',
+    1
+);
+
+INSERT INTO `promo` (
+`promo_name`
+
+) VALUES (
+    'PROMO WEB1 P2025'
+);
+
 INSERT INTO `user` (
 `firstname`,
 `lastname`,
@@ -52,46 +96,20 @@ INSERT INTO `user` (
     'vandal.william',
     'profile picture url',
     'banner url',
-    'compte activé',
-    '555',
-    '666'
-);
-
-INSERT INTO `role` (`name`) 
-VALUES ('888');
-
-INSERT INTO `rubric` (
-
-`title`,
-`content`,
-`picture`,
-`banner`
-
-) VALUES (
-    'titre de la page',
-    'contenu de la page',
-    'picture url',
-    'banner url'
-);
-
-INSERT INTO `page` (
-
-`name`,
-`banner`,
-`picture`,
-`rubric_id`
-
-) VALUES (
-    'admin',
+    TRUE,
+    1,
+    1
+), (
+    'YALMAN',
+    'Lucas',
+    'lucasylm@gmail.com',
+    'mot de passe',
+    'lucasylm',
+    'profile picture url',
     'banner url',
-    'picture url'
-);
-
-INSERT INTO `promo` (
-`promo_name`
-
-) VALUES (
-    'PROMO WEB1 P2025'
+    TRUE,
+    1,
+    1 
 );
 
 INSERT INTO `publication` (
@@ -105,8 +123,8 @@ INSERT INTO `publication` (
     'Photo de classe',
     'photo réalisée par : Jean Charles',
     'picture url',
-    '284',
-    'name'
+    2,
+    1
 );
 
 INSERT INTO `comment` (
@@ -115,9 +133,9 @@ INSERT INTO `comment` (
 `publication_id`
 
 ) VALUES (
-    'PROMO WEB1 P2025',
-    '6513',
-    '2651'
+    'Superbe article rédigé par moi-même !',
+    1,
+    1
 );
 
 INSERT INTO `member` (
@@ -126,18 +144,18 @@ INSERT INTO `member` (
 `role_id`
 
 ) VALUES (
-    'name',
-    'firstname',
-    'name'
+    1,
+    1,
+    3
 );
 
 INSERT INTO `role_page` (
 `user_id`,
-`role_id`,
+`role_id`
 
 ) VALUES (
-    'firstname',
-    'name'
+    1,
+    3
 );
 
 INSERT INTO `private_message` (
@@ -147,8 +165,8 @@ INSERT INTO `private_message` (
 
 ) VALUES (
     'contenu du message',
-    '55',
-    '66'
+    2,
+    1
 );
 
 INSERT INTO `group_message` (
@@ -158,8 +176,8 @@ INSERT INTO `group_message` (
 
 ) VALUES (
     'contenu du message',
-    '55',
-    'name'
+    1,
+    1
 );
 
 

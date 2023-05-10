@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS `group`, `role`, `rubric`, `page`, `promo`, `user`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
+DROP TABLE IF EXISTS `group`, `role`, `page`, `rubric`, `promo`, `user`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
 
 CREATE TABLE `group` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -18,23 +18,23 @@ CREATE TABLE `role` (
     updated_at TIMESTAMP
 );
 
+CREATE TABLE `page` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    banner VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
 CREATE TABLE `rubric` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
     picture VARCHAR(255) NOT NULL,
     banner VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP
-);
-
-CREATE TABLE `page` (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    banner VARCHAR(255) NOT NULL,
-    picture VARCHAR(255) NOT NULL,
-    rubric_id INT NOT NULL,
-    FOREIGN KEY (rubric_id) REFERENCES rubric(id) ON DELETE CASCADE,
+    page_id INT NOT NULL,
+    FOREIGN KEY (page_id) REFERENCES `page`(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -72,7 +72,7 @@ CREATE TABLE `publication` (
     author_id INT NOT NULL,
     group_id INT NOT NULL,
     FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE CASCADE,
-    FOREIGN KEY (group_id) REFERENCES group(id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES `group`(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
