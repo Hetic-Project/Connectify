@@ -32,28 +32,6 @@ INSERT INTO `group` (
     'privés'
 );
 
-INSERT INTO `role` (`name`) 
-VALUES ('888');
-
-INSERT INTO `page` (
-
-`name`,
-`banner`,
-`picture`
-
-) VALUES (
-    'admin',
-    'banner url',
-    'picture url'
-);
-
-INSERT INTO `promo` (
-`promo_name`
-
-) VALUES (
-    'PROMO WEB1 P2025'
-);
-
 INSERT INTO `user` (
 `firstname`,
 `lastname`,
@@ -75,21 +53,60 @@ INSERT INTO `user` (
     'profile picture url',
     'banner url',
     'compte activé',
-    '888',
-    '1353'
+    '555',
+    '666'
+);
+
+INSERT INTO `role` (`name`) 
+VALUES ('888');
+
+INSERT INTO `rubric` (
+
+`title`,
+`content`,
+`picture`,
+`banner`
+
+) VALUES (
+    'titre de la page',
+    'contenu de la page',
+    'picture url',
+    'banner url'
+);
+
+INSERT INTO `page` (
+
+`name`,
+`banner`,
+`picture`,
+`rubric_id`
+
+) VALUES (
+    'admin',
+    'banner url',
+    'picture url'
+);
+
+INSERT INTO `promo` (
+`promo_name`
+
+) VALUES (
+    'PROMO WEB1 P2025'
 );
 
 INSERT INTO `publication` (
 `title`,
 `content`,
 `picture`,
-`author_id`
+`author_id`,
+`group_id`
 
 ) VALUES (
     'Photo de classe',
     'photo réalisée par : Jean Charles',
     'picture url',
-    '284'
+    '284',
+    'name'
 );
 
 INSERT INTO `comment` (
@@ -109,9 +126,9 @@ INSERT INTO `member` (
 `role_id`
 
 ) VALUES (
-    '12',
-    '6513',
-    '888'
+    'name',
+    'firstname',
+    'name'
 );
 
 INSERT INTO `role_page` (
@@ -119,8 +136,8 @@ INSERT INTO `role_page` (
 `role_id`,
 
 ) VALUES (
-    '6513',
-    '888'
+    'firstname',
+    'name'
 );
 
 INSERT INTO `private_message` (
@@ -142,7 +159,7 @@ INSERT INTO `group_message` (
 ) VALUES (
     'contenu du message',
     '55',
-    '12'
+    'name'
 );
 
 
