@@ -5,6 +5,12 @@ session_start();
 
         <main class="main">
 
+<<<<<<< Updated upstream
+=======
+
+
+            <h1> eafyaigaufguizazaeada </h1>
+>>>>>>> Stashed changes
             <img  class="banniereProfil" src="<?=  $gcef ?>">
             </img>
 
@@ -18,7 +24,7 @@ session_start();
 
             <div>
             </div>
-             
+
         </main>
 </body>
 </html>
