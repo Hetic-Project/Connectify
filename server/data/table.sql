@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS `group`, `role`, `page`, `rubric`, `promo`, `user`, `connect`, `feed`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
+DROP TABLE IF EXISTS `group`, `role`, `page`, `rubric`, `promo`, `user`, `connect`, `post`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
 
 CREATE TABLE `group` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -80,7 +80,7 @@ CREATE TABLE `connect` (
     updated_at TIMESTAMP
 );
 
-CREATE TABLE `feed` (
+CREATE TABLE `post` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,

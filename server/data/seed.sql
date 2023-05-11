@@ -132,7 +132,7 @@ INSERT INTO `connect` (
     1
 );
 
-INSERT INTO `feed` (
+INSERT INTO `post` (
     `user_id`,
     `title`,
     `content`,
