@@ -36,7 +36,6 @@ INSERT INTO `role` (`name`)
 VALUES ('élève'), ('prof'), ('admin'), ('membre');
 
 INSERT INTO `page` (
-
 `name`,
 `banner`,
 `picture`
@@ -48,15 +47,13 @@ INSERT INTO `page` (
 );
 
 INSERT INTO `rubric` (
-
-`title`,
-`content`,
-`picture`,
-`banner`,
-`page_id`
-
+    `title`,
+    `content`,
+    `picture`,
+    `banner`,
+    `page_id`
 ) VALUES (
-    'JOURNAL DE L''ECOLE ',
+    'JOURNAL DE L''ECOLE',
     'Contenu du journal',
     'picture url',
     'banner url',
@@ -70,10 +67,15 @@ INSERT INTO `rubric` (
 );
 
 INSERT INTO `promo` (
-`promo_name`
-
+    `promo_name`,
+    `page_id`,
+    `group_id`,
+    `description`
 ) VALUES (
-    'PROMO WEB1 P2025'
+    'PROMO WEB1 P2025',
+    1,
+    1,
+    'Description de la promo'
 );
 
 INSERT INTO `user` (
@@ -86,7 +88,8 @@ INSERT INTO `user` (
 `banner`,
 `active`,
 `role_id`,
-`promo_id`
+`promo_id`,
+`description`
 
 ) VALUES (
     'VANDAL',
@@ -98,7 +101,8 @@ INSERT INTO `user` (
     'banner url',
     TRUE,
     1,
-    1
+    1,
+    'Vandal William élève à Hétic âgé de 30 ans souhaitant se lancer..'
 ), (
     'YALMAN',
     'Lucas',
@@ -109,7 +113,30 @@ INSERT INTO `user` (
     'banner url',
     TRUE,
     1,
-    1 
+    1,
+    'Yalman Lucas élève à Hétic âgé de 18 ans souhaitant se lancer..'
+);
+
+INSERT INTO `connect` (
+    `user_id`,
+    `friend_id`
+
+) VALUES (
+    1,
+    1
+);
+
+INSERT INTO `feed` (
+    `user_id`,
+    `title`,
+    `content`,
+    `picture`
+
+) VALUES (
+    1,
+    "Carnaval du printemps !",
+    "Nouvelle et dernière journée du carnaval d'Hetic !",
+    "picture url"
 );
 
 INSERT INTO `publication` (
