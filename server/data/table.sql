@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS `group`, `role`, `page`, `rubric`, `promo`, `user`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
+DROP TABLE IF EXISTS `group`, `role`, `page`, `rubric`, `promo`, `user`, `connect`, `feed`, `publication`, `comment`, `member`, `role_page`, `private_message`, `group_message` CASCADE;
 
 CREATE TABLE `group` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -44,6 +44,7 @@ CREATE TABLE `promo` (
     promo_name VARCHAR(255) NOT NULL,
     page_id INT NOT NULL,
     group_id INT NOT NULL,
+    description VARCHAR(255) NOT NULL,
     FOREIGN KEY (page_id) REFERENCES page(id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES `group`(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -62,8 +63,30 @@ CREATE TABLE `user` (
     active VARCHAR(255) NOT NULL,
     role_id INT NOT NULL,
     promo_id INT NOT NULL,
+    description VARCHAR(255) NOT NULL,
     FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
     FOREIGN KEY (promo_id) REFERENCES promo(id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+CREATE TABLE `connect` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    friend_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (friend_id) REFERENCES user(id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+CREATE TABLE `feed` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -75,8 +98,8 @@ CREATE TABLE `publication` (
     picture VARCHAR(255) NOT NULL,
     author_id INT NOT NULL,
     group_id INT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES `group`(id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES user(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
