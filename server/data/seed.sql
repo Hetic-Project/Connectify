@@ -33,7 +33,7 @@ INSERT INTO `group` (
 );
 
 INSERT INTO `role` (`name`) 
-VALUES ('888');
+VALUES ('élève'), ('prof'), ('admin'), ('membre');
 
 INSERT INTO `page` (
 
@@ -42,9 +42,31 @@ INSERT INTO `page` (
 `picture`
 
 ) VALUES (
-    'admin',
+    'NEWS',
     'banner url',
     'picture url'
+);
+
+INSERT INTO `rubric` (
+
+`title`,
+`content`,
+`picture`,
+`banner`,
+`page_id`
+
+) VALUES (
+    'JOURNAL DE L''ECOLE ',
+    'Contenu du journal',
+    'picture url',
+    'banner url',
+    1
+), (
+    'HETIC EN FORCE',
+    'Description d''HETIC EN FORCE',
+    'picture url',
+    'banner url',
+    1
 );
 
 INSERT INTO `promo` (
@@ -70,26 +92,39 @@ INSERT INTO `user` (
     'VANDAL',
     'William',
     'williamvandal@gmail.com',
-    'mot de passe',
+    'JELEPEMD',
     'vandal.william',
     'profile picture url',
     'banner url',
-    'compte activé',
-    '888',
-    '1353'
+    TRUE,
+    1,
+    1
+), (
+    'YALMAN',
+    'Lucas',
+    'lucasylm@gmail.com',
+    'mLDKe+30',
+    'lucasylm',
+    'profile picture url',
+    'banner url',
+    TRUE,
+    1,
+    1 
 );
 
 INSERT INTO `publication` (
 `title`,
 `content`,
 `picture`,
-`author_id`
+`author_id`,
+`group_id`
 
 ) VALUES (
     'Photo de classe',
     'photo réalisée par : Jean Charles',
     'picture url',
-    '284'
+    2,
+    1
 );
 
 INSERT INTO `comment` (
@@ -98,9 +133,9 @@ INSERT INTO `comment` (
 `publication_id`
 
 ) VALUES (
-    'PROMO WEB1 P2025',
-    '6513',
-    '2651'
+    'Superbe article rédigé par moi-même !',
+    1,
+    1
 );
 
 INSERT INTO `member` (
@@ -109,18 +144,18 @@ INSERT INTO `member` (
 `role_id`
 
 ) VALUES (
-    '12',
-    '6513',
-    '888'
+    1,
+    1,
+    3
 );
 
 INSERT INTO `role_page` (
 `user_id`,
-`role_id`,
+`role_id`
 
 ) VALUES (
-    '6513',
-    '888'
+    1,
+    3
 );
 
 INSERT INTO `private_message` (
@@ -130,8 +165,8 @@ INSERT INTO `private_message` (
 
 ) VALUES (
     'contenu du message',
-    '55',
-    '66'
+    2,
+    1
 );
 
 INSERT INTO `group_message` (
@@ -141,8 +176,8 @@ INSERT INTO `group_message` (
 
 ) VALUES (
     'contenu du message',
-    '55',
-    '12'
+    1,
+    1
 );
 
 
