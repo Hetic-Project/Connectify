@@ -7,7 +7,7 @@
 |Methodes| url | controllers |commentaires|
 |--------|-------------|-------------|------------|
 | GET  | /rubric/:id | rubricController | récupérer toute les rubriques d'une page |
-| POST   | /addRubric/:id_page | rubricController | ajouter une rubric sur une page |
+| POST  | /addRubric/:id_page | rubricController | ajouter une rubric sur une page |
 | POST | /deleteRubric/:id | rubricController | supprimer une rubric |
 | POST | /updateRubric/:id | rubricController | modifier une rubric |
 
@@ -35,7 +35,7 @@
 | POST | /groups/modifyUserRights | groupController | Changer les droits d'un utilisateur (admin/membre) |
 | POST | /groups/removeUser | groupController | Exclure un membre d'un groupe |
 | POST | /groups/modifyInfo | groupController | Changer les informations du groupe (nom, description, image) |
-| POST | /group/channel  | groupController  | Pouvoir participer ou démarrer à un channel
+<!-- | POST | /group/channel  | groupController  | Pouvoir participer ou démarrer à un channel | -->
 
 
 ## roleController => gérer les rôles des utilisateurs 
@@ -44,17 +44,17 @@
 |--------|-----|-------------|------------|
 | POST | /addRole | roleController | ajouter un rôle |
 | POST | /deleteRole | roleController | supprimer un rôle |
-| POST | /modifyRole | roleController | modifier un rôle 
+| POST | /modifyRole | roleController | modifier un rôle |
 
 ## promoController => gérer les promos des utilisateurs
 
 |Methodes| url | controllers |commentaires|
 |--------|-----|-------------|------------|
 | GET  | /getPromo | promoController | afficher toute les promos |
-| GET  | /getPtomo/:id | promoController | afficher le détail d'une promo |
-| POST | /addPromo | promoController | ajouter une promotion |
-| POST | /delectPromo | promoController | supprimer une promotion |
-| POST | /updatePromo | promoController | mettre a jour une promotion |
+| GET  | /getPromo/:id | promoController | afficher le détail d'une promo, lorsque l'on clique sur une promo |
+| POST | /addPromo | promoController | ajouter une promo |
+| POST | /delectPromo | promoController | supprimer une promo |
+| POST | /updatePromo | promoController | mettre à jour une promo |
 
 
 ## commentController => gérer les commentaires d'une publication 
@@ -73,8 +73,8 @@
 |--------|-----|-------------|------------|
 | POST |   /message/:id_Receiver/:id_Transmitter/ | messageController  | envoyer un message |
 | GET  | /message/:id_Receiver/:id_Transmitter/  |  messageController  | recevoir et afficher un message reçu |
-| POST | /message/:id | messageController | modifier un message
-| POST | /message/:id | messageController | supprimer un message
+| POST | /message/:id | messageController | modifier un message |
+| POST | /message/:id | messageController | supprimer un message |
 
 ## userController => gérer les utilisateurs
 
@@ -106,12 +106,13 @@
 | POST | /updatePublication/:id | modifier la publication |
 |  POST  | /deletePublication/:id | supprimer la publication |
 | GET  | /getPublication | afficher les publications | 
-| POST | /sharePublication | partager la publication 
+| POST | /sharePublication | partager la publication |
 
-## MemberController => gérer les membres
+
+## memberController => gérer les membres
 
 |Methodes| url | controllers |commentaires|
 |--------|-----|-------------|------------|
-| POST | / joinGroup/:id | rejoindre un groupe |
-| POST | / QuiTGroup/:id | Quitter un groupe |
+| POST | /joinGroup/:id | rejoindre un groupe |
+| POST | /quitGroup/:id | Quitter un groupe |
 
