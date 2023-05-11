@@ -30,6 +30,10 @@ CREATE TABLE `page` (
 CREATE TABLE `promo` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     promo_name VARCHAR(255) NOT NULL,
+    page_id INT NOT NULL,
+    group_id INT NOT NULL,
+    FOREIGN KEY (page_id) REFERENCES page(id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES `group`(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
