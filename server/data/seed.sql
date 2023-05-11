@@ -13,8 +13,14 @@ BEGIN;
 -- exit
 
 -- cd server
+
+-- Linux :
 -- mysql -u connectify  -p connectify  < ./data/table.sql
 -- mysql -u connectify  -p connectify  < ./data/seed.sql
+
+-- Windows :
+-- type .\data\table.sql | mysql -u connectify -p connectify   
+-- type .\data\seed.sql | mysql -u connectify -p connectify
 
 
 INSERT INTO `group` (
