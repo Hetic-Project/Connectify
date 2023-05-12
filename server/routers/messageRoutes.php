@@ -30,7 +30,7 @@ switch ($url) {
     case preg_match('@^/message/update/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Message();
         if ($method == 'POST') {
-            $controller->ifAuthorUpdateMessage($matches[1]);
+            $controller->ifAuthorUpdateMessage($matches[1], $_POST['new_message_content']);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
