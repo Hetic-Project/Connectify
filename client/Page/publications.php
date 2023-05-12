@@ -6,7 +6,7 @@ session_start();
         <main class="main">
 
                 <div class="headerPublication">
-                        <h2 class="titlePublication">Feeds</h2>
+                        <h2 class="textWhite">Feeds</h2>
 
                         <div class="iconPublication">
                                 <button class="iconsButton" id="buttonRecherche"><img src="../asset/iconChercher.svg" alt="Rechercher"></button>
@@ -31,7 +31,7 @@ session_start();
                                 <button class="iconsButton" id="buttonInvitationDroit"><img src="../asset/iconRetour.svg"></button>
                         </div>
 
-                        <h4 class="invitationText textWhite">Cette utilisateur<br>veut rejoindre vôtre groupe.</h4>
+                        <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
 
                         <div class="containerInvitationButton">
                                 <button class="invitationButton textWhite red">Accepter</button>
