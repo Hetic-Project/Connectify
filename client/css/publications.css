@@ -52,12 +52,14 @@
 .nomPromo {
     display: flex;
     flex-direction: column;
+    margin-left: 15px;
 }
 
 .imageProfile {
     width: 50px;
     height: 50px;
-    margin-right: 15px;
+    border-radius: 100%;
+
 }
 
 .invitationText {
@@ -75,3 +77,37 @@
     display: flex;
     gap: 20px   ;
 }
+
+.buttonPublication{
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    padding: 30px 0px;
+    text-align: left;
+    
+}
+
+.containerPublication{
+    display: flex;
+    width: calc(100vw - 60px);
+    margin-left: 30px;
+}
+
+.imagePublication{
+    width: 100%;
+    border-radius: 10px;
+    background-color: red;
+}
+
+.containerProfile{
+    display: flex;
+}
+
+.profile{
+    margin-left: 25px;
+}
+
+.titrePublication{
+    margin: 15px 0px;
+}
+
