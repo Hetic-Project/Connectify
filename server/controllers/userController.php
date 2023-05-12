@@ -30,5 +30,27 @@ class User {
         header('Content-Type: application/json');
         echo json_encode($users);
     }
+    function updateInformationsForOneUser(){
+        $_SESSION['id']; 
+    }
+    function deactivateAccountForOneUser(){
+        $_SESSION['id']; 
+    }
+    function reactivateAccountforOneUser(){
+        $_SESSION['id']; 
+    }
+    function delectAccountForOneUser(){
+        $_SESSION['id']; 
+    }
+    function signUpAccount(){
+
+    }
+    function logoutAccount(){
+
+    }
+    function searchRelation($parms){
+   
+    }
+
     
 }

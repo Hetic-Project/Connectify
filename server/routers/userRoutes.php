@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);
+require_once './debug.php';
 // inclure les controllers nécessaires
 require_once './controllers/userController.php';
 
@@ -13,29 +13,91 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
-    case '/users':
+    case '/profile/update':
         $controller = new User();
-        if ($method == 'GET') {
-            $controller->getAllUsers();
+        if ($method == 'POST') {
+            $controller->updateInformationsForOneUser();
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: GET');
+            header('Allow: POST');
         };
         break;
 
-    // Route pour obtenir un événement spécifique
-    // case preg_match('@^/events/(\d+)$@', $url, $matches) ? $url : '':
-    //     $controller = new Event();
-    //     if ($method == 'GET') {
-    //         $controller->getOneEvent($matches[1]);
-    //         $matched = true;
-    //     } elseif ($method == 'DELETE') {
-    //         $controller->deleteEvent($matches[1]);
-    //         $matched = true;
-    //     } else {
-    //         header('HTTP/1.1 405 Method Not Allowed');
-    //         header('Allow: GET');
-    //     };
-    //     break;
+    case '/profile/deactivate':
+        $controller = new User();
+        if ($method == 'POST') {
+            $controller->deactivateAccountForOneUser();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
+        
+    case '/profile/reactivate':
+        $controller = new User();
+        if ($method == 'POST') {
+            $controller->reactivateAccountForOneUser();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
+
+    case '/profile/delete':
+        $controller = new User();
+        if ($method == 'POST') {
+            $controller->delectAccountForOneUser();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
+
+    case '/profile/signup':
+        $controller = new User();
+        if ($method == 'POST') {
+            $controller->signUpAccount();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
+
+    case '/profile/login':
+        $controller = new User();
+        if ($method == 'POST') {
+            $controller->loginAccount();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
+
+    case '/profile/logout':
+        $controller = new User();
+        if ($method == 'POST') {
+            $controller->logoutAccount();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
+
+    case preg_match('@^/profile/relation/search/([\w-]+)$@', $url, $matches) ? $url : '':
+        $controller = new User();
+        if ($method == 'POST') {
+            $controller->searchRelation($matches[1]);
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
 }
