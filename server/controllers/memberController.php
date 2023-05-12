@@ -14,7 +14,7 @@ class Member {
 
         // Ajouter l'utilisateur au groupe dans la DDB
         $db = new Database();
-        $db->query("UPDATE groups SET members = CONCAT(members, ',', '$user_id') WHERE id = '$id_group'");
+        $db->query("UPDATE `group` SET members = CONCAT(members, ',', '$user_id') WHERE id = '$id_group'");
     }
 
     function quitGroup ($id_group) {
@@ -22,7 +22,7 @@ class Member {
 
         // Supprimer l'utilisateur au groupe dans la DDB
         $db = new Database();
-        $db->query("UPDATE groups SET members = REPLACE(members, ',$user_id', '') WHERE id = '$id_group'");
+        $db->query("UPDATE `group` SET members = REPLACE(members, ',$user_id', '') WHERE id = '$id_group'");
     }
     
 }

@@ -1,7 +1,7 @@
 <?php
 require_once './debug.php';
 // inclure les controllers nécessaires
-require_once './group/rubricController.php';
+require_once './controllers/rubricController.php';
 
 // Obtenir le chemin de l'URL demandée
 $url = $_SERVER['REQUEST_URI'];
