@@ -1,0 +1,77 @@
+.headerPublication {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 30px;
+
+}
+
+.titlePublication {
+    color: #fff;
+}
+
+.iconPublication {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.iconsButton {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    border: 0;
+    width: 30px;
+    height: auto;
+}
+
+.demandeInvitation {
+    margin: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center     ;
+
+}
+
+.profileButtonInvitation {
+    /* width: calc(100vw - 60px); */
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+}
+
+#buttonInvitationDroit {
+    transform: rotate(180deg);
+}
+
+.profileInvitation {
+    display: flex;
+    flex-direction: row;
+}
+
+.nomPromo {
+    display: flex;
+    flex-direction: column;
+}
+
+.imageProfile {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.invitationText {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.invitationButton {
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+}
+
+.containerInvitationButton {
+    display: flex;
+    gap: 20px   ;
+}

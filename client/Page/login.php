@@ -1,6 +1,4 @@
-<<<<<<< Updated upstream
-=======
-s<?php
+<?php
 require_once '../TPL/header.php';
 session_start();
 ?>
@@ -10,4 +8,3 @@ session_start();
         </main>
 </body>
 </html>
->>>>>>> Stashed changes

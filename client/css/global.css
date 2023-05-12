@@ -35,3 +35,19 @@ body{
     color: var(--primary-color);
     text-decoration: none;
 }
+
+.textWhite {
+    color: #fff;
+}
+
+.textGray {
+    color: #AEAEAE;
+}
+
+.green {
+    background-color: var(--primary-color);
+}
+
+.red {
+    background-color: #FF0000;
+}
