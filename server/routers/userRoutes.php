@@ -100,4 +100,12 @@ switch ($url) {
             header('Allow: POST');
         };
         break;
+
+    default:
+    // si aucune route ne correspond j'envoi une erreur
+    if($matched == false){
+
+        http_response_code(404);
+    }
+    break;
 }
