@@ -1,6 +1,6 @@
 <?php
 // Afficher les erreurs dans le navigateur
-require_once './depug.php';
+require_once './debug.php';
 
 
 // Touts les fichiers routes de l'application

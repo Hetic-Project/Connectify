@@ -10,12 +10,19 @@ require_once './database/client.php';
 class Member {
 
     function joinGroup ($id_group) {
-        $_SESSION['id']; 
+        $user_id = $_SESSION['id'];
+
+        // Ajouter l'utilisateur au groupe dans la DDB
+        $db = new Database();
+        $db->query("UPDATE groups SET members = CONCAT(members, ',', '$user_id') WHERE id = '$id_group'");
     }
 
-
     function quitGroup ($id_group) {
-        $_SESSION['id']; 
+        $user_id = $_SESSION['id'];
+
+        // Supprimer l'utilisateur au groupe dans la DDB
+        $db = new Database();
+        $db->query("UPDATE groups SET members = REPLACE(members, ',$user_id', '') WHERE id = '$id_group'");
     }
     
 }
