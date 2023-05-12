@@ -13,6 +13,16 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
+    case '/users':
+        $controller = new User();
+        if ($method == 'GET') {
+            $controller->getAllUsers();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: GET');
+        };
+        break;
     case '/profile/update':
         $controller = new User();
         if ($method == 'POST') {
