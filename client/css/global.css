@@ -52,6 +52,6 @@ body{
     background-color: #FF0000;
 }
 
-.iconRetour{
-    font-family: Kanit;
+button{
+    font-family: 'Kanit', sans-serif;
 }
