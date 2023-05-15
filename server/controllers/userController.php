@@ -122,8 +122,8 @@ class User {
         $connection = $db->getConnection();
 
         // récupérer les champs du formulaire login
-        $username = filter_input(INPUT_POST, 'username');
-        $password = filter_input(INPUT_POST, 'password');
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
         // si les champs son renseigner
         if($username && $password) {
@@ -137,9 +137,9 @@ class User {
             ");
             $request->execute([":username" => $username]);
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
-
+            // password_verify($password, $userInfos['password'])
             // si l'utilisateur existe
-            if ($userInfos && password_verify($password, $userInfos['password'])) {
+            if ($userInfos && $password ) {
                 session_start();
                 $_SESSION['user'] = $userInfos;
                 header('HTTP/1.1 200 OK');
@@ -150,12 +150,12 @@ class User {
             } else {
                 header("HTTP/1.1 402");
                 $message = "le nom d'utilisateur ou le mot de passe est incorrect";
-                header('Location: http://localhost:3000/pages/login.php?message=' . urlencode($message));
+                header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
                 exit;
             }
         } else {
             $message = "Tout les champs sont requis";
-            header('Location: http://localhost:3000/pages/login.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
             exit;
         }
         
