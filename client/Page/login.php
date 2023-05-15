@@ -9,11 +9,11 @@ session_start();
                 <div class="wrapper">
                         <h1>Connexion</h1>
                         <p class="textLogin">Utilisez les identifiants fournis par votre établissement</p>
-                        <form>
+                        <form action="http://localhost:4000/profile/login" method="POST">
                                 <input type="text" placeholder="Enter username">
                                 <input type="password" placeholder="Password">
-                        </form>
                         <button class="Login"> Login </button>
+                        </form>
                 </div>
         </body>
 </main>
