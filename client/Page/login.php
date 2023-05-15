@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
 ?>

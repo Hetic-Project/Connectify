@@ -70,7 +70,7 @@ switch ($url) {
     case '/profile/signup':
         $controller = new User();
         if ($method == 'POST') {
-            $controller->signUpAccount();
+            $controller->addStudent();
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');

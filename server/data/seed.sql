@@ -118,7 +118,7 @@ VALUES (
     'YALMAN',
     'Lucas',
     'lucasylm@gmail.com',
-    SHA2('test_@2', 256),
+    'test',
     'lucasylm',
     'profile picture url',
     'banner url',

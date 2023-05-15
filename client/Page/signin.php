@@ -12,16 +12,15 @@ session_start();
             <form>
             <p>Utilisez les identifiants fournis par votre établissement</p>
             <form action="http://localhost:4000/profile/signup" method="POST">
-                <input type="file" placeholder="Enter picture">
-                <input type="text" placeholder="Enter First name">
-                <input type="text" placeholder="Enter LastName">
-                <input type="text" placeholder="Enter username">
-                <input type="text" placeholder="Enter mail">
-                <input type="text" placeholder="Enter active">
-                <input type="text" placeholder="Enter role">
-                <input type="text" placeholder="Enter promo">
-                <input type="text" placeholder="Enter password">
-            <button class="Signin">Sign in</button>
+                <input name="picture" type="file" placeholder="Enter picture">
+                <input name="firstname" type="text" placeholder="Enter First name">
+                <input name="lastname" type="text" placeholder="Enter LastName">
+                <input name="username" type="text" placeholder="Enter username">
+                <input name="email" type="text" placeholder="Enter mail">
+                <input name="role_id" type="text" placeholder="Enter role">
+                <input name="promo_id" type="text" placeholder="Enter promo">
+                <input name="password" type="text" placeholder="Enter password">
+                <button class="Signin">Sign in</button>
             </form>
         </div>
     </body>
