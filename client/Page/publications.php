@@ -34,8 +34,8 @@ session_start();
                         <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
 
                         <div class="containerInvitationButton">
-                                <button class="invitationButton textWhite red">Accepter</button>
-                                <button class="invitationButton textWhite green">Rejuser</button>
+                                <button class="invitationButton textWhite red">Refuser</button>
+                                <button class="invitationButton textWhite green">Accepter</button>
                         </div>
                 </div>
                 <?php include "containerpublication.php" ?>
