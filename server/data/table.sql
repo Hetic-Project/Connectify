@@ -42,7 +42,7 @@ CREATE TABLE `rubric` (
 CREATE TABLE `promo` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     promo_name VARCHAR(255) NOT NULL,
-    page_id INT NOT NULL,
+    page_id INT NOT NULL,   
     group_id INT NOT NULL,
     description VARCHAR(255) NOT NULL,
     FOREIGN KEY (page_id) REFERENCES page(id) ON DELETE CASCADE,

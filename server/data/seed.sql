@@ -14,13 +14,14 @@ BEGIN;
 
 -- cd server
 
--- Linux :
+-- LINUX :
 -- mysql -u connectify  -p connectify  < ./data/table.sql
 -- mysql -u connectify  -p connectify  < ./data/seed.sql
 
--- Windows :
--- type .\data\table.sql | mysql -u connectify -p connectify   
+-- WINDOWS :
+-- type .\data\table.sql | mysql -u connectify -p connectify
 -- type .\data\seed.sql | mysql -u connectify -p connectify
+
 
 
 INSERT INTO `group` (
@@ -42,6 +43,7 @@ INSERT INTO `role` (`name`)
 VALUES ('élève'), ('prof'), ('admin'), ('membre');
 
 INSERT INTO `page` (
+
 `name`,
 `banner`,
 `picture`
@@ -53,13 +55,15 @@ INSERT INTO `page` (
 );
 
 INSERT INTO `rubric` (
-    `title`,
-    `content`,
-    `picture`,
-    `banner`,
-    `page_id`
+
+`title`,
+`content`,
+`picture`,
+`banner`,
+`page_id`
+
 ) VALUES (
-    'JOURNAL DE L''ECOLE',
+    'JOURNAL DE L''ECOLE ',
     'Contenu du journal',
     'picture url',
     'banner url',
@@ -73,35 +77,36 @@ INSERT INTO `rubric` (
 );
 
 INSERT INTO `promo` (
-    `promo_name`,
-    `page_id`,
-    `group_id`,
-    `description`
+`promo_name`,
+`page_id`,
+`group_id`,
+`description`
+
 ) VALUES (
     'PROMO WEB1 P2025',
     1,
     1,
-    'Description de la promo'
+    'Promo de jeunes étudiants en bachelor souhaitant devenir développeurs web'
 );
 
 INSERT INTO `user` (
-`firstname`,
-`lastname`,
-`mail`,
-`password`,
-`username`,
-`picture`,
-`banner`,
-`active`,
-`role_id`,
-`promo_id`,
-`description`
-
-) VALUES (
+  `firstname`,
+  `lastname`,
+  `mail`,
+  `password`,
+  `username`,
+  `picture`,
+  `banner`,
+  `active`,
+  `role_id`,
+  `promo_id`,
+  `description`
+)
+VALUES (
     'VANDAL',
     'William',
-    'williamvandal@gmail.com',
-    'JELEPEMD',
+    'william.vandal@gmail.com',
+    SHA2('test_@', 256),
     'vandal.william',
     'profile picture url',
     'banner url',
@@ -109,11 +114,11 @@ INSERT INTO `user` (
     1,
     1,
     'Vandal William élève à Hétic âgé de 30 ans souhaitant se lancer..'
-), (
+),(
     'YALMAN',
     'Lucas',
     'lucasylm@gmail.com',
-    'mLDKe+30',
+    SHA2('test_@2', 256),
     'lucasylm',
     'profile picture url',
     'banner url',
@@ -123,27 +128,6 @@ INSERT INTO `user` (
     'Yalman Lucas élève à Hétic âgé de 18 ans souhaitant se lancer..'
 );
 
-INSERT INTO `connect` (
-    `user_id`,
-    `friend_id`
-
-) VALUES (
-    1,
-    1
-);
-
-INSERT INTO `post` (
-    `user_id`,
-    `title`,
-    `content`,
-    `picture`
-
-) VALUES (
-    1,
-    "Carnaval du printemps !",
-    "Nouvelle et dernière journée du carnaval d'Hetic !",
-    "picture url"
-);
 
 INSERT INTO `publication` (
 `title`,
