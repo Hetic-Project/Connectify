@@ -21,7 +21,6 @@
 }
 
 .profileButtonInvitation {
-    /* width: calc(100vw - 60px); */
     display: flex;
     flex-direction: row;
     align-items: center; 
@@ -46,7 +45,6 @@
     width: 50px;
     height: 50px;
     border-radius: 100%;
-
 }
 
 .invitationText {
@@ -98,3 +96,10 @@
     margin: 15px 0px;
 }
 
+.red:hover{
+    background-color:#CB0000;
+}
+
+.green:hover{
+    background-color: #3E7A0C;
+}
