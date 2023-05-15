@@ -8,7 +8,7 @@ session_start();
     <body>
         <div class="wrapper">
             <h1>Connexion</h1>
-            <p>Utilisez les identifiants fournis par votre établissement</p>
+            <p class="textSignin">Utilisez les identifiants fournis par votre établissement</p>
             <form>
                 <input type="file" placeholder="Enter picture">
                 <input type="text" placeholder="Enter First name">
