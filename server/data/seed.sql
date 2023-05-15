@@ -13,8 +13,15 @@ BEGIN;
 -- exit
 
 -- cd server
+
+-- LINUX :
 -- mysql -u connectify  -p connectify  < ./data/table.sql
 -- mysql -u connectify  -p connectify  < ./data/seed.sql
+
+-- WINDOWS :
+-- type .\data\table.sql | mysql -u connectify -p connectify
+-- type .\data\seed.sql | mysql -u connectify -p connectify
+
 
 
 INSERT INTO `group` (
@@ -70,10 +77,16 @@ INSERT INTO `rubric` (
 );
 
 INSERT INTO `promo` (
-`promo_name`
+`promo_name`,
+`page_id`,
+`group_id`,
+`description`
 
 ) VALUES (
-    'PROMO WEB1 P2025'
+    'PROMO WEB1 P2025',
+    1,
+    1,
+    'Promo de jeunes étudiants en bachelor souhaitant devenir développeurs web'
 );
 
 INSERT INTO `user` (
@@ -93,7 +106,7 @@ VALUES (
     'VANDAL',
     'William',
     'william.vandal@gmail.com',
-    crypt('test_@', gen_salt('bf')),
+    SHA2('test_@', 256),
     'vandal.william',
     'profile picture url',
     'banner url',
@@ -105,7 +118,7 @@ VALUES (
     'YALMAN',
     'Lucas',
     'lucasylm@gmail.com',
-    crypt('test_@2', gen_salt('bf')),
+    SHA2('test_@2', 256),
     'lucasylm',
     'profile picture url',
     'banner url',
@@ -114,6 +127,7 @@ VALUES (
     1,
     'Yalman Lucas élève à Hétic âgé de 18 ans souhaitant se lancer..'
 );
+
 
 INSERT INTO `publication` (
 `title`,
