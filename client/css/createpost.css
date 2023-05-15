@@ -1,6 +1,6 @@
 .iconRetour{
     margin: 30px;
-
+    size: 19px;
 }
 
 a:link 
@@ -8,6 +8,27 @@ a:link
  text-decoration:none; 
 } 
 
-a{
-    color:white;
+.buttonRetour{
+    border: none;
+    background-color: #3D3D3D;
+    color: white;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    left: 50px;
+    height: 39px;
+    width: 26px;
+    font-size: 19px;
+}
+
+.buttonPublier{
+    border: none;
+    background-color: #3D3D3D;
+    color: #5FB814;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    right: 30px;
+    height: 39px;
+    font-size: 19px;
 }
