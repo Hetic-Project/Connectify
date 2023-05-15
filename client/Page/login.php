@@ -8,12 +8,12 @@ session_start();
         <body>
                 <div class="wrapper">
                         <h1>Connexion</h1>
-                        <p>Utilisez les identifiants fournis par votre établissement</p>
+                        <p class="textLogin">Utilisez les identifiants fournis par votre établissement</p>
                         <form>
                                 <input type="text" placeholder="Enter username">
                                 <input type="password" placeholder="Password">
                         </form>
-                        <button class="Signin">Sign in</button>
+                        <button class="Login"> Login </button>
                 </div>
         </body>
 </main>

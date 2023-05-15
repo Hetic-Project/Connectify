@@ -12,7 +12,7 @@ h1 {
     color: #07001f;
 }
 
-p {
+.textLogin {
     margin-bottom: 1.7rem;
 }
 
@@ -37,7 +37,7 @@ form input {
     color: #07001f;
 }
 
-.Signin {
+.Login {
     font-size: 1.1rem;
     margin-top: 1rem;
     padding: 8px 0;
@@ -50,7 +50,7 @@ form input {
     cursor: pointer;
 }
 
-.Signin:hover {
+.Login:hover {
     background: #2c5709;
     transition-duration: 0.2s;
 }
