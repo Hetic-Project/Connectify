@@ -26,13 +26,35 @@ session_start();
         <p class="textGray"> 42 abonnés 666 abonnements</p>
     </div>
 
-    <div class="form-box">
+
+    <button id="left-button" class="enlarge">Bouton de gauche</button>
+    <button id="right-button">Bouton de droite</button>
+
+    <div class="Publication" id="contentPublication">
+
+        <img class="img1" src=""></img>
+        <img class="img1" src=""></img>
+        <img class="img1" src=""></img>
+
+    </div>
+    <div class="Amis AmisOff" id="contentAmis">
+
+        <img class="img2" src=""></img>
+        <img class="img2" src=""></img>
+        <img class="img2" src=""></img>
+
+    </div>
+
+
+
+
+    <!-- <div class="form-box">
         <div class="button-box">
             <div id="button1"></div>
             <button type="button" class="toggle-button1" onclick="leftClick()">Left</button>
             <button type="button" class="toggle-button1" onclick="rightClick()">Right</button>
         </div>
-    </div>
+    </div> -->
 </main>
 <script src="../js/profile.js"></script>
 </body>
