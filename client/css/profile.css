@@ -16,5 +16,8 @@
 
 .modifierProfil {
     cursor: pointer;
-    margin: 10px 50px;
+    width: 141px;
+    height: 27px;
+    left: 230px;
+    top: 229px;
 }
