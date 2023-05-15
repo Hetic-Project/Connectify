@@ -3,22 +3,24 @@ require_once '../TPL/header.php';
 session_start();
 ?>
 
-        <main class="main">
+<main class="main">
 
-            <img  class="banniereProfil" src="<?=  $gcef ?>">
-            </img>
+    <img class="banniereProfil" src="<?= $gcef ?>">
+    </img>
 
-            <img class="PP" src="<?= $gcef ?>">
-            </img>
+    <img class="PP" src="<?= $gcef ?>"></img>
+    <btn class="modifierProfil"> Modifier le Profil</btn>
+
+    <? "description"
+        ?>
 
 
-            <btn class="modifierProfil"> Modifier le Profil</btn>
-           
 
 
-            <div>
-            </div>
+    <div>
+    </div>
 
-        </main>
+</main>
 </body>
+
 </html>
