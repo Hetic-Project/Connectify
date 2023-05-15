@@ -42,6 +42,10 @@ class User {
     function delectAccountForOneUser(){
         $_SESSION['id']; 
     }
+    function loginAccount() {
+
+        
+    }
     function signUpAccount(){
 
     }

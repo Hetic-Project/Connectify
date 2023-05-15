@@ -3,6 +3,11 @@
 
 }
 
-.div{
-    color: white;
+a:link 
+{ 
+ text-decoration:none; 
+} 
+
+a{
+    color:white;
 }
