@@ -31,16 +31,87 @@ class User {
         echo json_encode($users);
     }
     function updateInformationsForOneUser(){
-        $_SESSION['id']; 
+
+        // je récupère l'id de la session
+        $id = $_SESSION['user']['id'];
+
+        // Connection la BDD
+        $db = new Database();
+
+        // Ouverture de la connection
+        $connection = $db->getConnection();
+
+        // je récupère les champs du formulaire signin
+        $firstname = filter_input(INPUT_POST, 'firstname');
+        $lastname = filter_input(INPUT_POST, 'lastname');
+        $mail = filter_input(INPUT_POST, 'mail');
+        $username = filter_input(INPUT_POST, 'username');
+        $picture = filter_input(INPUT_POST, 'picture');
+        $banner = filter_input(INPUT_POST, 'banner');
+        $description = filter_input(INPUT_POST, 'description');
+
+        // si tous les champs sont remplies
+        if($firstname && $lastname && $mail && $username && $picture && $banner && $description){
+
+            // je prépare ma requète
+            $request = $connexion->prepare("
+                UPDATE user SET(
+                    firstname = :firstname ,
+                    lastname = :lastname,
+                    mail = :mail,
+                    username = :username,
+                    picture = :picture,
+                    banner = :banner,
+                    description = :description
+                WHERE
+                    id = :id;
+            )");
+
+            $request->execute(
+                [
+                    ":firstname" => $firstname,
+                    ":lastname" => $lastname,
+                    ":mail" => $mail,
+                    ":username" => $username,
+                    ":picture" => $picture,
+                    ":banner" => $banner,
+                    ":description" => $description,
+                    ":id" => $id
+                ]
+            );
+            // Fermeture de la connection
+            $connection = null;
+
+            $message = "les modifications ont bien été prit en compte";
+            header('Location: http://localhost:3000/pages/signin.php?message=' . urlencode($message));
+            exit;
+
+        }else {
+            $message = "Tout les champs sont requis";
+            header('Location: http://localhost:3000/pages/signin.php?message=' . urlencode($message));
+            exit;
+        }
     }
     function deactivateAccountForOneUser(){
-        $_SESSION['id']; 
+        // je récupère l'id de la session
+        $id = $_SESSION['user']['id'];
+
+        // Connection la BDD
+        $db = new Database();
+
+        // Ouverture de la connection
+        $connection = $db->getConnection();
+        // je prépare ma requète
+        $request = $connexion->prepare("UPDATE ");
+
     }
     function reactivateAccountforOneUser(){
-        $_SESSION['id']; 
+       // je récupère l'id de la session
+       $id = $_SESSION['user']['id'];
     }
     function delectAccountForOneUser(){
-        $_SESSION['id']; 
+        // je récupère l'id de la session
+        $id = $_SESSION['user']['id']; 
     }
     function loginAccount() {
 
@@ -58,11 +129,12 @@ class User {
         if($username && $password) {
             // Requêtes SQL
             $request = $connection->prepare("
-            SELECT user.id, user.password, role.name
-            FROM user 
-            JOIN role
-            ON user.role_id = role.id
-            WHERE username = :username");
+                SELECT user.id, user.password, role.name
+                FROM user 
+                JOIN role
+                ON user.role_id = role.id
+                WHERE username = :username
+            ");
             $request->execute([":username" => $username]);
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
 
@@ -172,11 +244,39 @@ class User {
 
     }
     function logoutAccount(){
+
+        session_unset();
+        session_destroy();
+
+    }
+    function searchRelation($params){
         
+        //Connecter la BDD
+        $db = new Database();
+    
+        // Ouverture de la connection
+        $connection = $db->getConnection();
+    
+        $request = $connection->prepare("SELECT * FROM user WHERE firstname LIKE :params OR lastname LIKE :params");
+        $request->execute([":params" => $params]);
+        $results = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        if(!$params){
+            header('Content-Type: application/json');
+            $error = array("error" => "veuillez renseigner un nom ou un prénom");
+            echo json_encode($error);
+        }
+    
+        if($results){
+            header('Content-Type: application/json');
+            echo json_encode($results);
+        }else{
+            header('Content-Type: application/json');
+            $error = array("error" => "Aucun résultats");
+            echo json_encode($error);
+        }
     }
-    function searchRelation($parms){
-   
-    }
+    
 
     
 }
