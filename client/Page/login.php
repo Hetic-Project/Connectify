@@ -13,7 +13,7 @@ session_start();
                                 <input type="text" placeholder="Enter username">
                                 <input type="password" placeholder="Password">
                         </form>
-                        <button class="Login" Login</button>
+                        <button> class="Login" Login</button>
                 </div>
         </body>
 </main>
