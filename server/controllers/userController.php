@@ -139,7 +139,7 @@ class User {
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
 
             // si l'utilisateur existe
-            if ($userInfos && password_verify($password, $userInfos[0]['password'])) {
+            if ($userInfos && password_verify($password, $userInfos['password'])) {
                 session_start();
                 $_SESSION['user'] = $userInfos;
                 header('HTTP/1.1 200 OK');
