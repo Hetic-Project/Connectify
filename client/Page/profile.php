@@ -34,7 +34,7 @@ session_start();
         </div>
     </div>
 </main>
-<script src="../js/script.js"></script>
+<script src="../js/profile.js"></script>
 </body>
 
 </html>
