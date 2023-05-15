@@ -9,14 +9,13 @@ session_start();
         <div class="wrapper">
             <h1>Connexion</h1>
             <p class="textSignin">Utilisez les identifiants fournis par votre établissement</p>
-            <form>
             <p>Utilisez les identifiants fournis par votre établissement</p>
             <form action="http://localhost:4000/profile/signup" method="POST">
-                <input name="picture" type="file" placeholder="Enter picture">
+                <!-- <input name="picture" type="file" placeholder="Enter picture"> -->
                 <input name="firstname" type="text" placeholder="Enter First name">
                 <input name="lastname" type="text" placeholder="Enter LastName">
                 <input name="username" type="text" placeholder="Enter username">
-                <input name="email" type="text" placeholder="Enter mail">
+                <input name="mail" type="text" placeholder="Enter mail">
                 <input name="role_id" type="text" placeholder="Enter role">
                 <input name="promo_id" type="text" placeholder="Enter promo">
                 <input name="password" type="text" placeholder="Enter password">
