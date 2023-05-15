@@ -32,3 +32,73 @@ a:link
     height: 39px;
     font-size: 19px;
 }
+
+.profileCreatPost{
+    position: absolute;
+    width: 181px;
+    height: 50px;
+    left: 30px;
+    top: 134px;
+}
+
+.imageProfileCreatPost{
+    position: absolute;
+    left: 0%;
+    right: 72.38%;
+    top: 0%;
+    bottom: 0%;
+    width: 50px; 
+}
+
+.nomPromoCreatPost{
+    position: absolute;
+    left: 40.33%;
+    right: 0%;
+    top: 4%;
+    bottom: 48%;
+
+    font-family: 'Kanit';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+
+    color: #FFFFFF;
+}
+
+.ajouterUnTitre{
+    position: absolute;
+    width: 330px;
+    height: 46px;
+    left: 30px;
+    top: 208px;
+}
+
+.inputPost{
+    background-color: #686868;
+
+}
+
+.inputPost::placeholder{
+    color: white;
+}
+
+.inputDescritpion{
+    position: absolute;
+    width: 330px;
+    height: 320px;
+    left: 30px;
+    top: 300px;
+    background-color: #686868;
+    border-radius: 10px;
+    border: none;
+}
+
+.inputDescritpion::placeholder{
+    color: white;
+}
+
+.inputDescritpion::-webkit-input-placeholder{
+    padding-top: 50px;
+}
