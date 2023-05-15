@@ -10,7 +10,7 @@ session_start();
             <h1>Connexion</h1>
             <p>Utilisez les identifiants fournis par votre établissement</p>
             <form>
-                <input type="text" placeholder="Enter picture">
+                <input type="file" placeholder="Enter picture">
                 <input type="text" placeholder="Enter First name">
                 <input type="text" placeholder="Enter LastName">
                 <input type="text" placeholder="Enter username">
