@@ -175,46 +175,37 @@ class User {
         $connection = $db->getConnection();
 
         // je récupère les champs du formulaire signin
-        $firstname = filter_input(INPUT_POST, 'firstname');
-        $lastname = filter_input(INPUT_POST, 'lastname');
-        $mail = filter_input(INPUT_POST, 'mail');
-        $password = filter_input(INPUT_POST, 'password');
-        $username = filter_input(INPUT_POST, 'username');
-        $picture = filter_input(INPUT_POST, 'picture');
-        $banner = filter_input(INPUT_POST, 'banner');
-        $active = filter_input(INPUT_POST, 'active');
-        $role_id = filter_input(INPUT_POST, 'role_id');
-        $promo_id = filter_input(INPUT_POST, 'promo_id');
-        $description = filter_input(INPUT_POST, 'description');
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $mail = $_POST['mail'];
+        $password = $_POST['password'];
+        $username = $_POST['username'];
+        $role_id = $_POST['role_id'];
+        $promo_id = $_POST['promo_id'];
 
         // jsi tous les champs sont remplies
-        if($firstname && $lastname && $mail && $password && $username && $picture && $active && $role_id && $promo_id){
+        if($firstname && $lastname && $mail && $password && $username && $role_id && $promo_id){
 
             // Je hash le mot de passe
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             // je prépare ma requète
-            $request = $connexion->prepare("
+            $request = $connection->prepare("
             INSERT INTO user (
                 firstname,
                 lastname,
                 mail,
                 password,
                 username,
-                picture,
-                active,
                 role_id,
-                promo_id,
+                promo_id
             ) VALUES (
-                :firstname
-                :lastname
-                :mail
-                :password
-                :username
-                :picture
-                :active
-                :role_id
-                :promo_id"
-            );
+                :firstname,
+                :lastname,
+                :mail,
+                :password,
+                :username,
+                :role_id,
+                :promo_id);");
 
             $request->execute(
                 [
@@ -223,8 +214,6 @@ class User {
                     ":mail" => $mail,
                     ":password" => $hashed_password,
                     ":username" => $username,
-                    ":picture" => $picture,
-                    ":active" => $active,
                     ":role_id" => $role_id,
                     ":promo_id" => $promo_id
                 ]
@@ -232,13 +221,13 @@ class User {
             // Fermeture de la connection
             $connection = null;
 
-            $message = "l'étudiant a bien été créer";
-            header('Location: http://localhost:3000/pages/signin.php?message=' . urlencode($message));
+            $message = "l'étudiant a bien été créé";
+            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
             exit;
 
         }else {
             $message = "Tout les champs sont requis";
-            header('Location: http://localhost:3000/pages/signin.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
             exit;
         }
         
