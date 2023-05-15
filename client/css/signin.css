@@ -1,7 +1,12 @@
+body {
+    background: #dfe9f5;
+}
+
 .wrapper {
     width: 330px;
     padding: 2rem 0 1rem 0;
     margin: 50px auto;
+    background: #fff;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
@@ -45,12 +50,11 @@ button {
     outline: none;
     border: none;
     width: 85%;
-    background: #5FB814;
+    background: tomato;
     color: #fff;
     cursor: pointer;
 }
 
 button:hover {
-    background: #2c5709;
-    transition-duration: 0.2s;
+    background: rgba(122, 30, 30, 0.767);
 }

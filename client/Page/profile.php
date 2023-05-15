@@ -8,11 +8,12 @@ session_start();
     <img class="banniereProfil" src="<?= $gcef ?>">
     </img>
 
-    <img class="PP" src="<?= $gcef ?>">
-    </img>
-
-
+    <img class="PP" src="<?= $gcef ?>"></img>
     <btn class="modifierProfil"> Modifier le Profil</btn>
+
+    <? "description"
+        ?>
+
 
 
 
