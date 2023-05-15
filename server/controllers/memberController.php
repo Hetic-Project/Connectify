@@ -29,19 +29,14 @@ class Member {
             $connection = null;
     
             // Réponse JSON indiquant le succès
-            $response = array('success' => true, 'message' => 'User joined the group successfully.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
+            // $response = array('success' => true, 'message' => 'User joined the group successfully.');
+            // header('Content-Type: application/json');
+            // echo json_encode($response);
+            header('Location: http://localhost:4000/');
+            exit();
         } else {
-            // Erreur lors de l'exécution de la requête
-    
-            // Fermeture de la connexion
-            $connection = null;
-    
-            // Réponse JSON indiquant l'erreur
-            $response = array('success' => false, 'message' => 'Failed to join the group.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(array('message' => 'une erreur s\'est produite lors du téléchargement du fichier.'));
         }
     }
     

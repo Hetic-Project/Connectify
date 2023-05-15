@@ -10,6 +10,12 @@ require_once './database/client.php';
 class Message {
 
     function sendPrivateMessage($id_receiver, $id_transmitter) {
+            // Check if the receiver and transmitter IDs are different
+        if ($id_receiver == $id_transmitter) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(array('message' => 'Receiver and transmitter IDs cannot be the same.'));
+            return;
+        }
         // Reprends le contenu du message privé
         // $message_content = $_POST['message_content']
         $message_content = 1;
@@ -28,19 +34,25 @@ class Message {
             // Récupère l'ID du message inséré
             $message_id = $connection->lastInsertId();
     
-            $response = array('success' => true, 'message' => 'Private message sent successfully.', 'message_id' => $message_id);
+            // Récupérer le message inséré
+            $sql = "SELECT * FROM private_message WHERE id = :message_id";
+            $statement = $connection->prepare($sql);
+            $statement->bindValue(':message_id', $message_id);
+            $statement->execute();
+            $message = $statement->fetch(PDO::FETCH_ASSOC);
+    
+            // Éteins la connexion à la DDB
+            $connection = null;
+    
+            // Retourne le message inséré en JSON
+            header('Content-Type: application/json');
+            echo json_encode($message);
         } else {
-            $response = array('success' => false, 'message' => 'Failed to send private message.');
+            // Retourne une réponse d'erreur en JSON
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(array('message' => 'Une erreur s\'est produite lors du téléchargement du fichier.'));
         }
-    
-        // Éteins la connexion à la DDB
-        $connection = null;
-    
-        // Retourne la réponse en JSON
-        header('Content-Type: application/json');
-        echo json_encode($response);
     }
-    
 
     function receivePrivateMessage($id_receiver, $id_transmitter) {
         // J'appelle l'objet base de données
@@ -84,8 +96,10 @@ class Message {
     // Le formulaire en front doit contenir un champ new_message_content qui contient le nouveau contenu du message
     function ifAuthorUpdateMessage($id_message, $new_message_content) {
 
-    
+        $id_message = 1;
         $user_id = 1;
+        $new_message_content = 1;
+        // $new_message_content = $_POST['new_message_content'];
         
         // J'appelle l'objet base de données
         $db = new Database();
@@ -111,13 +125,13 @@ class Message {
             return;
         }
         
-        if ($message['transmitter_id'] !== $user_id) {
-            // L'utilisateur n'est pas l'auteur du message
-            $response = array('success' => false, 'message' => 'You are not the author of this message.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
-            return;
-        }
+        // if ($message['transmitter_id'] !== $user_id) {
+        //     // L'utilisateur n'est pas l'auteur du message
+        //     $response = array('success' => false, 'message' => 'You are not the author of this message.');
+        //     header('Content-Type: application/json');
+        //     echo json_encode($response);
+        //     return;
+        // }
         
         // lorsque l'utilisateur est l'auteur du message
         $sql = "UPDATE private_message SET message_content = :new_message_content, updated_at = CURRENT_TIMESTAMP WHERE id = :id_message";
