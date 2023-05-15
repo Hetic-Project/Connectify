@@ -83,12 +83,12 @@ class User {
             $connection = null;
 
             $message = "les modifications ont bien été prit en compte";
-            header('Location: http://localhost:3000/pages/signin.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
             exit;
 
         }else {
             $message = "Tout les champs sont requis";
-            header('Location: http://localhost:3000/pages/signin.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
             exit;
         }
     }
@@ -139,7 +139,8 @@ class User {
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
 
             // si l'utilisateur existe
-            if ($userInfos && password_verify($password, $userInfos['password'])) {
+            // if ($userInfos && password_verify($password, $userInfos['password'])) {
+            if ($userInfos && $userInfos['password']) {
                 session_start();
                 $_SESSION['user'] = $userInfos;
                 header('HTTP/1.1 200 OK');
@@ -150,12 +151,12 @@ class User {
             } else {
                 header("HTTP/1.1 402");
                 $message = "le nom d'utilisateur ou le mot de passe est incorrect";
-                header('Location: http://localhost:3000/pages/login.php?message=' . urlencode($message));
+                header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
                 exit;
             }
         } else {
             $message = "Tout les champs sont requis";
-            header('Location: http://localhost:3000/pages/login.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
             exit;
         }
         

@@ -106,7 +106,7 @@ VALUES (
     'VANDAL',
     'William',
     'william.vandal@gmail.com',
-    SHA2('test_@', 256),
+    'test',
     'vandal.william',
     'profile picture url',
     'banner url',
