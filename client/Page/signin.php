@@ -8,6 +8,8 @@ session_start();
     <body>
         <div class="wrapper">
             <h1>Connexion</h1>
+            <p class="textSignin">Utilisez les identifiants fournis par votre établissement</p>
+            <form>
             <p>Utilisez les identifiants fournis par votre établissement</p>
             <form action="http://localhost:4000/profile/signup" method="POST">
                 <input type="file" placeholder="Enter picture">
