@@ -15,69 +15,17 @@ session_start();
 	<div class="containerMessage">
 		<div class="slider">
 			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage ! </p>
-				</div>
+				<form action="http://localhost:4000/message/1/2/" method="GET">
+					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
+						<div class="userMessage">
+							<h3 name="firstname" name="lastname" class="textWhite"></h3>
+							<p name="message_content" class="textWhite"></p>
+						</div>
+				</form>
 			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage ! </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage ! </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
 		</div>
 	</div>
 
@@ -123,7 +71,7 @@ session_start();
 		</div>
 	</div>
 
-	<form action="http://localhost:4000/message/id_receiver/id_transmitter/" method="POST" id="messageForm">
+	<form action="http://localhost:4000/message/1/2/" method="POST" id="messageForm">
     	<input name="message_content" class="sendMessage" type="text" placeholder="Envoyer un message">
 	</form>
 
