@@ -120,11 +120,13 @@ session_start();
 					</div>
 				</div>
 			</button>
-
 		</div>
 	</div>
 
-	<input class="sendMessage" type="text" placeholder="Envoyer un message">
+	<form action="http://localhost:4000/message/id_receiver/id_transmitter/" method="POST" id="messageForm">
+    	<input name="message_content" class="sendMessage" type="text" placeholder="Envoyer un message">
+	</form>
+
 </main>
 <script src="../js/sliderFriends.js"></script>
 </body>
