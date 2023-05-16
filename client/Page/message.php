@@ -81,7 +81,7 @@ session_start();
 		</div>
 	</div>
 
-	<div class="friendsSlider friendsSliderOff" id="sliderElement">
+	<div class="friendsSlider 	" id="sliderElement">
 
 		<button class="iconRetour retourSlider textWhite" id="sliderFriendsRetour"> <img src="../asset/iconRetour.svg"
 				alt="iconRetour">Retour</button>
