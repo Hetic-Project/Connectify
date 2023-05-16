@@ -21,7 +21,7 @@ a:link
     font-size: 19px;
 }
 
-.buttonPublier{
+.buttonPublier1{
     border: none;
     background-color: #3D3D3D;
     color: #5FB814;
@@ -69,10 +69,10 @@ a:link
 
 .ajouterUnTitre{
     position: absolute;
-    width: 330px;
+    width: 91%;
     height: 46px;
     left: 30px;
-    top: 208px;
+    top: 230px;
 }
 
 .inputPost{
@@ -87,7 +87,7 @@ a:link
 .inputDescritpion{
     position: absolute;
     width: 330px;
-    height: 320px;
+    height: 250px;
     left: 30px;
     top: 300px;
     background-color: #686868;
@@ -99,6 +99,49 @@ a:link
     color: white;
 }
 
-.inputDescritpion::-webkit-input-placeholder{
-    padding-top: 50px;
+.inputDescritpion{
+    padding-top: 5px;
+    padding-left: 13px;
+    align-items: center;
+    font-family: 'Kanit';
+}
+
+.imagePhotosCreatPost {
+    position: absolute;
+    width: 112px;
+    height: 36px;
+    left: 30px;
+    top: 580px;
+
+    text-align: center;
+    color: white;
+    font-family: 'Kanit';
+    font-size: 19px;
+}
+
+.buttonPhotos {
+    border: none;
+    background-color: #3D3D3D;
+    color: #FFFFFF;
+    text-align: center;
+    position: absolute;
+    width: 50px;
+    height: 36px;
+    left: 110px;
+    top: 580px;
+    font-size: 19px;
+}
+
+.buttonPublier2 {
+    border: none;
+    position: absolute;
+    width: 330px;
+    height: 40px;
+    left: 30px;
+    top: 650px;
+
+    background: #3E7A0C;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: 'Kanit';
 }
