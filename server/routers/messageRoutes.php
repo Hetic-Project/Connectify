@@ -13,19 +13,19 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
-    case preg_match('@^/message/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
-        $controller = new Message();
-        if ($method == 'POST') {
-            $controller->sendPrivateMessage($matches[1], $matches[2]);
-            $matched = true;
-        } else if ($method == 'GET') {
-            $controller->receivePrivateMessage($matches[1], $matches[2]);
-            $matched = true;
-        } else {
-            header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST, GET');
-        };
-        break;
+        case preg_match('@^/message/(\d+)/(\d+)/?$@', $url, $matches) ? $url : '':
+            $controller = new Message();
+            if ($method == 'POST') {
+                $controller->sendPrivateMessage($matches[1], $matches[2]);
+                $matched = true;
+            } else if ($method == 'GET') {
+                $controller->receivePrivateMessage($matches[1], $matches[2]);
+                $matched = true;
+            } else {
+                header('HTTP/1.1 405 Method Not Allowed');
+                header('Allow: POST, GET');
+            }
+            break;
 
     case preg_match('@^/message/update/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Message();
