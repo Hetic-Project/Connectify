@@ -54,7 +54,7 @@ class User {
         if($firstname && $lastname && $mail && $username && $picture && $banner && $description){
 
             // je prépare ma requète
-            $request = $connexion->prepare("
+            $request = $connection->prepare("
                 UPDATE user SET(
                     firstname = :firstname ,
                     lastname = :lastname,
@@ -102,7 +102,7 @@ class User {
         // Ouverture de la connection
         $connection = $db->getConnection();
         // je prépare ma requète
-        $request = $connexion->prepare("UPDATE ");
+        $request = $connection->prepare("UPDATE ");
 
     }
     function reactivateAccountforOneUser(){
