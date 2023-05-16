@@ -11,7 +11,7 @@ class connect {
     function getRelationForOneUser() {
     
         // Retrieve the user ID from the session
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
     
         // J'appelle l'objet base de données
         $db = new Database();
@@ -51,7 +51,7 @@ class connect {
     
     function addRelationForOneUser($id_user) {
 
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
     
         // Create a new instance of the Database class
         $db = new Database();
@@ -85,7 +85,7 @@ class connect {
     }
     
     function deleteRelationForOneUser($id_user) {
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
     
         // J'appelle l'objet base de données
         $db = new Database();

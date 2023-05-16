@@ -54,7 +54,7 @@ class User {
         if($firstname && $lastname && $mail && $username && $picture && $banner && $description){
 
             // je prépare ma requète
-            $request = $connexion->prepare("
+            $request = $connection->prepare("
                 UPDATE user SET(
                     firstname = :firstname ,
                     lastname = :lastname,
@@ -102,7 +102,7 @@ class User {
         // Ouverture de la connection
         $connection = $db->getConnection();
         // je prépare ma requète
-        $request = $connexion->prepare("UPDATE ");
+        $request = $connection->prepare("UPDATE ");
 
     }
     function reactivateAccountforOneUser(){
@@ -145,7 +145,7 @@ class User {
                 $_SESSION['user'] = $userInfos;
                 header('HTTP/1.1 200 OK');
                 $message = "Connexion réussie";
-                header('Location: http://localhost:3000?message=' . urlencode($message));
+                header('Location: http://localhost:3000/Page/accueil.php?message=' . urlencode($message));
                 exit;
                 
             } else {
@@ -222,7 +222,7 @@ class User {
             $connection = null;
 
             $message = "l'étudiant a bien été créé";
-            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/accueil.php?message=' . urlencode($message));
             exit;
 
         }else {

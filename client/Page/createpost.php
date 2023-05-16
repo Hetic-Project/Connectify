@@ -5,7 +5,8 @@ session_start();
 
         <main class="main">
                 <a class="iconRetour" href="../page/publications.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
-                <button class="buttonPublier">PUBLIER</button>
+        <form>
+                <button class="buttonPublier1">PUBLIER</button>
                 <div class="profileCreatPost">
                         <img src="../asset/IconProfile.svg" alt="Image de profile creat post" class="imageProfileCreatPost">
 
@@ -15,11 +16,15 @@ session_start();
                         </div>
                 </div>
                 <div class="ajouterUnTitre">    
-                <form>
                         <input class="textWhite inputPost" type="text" placeholder="Ajouter titre">
-                </form>
                 </div>
-                <input class="textWhite inputDescritpion" type="text" placeholder="Ajouter une description">
+                <textarea class="textWhite inputDescritpion" type="text" placeholder="Ajouter une description"></textarea>
+                
+                <img src="../asset/IconPhotos.svg" alt="Image de poster des photo creat post" class="imagePhotosCreatPost"> </a>
+                <button class="buttonPhotos">Photos</button>
+                
+                <button class="buttonPublier2">PUBLIER</button>
+        </form>
         </main>
 </body>
 </html>

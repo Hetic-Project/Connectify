@@ -140,7 +140,7 @@ CREATE TABLE `role_page` (
 
 CREATE TABLE `private_message` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    message_content VARCHAR(255) NOT NULL,
+    message_content VARCHAR(255) NOT NULL DEFAULT '',
     transmitter_id INT NOT NULL,
     receiver_id INT NOT NULL,
     FOREIGN KEY (transmitter_id) REFERENCES user(id) ON DELETE CASCADE,
