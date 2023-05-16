@@ -10,20 +10,45 @@ require_once './database/client.php';
 class Message {
 
     function sendPrivateMessage($id_receiver, $id_transmitter) {
-            // Check if the receiver and transmitter IDs are different
+        // Check if the receiver and transmitter IDs are different
         if ($id_receiver == $id_transmitter) {
             header('HTTP/1.1 400 Bad Request');
             echo json_encode(array('message' => 'Receiver and transmitter IDs cannot be the same.'));
             return;
         }
+    
         // Reprends le contenu du message privé
-        // $message_content = $_POST['message_content']
-        $message_content = 1;
+        $message_content = $_POST['message_content'];
     
         // Connexion à la DDB
         $db = new Database();
         $connection = $db->getConnection();
     
+        // Vérifier si les ID de l'émetteur et du destinataire existent déjà dans la table private_message
+        $query = "SELECT COUNT(*) FROM private_message WHERE transmitter_id = :transmitter_id OR receiver_id = :receiver_id";
+        $statement = $connection->prepare($query);
+        $statement->bindParam(':transmitter_id', $id_transmitter);
+        $statement->bindParam(':receiver_id', $id_receiver);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+    
+        // Vérifier s'il y a un conflit d'ID
+        if ($count > 0) {
+            // Générer de nouveaux ID d'émetteur et de destinataire uniques
+            do {
+                $id_transmitter++;
+                $id_receiver++;
+                // Vérifier si les nouveaux ID existent déjà
+                $query = "SELECT COUNT(*) FROM private_message WHERE transmitter_id = :transmitter_id OR receiver_id = :receiver_id";
+                $statement = $connection->prepare($query);
+                $statement->bindParam(':transmitter_id', $id_transmitter);
+                $statement->bindParam(':receiver_id', $id_receiver);
+                $statement->execute();
+                $count = $statement->fetchColumn();
+            } while ($count > 0);
+        }
+    
+        // Insérer le message avec les ID d'émetteur et de destinataire mis à jour
         $sql = "INSERT INTO private_message (message_content, transmitter_id, receiver_id) VALUES (:message_content, :transmitter_id, :receiver_id)";
         $statement = $connection->prepare($sql);
         $statement->bindValue(':message_content', $message_content);
@@ -41,7 +66,7 @@ class Message {
             $statement->execute();
             $message = $statement->fetch(PDO::FETCH_ASSOC);
     
-            // Éteins la connexion à la DDB
+            // Fermeture de la connexion à la DDB
             $connection = null;
     
             // Retourne le message inséré en JSON
@@ -53,6 +78,7 @@ class Message {
             echo json_encode(array('message' => 'Une erreur s\'est produite lors du téléchargement du fichier.'));
         }
     }
+    
 
     function receivePrivateMessage($id_receiver, $id_transmitter) {
         // J'appelle l'objet base de données
@@ -91,7 +117,6 @@ class Message {
         }
     }
     
-
 
     // Le formulaire en front doit contenir un champ new_message_content qui contient le nouveau contenu du message
     function ifAuthorUpdateMessage($id_message, $new_message_content) {
