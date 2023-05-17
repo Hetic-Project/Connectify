@@ -1,0 +1,18 @@
+.Commentaire{
+    margin: 30px;
+}
+.leCommentaire{
+    margin: 30px;
+}
+
+.containerProfile{
+    margin: 30px;
+}
+.contentCommentaire {
+    display: flex;
+    overflow-y: scroll;
+    height: 300px;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+}
