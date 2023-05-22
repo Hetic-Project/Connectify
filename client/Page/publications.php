@@ -37,14 +37,14 @@ session_start();
                                 <button class="invitationButton textWhite green">Accepter</button>
                         </div>
 
-                <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
+                        <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
 
-                <div class="containerInvitationButton">
-                        <button class="invitationButton textWhite red">Refuser</button>
-                        <button class="invitationButton textWhite green">Accepter</button>
+                        <div class="containerInvitationButton">
+                                <button class="invitationButton textWhite red">Refuser</button>
+                                <button class="invitationButton textWhite green">Accepter</button>
+                        </div>
                 </div>
-        </div>
-        <?php include "containerpublication.php" ?>
+                <?php include "containerpublication.php" ?>
 
 </main>
 </body>
