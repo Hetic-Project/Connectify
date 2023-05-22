@@ -16,10 +16,10 @@ session_start();
 		<div class="slider">
 			<div class="unMessage">
 				<form action="http://localhost:4000/message" method="POST">
-					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
+					<img src="<?php $transmitter_image ?>" alt="Image de profile" class="imageProfile">
 						<div class="userMessage">
-							<h3 name="firstname" name="lastname" class="textWhite"></h3>
-							<p name="message_content" class="textWhite"></p>
+							<h3 name="firstname" name="lastname" class="textWhite"><?php $first_name . " " . $last_name ?></h3>
+							<p name="message_content" class="textWhite"><?php $message_content ?></p>
 						</div>
 				</form>
 			</div>
@@ -74,9 +74,9 @@ session_start();
 	<form action="http://localhost:4000/message/1/2/" method="POST" id="messageForm">
     	<input name="message_content" class="sendMessage" type="text" placeholder="Envoyer un message">
 	</form>
-	<meta http-equiv="refresh" content="5">
 </main>
 <script src="../js/sliderFriends.js"></script>
+<script src="../js/message.js"></script>
 </body>
 
 </html>

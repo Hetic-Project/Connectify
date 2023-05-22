@@ -1,0 +1,48 @@
+.modifButtonred {
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    margin-right: 20px;
+}
+
+.modifButtongreen {
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    right: 25px;
+    margin-left: 20px;
+}
+
+.containerModif {
+    margin-top: 20px;
+}
+
+.modifProfile {
+    margin: auto;
+    align-items: center;
+
+}
+
+.photoProfil {
+    font-size: 15px;
+    margin-right: 135px;
+}
+
+.banniere {
+    font-size: 15px;
+    margin-right: 170px;
+}
+
+.modifierUtilisateur {
+    font-size: 15px;
+    margin-right: 145px;
+}
+
+.modifierDescription {
+    font-size: 15px;
+    margin-right: 155px;
+}
+
+.modifierespaceDesc {
+    margin-top: 5px;
+}

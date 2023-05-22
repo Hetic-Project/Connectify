@@ -26,6 +26,7 @@ switch ($url) {
 
         case '/message':
             session_start();
+            header('Access-Control-Allow-Origin: http://localhost:3000');
             $controller = new Message();
             if ($method == 'POST') {
                 $receiver_id = filter_input(INPUT_POST, "receiver_id", FILTER_VALIDATE_INT);
