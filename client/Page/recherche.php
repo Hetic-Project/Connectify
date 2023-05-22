@@ -14,13 +14,19 @@ session_start();
             <input class="codding" type="radio" name="checkbox" id="Publication">
             <label for="Publication">Publication</label> -->
 
-        <input type="radio" name="demo1" class="demo1" id="demo1-a" checked>
-        <label for="demo1-a">Utilisateur</label>
-        <input type="radio" name="demo1" class="demo1" id="demo1-b">
-        <label for="demo1-b">Groupe</label>
-        <input type="radio" name="demo1" class="demo1" id="demo1-c">
-        <label for="demo1-c">Promo</label>
-        <input type="radio" name="demo1" class="demo1" id="demo1-d">
-        <label for="demo1-d">Publication</label>
+        <div class="buttonSearch">
+            <div class="buttonTop">
+                <input type="radio" name="demo1" class="demo1" id="demo1-a" checked>
+                <label for="demo1-a">Utilisateur</label>
+                <input type="radio" name="demo1" class="demo1" id="demo1-b">
+                <label for="demo1-b">Groupe</label>
+            </div>
+            <div class="buttonBot">
+                <input type="radio" name="demo1" class="demo1" id="demo1-c">
+                <label for="demo1-c">Promo</label>
+                <input type="radio" name="demo1" class="demo1" id="demo1-d">
+                <label for="demo1-d">Publication</label>
+            </div>
+        </div>
     </form>
 </main>
