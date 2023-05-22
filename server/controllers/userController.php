@@ -138,6 +138,24 @@ class User {
     function delectAccountForOneUser(){
         // je récupère l'id de la session
         $id = $_SESSION['user']['id']; 
+
+        // j'appelle l'objet base de donnée
+        $db = new Database();
+
+        // je me connecte à la BDD avec la fonction getConnection de l'objet Database
+        $connexion = $db->getConnection();
+
+        // je prépare la requête
+        $request = $connexion->prepare("DELETE FROM user WHERE user.id = :id");
+        // j'exécute la requête
+        $request->execute([':id' => $id]);
+
+        $message = "Le compte a bien été suprimé";
+        header('Location: http://localhost:3000?message=' . urlencode($message));
+        exit;
+
+        // je requête la BDD
+
     }
     function loginAccount() {
 
@@ -281,8 +299,10 @@ class User {
         // Ouverture de la connection
         $connection = $db->getConnection();
     
-        $request = $connection->prepare("SELECT * FROM user WHERE firstname LIKE :params OR lastname LIKE :params");
-        $request->execute([":params" => $params]);
+        $request = $connection->prepare("SELECT * FROM user WHERE firstname = :params OR lastname = :params");
+        $request->execute([
+            ':params' => $params
+        ]);
         $results = $request->fetchAll(PDO::FETCH_ASSOC);
 
         if(!$params){
