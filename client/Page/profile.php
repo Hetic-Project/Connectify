@@ -15,7 +15,7 @@ session_start();
             <p class="textGray">Promo</p>
         </div>
         <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
-        <a class="boutonModifier" href="../page/modifierprofile.php">Modifier le Profil</a>
+        <a class="boutonModifier textWhite" href="../page/modifierprofile.php">Modifier le Profil</a>
         <!-- </btn> -->
     </div>
     <br>
@@ -32,14 +32,14 @@ session_start();
     </div>
 
     <div class="contentBtn">
-        <button id="left-button" class="enlarge textWhite">Bouton de gauche</button>
-        <button id="right-button" class="textWhite">Bouton de droite</button>
+        <button id="left-button" class="enlarge textWhite">Publications</button>
+        <button id="right-button" class="textWhite">Liste d'Amis</button>
     </div>
 
     <div class="Publication" id="contentPublication">
         <div class="contentPublication">
             <div>
-                <img class="img1" src=""></img>
+                <img class="img1" src=""></img
                 <img class="img1" src=""></img>
                 <img class="img1" src=""></img>
             </div>

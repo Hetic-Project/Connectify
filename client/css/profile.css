@@ -1,9 +1,10 @@
 .banniereProfil {
-    width: 100vw;
+    width: 90vw;
     height: 103px;
     top: 0px;
     background-color: aqua;
-    margin: 30px;
+    margin: 20px;
+    border-radius: 20px;
 }
 
 .profileInvitation {

@@ -25,11 +25,13 @@ session_start();
                     <h1 class="modifierDescription textWhite">
                         Modifier la Description :
                     </h1>
-                    <input name="password" type="text" placeholder="Modifier la description">
+                    <textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
+
+                    <a href="../Page/modifierprofile.php"> Changer le Mot de Passe</a>
 
                     <div class="containerModif">
-                        <a class="modifButtonred textWhite red" href="../page/profile.php">Annuler</a>
-                        <a class="modifButtongreen textWhite green" href="../page/profile.php">Modifier</a>
+                        <a class="modifButtonred textWhite red" href="../Page/profile.php">Annuler</a>
+                        <a class="modifButtongreen textWhite green" href="../Page/profile.php">Modifier</a>
                     </div>
                 </div>
             </form>
