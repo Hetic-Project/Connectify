@@ -31,7 +31,7 @@ session_start();
                                 <button class="iconsButton" id="buttonInvitationDroit"><img src="../asset/iconRetour.svg"></button>
                         </div>
 
-                        <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
+                        <h4 class="invitationText textWhite">Cette utilisateur<br>veut rejoindre vôtre groupe.</h4>
 
                         <div class="containerInvitationButton">
                                 <button class="invitationButton textWhite red">Refuser</button>
