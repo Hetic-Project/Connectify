@@ -14,7 +14,9 @@ session_start();
             <h3 class="textWhite">Rubens Bonnin</h3>
             <p class="textGray">Promo</p>
         </div>
-        <btn class="modifierProfil textWhite"> Modifier le Profil</btn>
+        <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
+        <a class="boutonModifier" href="../page/modifierprofile.php">Modifier le Profil</a>
+        <!-- </btn> -->
     </div>
     <br>
     <div class="Description">

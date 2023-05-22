@@ -3,6 +3,7 @@
     height: 103px;
     top: 0px;
     background-color: aqua;
+    margin: 30px;
 }
 
 .profileInvitation {
@@ -22,7 +23,7 @@
     border-radius: 25px;
 }
 
-.modifierProfil {
+.boutonModifier {
     position: absolute;
     cursor: pointer;
     padding: 5px;
