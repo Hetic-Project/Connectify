@@ -145,7 +145,7 @@ class User {
                 $_SESSION['user'] = $userInfos;
                 header('HTTP/1.1 200 OK');
                 $message = "Connexion réussie";
-                header('Location: http://localhost:3000/Page/accueil.php?message=' . urlencode($message));
+                header('Location: http://localhost:3000/Page/publications.php?message=' . urlencode($message));
                 exit;
                 
             } else {
