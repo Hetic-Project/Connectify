@@ -17,7 +17,11 @@
     display: flex;
     flex-direction: column;
     align-items: center     ;
+}
 
+.test15 {
+    display: flex;
+    flex-direction: column;
 }
 
 .profileButtonInvitation {
@@ -60,7 +64,8 @@
 
 .containerInvitationButton {
     display: flex;
-    gap: 20px   ;
+    margin-top: 15px;
+    gap: 20px;
 }
 
 .buttonPublication{
