@@ -114,6 +114,8 @@
     height: 80px;
 }
 
-/* .icongroupe{
-    margin-left: 300px;
-} */
+.icons{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30px;
+}
