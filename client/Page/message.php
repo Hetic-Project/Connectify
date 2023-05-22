@@ -29,11 +29,14 @@ session_start();
 		</div>
 	</div>
 	<div class="friendsSlider friendsSliderOff" id="sliderElement">
-		<button class="iconRetour retourSlider textWhite" id="sliderFriendsRetour"> <img src="../asset/iconRetour.svg"
-				alt="iconRetour">Retour</button>
+		<div class="icons">
+			<button class="iconRetour retourSlider textWhite" id="sliderFriendsRetour"> <img src="../asset/iconRetour.svg"
+			alt="iconRetour">Retour</button>
+
+			<button class="icongroup retourSlider textWhite" id="sliderFriendsgroupe"> <a href="/Page/creategroup.php"><img src="../asset/icon+.svg"
+				alt="icongroupe"></a></button>
+		</div>
 		
-		<!-- <button class="icongroup retourSlider textWhite" id="sliderFriendsgroupe"> <a href="/Page/creategroup.php"><img src="../asset/icon+.svg"
-				alt="icongroupe"></a></button> -->
 
 		<div class="allFriends">
 
