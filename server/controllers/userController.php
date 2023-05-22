@@ -102,12 +102,38 @@ class User {
         // Ouverture de la connection
         $connection = $db->getConnection();
         // je prépare ma requète
-        $request = $connection->prepare("UPDATE ");
+        $request = $connection->prepare("UPDATE user SET active = FALSE WHERE user.id = :id");
+
+        $request->execute([":id" => $id]);
+
+        // Fermeture de la connection
+        $connection = null;
+
+        $message = "Le compte a été désactivé avec succès";
+        header('Location: http://localhost:3000?message=' . urlencode($message));
+        exit;
 
     }
     function reactivateAccountforOneUser(){
-       // je récupère l'id de la session
-       $id = $_SESSION['user']['id'];
+        // je récupère l'id de la session
+        $id = $_SESSION['user']['id'];
+
+        // Connection la BDD
+        $db = new Database();
+
+        // Ouverture de la connection
+        $connection = $db->getConnection();
+        // je prépare ma requète
+        $request = $connection->prepare("UPDATE user SET active = TRUE WHERE user.id = :id");
+
+        $request->execute([":id" => $id]);
+
+        // Fermeture de la connection
+        $connection = null;
+
+        $message = "Le compte a été réactiver";
+        header('Location: http://localhost:3000?message=' . urlencode($message));
+        exit;
     }
     function delectAccountForOneUser(){
         // je récupère l'id de la session
@@ -129,7 +155,7 @@ class User {
         if($username && $password) {
             // Requêtes SQL
             $request = $connection->prepare("
-                SELECT user.id, user.password, role.name
+                SELECT user.id, user.password, user.active, role.name
                 FROM user 
                 JOIN role
                 ON user.role_id = role.id
@@ -137,16 +163,22 @@ class User {
             ");
             $request->execute([":username" => $username]);
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
-            // password_verify($password, $userInfos['password'])
-            // si l'utilisateur existe
-            // if ($userInfos && password_verify($password, $userInfos['password'])) {
-            if ($userInfos && $userInfos['password']) {
-                session_start();
-                $_SESSION['user'] = $userInfos;
-                header('HTTP/1.1 200 OK');
-                $message = "Connexion réussie";
-                header('Location: http://localhost:3000/Page/accueil.php?message=' . urlencode($message));
-                exit;
+
+            if ($userInfos && password_verify($password, $userInfos['password'])) {
+                if ($userInfos['active']){
+
+                    session_start();
+                    $_SESSION['user'] = $userInfos;
+                    header('HTTP/1.1 200 OK');
+                    $message = "Connexion réussie";
+                    header('Location: http://localhost:3000/Page/publications.php?message=' . urlencode($message));
+                    exit;
+
+                }else {
+                    $message = "Le compte a été désactiver";
+                    header('Location: http://localhost:3000?message=' . urlencode($message));
+                    exit;
+                }
                 
             } else {
                 header("HTTP/1.1 402");
@@ -237,6 +269,8 @@ class User {
 
         session_unset();
         session_destroy();
+
+        header('Location: http://localhost:3000');
 
     }
     function searchRelation($params){

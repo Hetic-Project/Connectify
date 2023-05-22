@@ -25,14 +25,14 @@
     <header class="header">
         <div class="flex-content-header">
 
-            <a class="main-title" href="../page/publications.php">
+            <a class="main-title" href="../Page/publications.php">
                 <h1 class="main-title">Conectify</h1>
             </a>
 
             <div class="header-link">
-                <a class="iconProfile" href="../page/profile.php"><img class="profil" src="../asset/IconProfile.svg"
+                <a class="iconProfile" href="../Page/profile.php"><img class="profil" src="../asset/IconProfile.svg"
                         alt="icon Profile" /></a>
-                <a class="iconMessage" href="../page/message.php"><img class="message" src="../asset/IconMessage.svg"
+                <a class="iconMessage" href="../Page/message.php"><img class="message" src="../asset/IconMessage.svg"
                         alt="icon Message" /></a>
             </div>
         </div>
