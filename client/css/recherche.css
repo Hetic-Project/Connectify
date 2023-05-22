@@ -9,37 +9,13 @@
 
 input[type="radio"].demo1 {
     display: none;
-}
-input[type="radio"].demo1 + label {
+  }
+  input[type="radio"].demo1 + label {
     padding: 0.3rem 0.5rem;
     background-color: #fff;
     border-radius: 10px;
-    width: 30vw;
-    text-align: center;
-    margin-top: 15px;
-}
+  }
 
-input[type="radio"].demo1 + label + :checked {
-  width: 40vw;
-}
-
-.buttonTop {
-  display: flex;
-  gap: 50px;
-}
-
-.buttonBot {
-  display: flex;
-  gap: 50px;
-}
-
-.buttonSearch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.recherche{
-    margin-left: 20px;
+.recherche {
+  margin-left: 20px;
 }
