@@ -32,8 +32,8 @@ session_start();
     </div>
 
     <div class="contentBtn">
-        <button id="left-button" class="enlarge textWhite">Bouton de gauche</button>
-        <button id="right-button" class="textWhite">Bouton de droite</button>
+        <button id="left-button" class="enlarge textWhite">Publications</button>
+        <button id="right-button" class="textWhite">Liste d'Amis</button>
     </div>
 
     <div class="Publication" id="contentPublication">
