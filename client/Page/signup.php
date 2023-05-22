@@ -7,7 +7,7 @@ session_start();
 
     <body>
         <div class="wrapper">
-            <h1 class="titreConnexion textWhite">Connexion</h1>
+            <h1 class="titreConnexion textWhite">Inscription</h1>
             <p class="textSignin textWhite">Utilisez les identifiants fournis par votre établissement</p>
             <form action="http://localhost:4000/profile/signup" method="POST">
                 <input name="picture" type="file" placeholder="Enter picture">
