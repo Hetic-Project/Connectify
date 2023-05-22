@@ -39,6 +39,7 @@ session_start();
                         </div>
                 </div>
                 <?php include "containerpublication.php" ?>
+                
         </main>
 </body>
 </html> 

@@ -23,7 +23,10 @@ session_start();
             aliquip ex ea commodo consequat. </h4>
         <br>
 
-        <p class="textGray"> 42 abonnés 666 abonnements</p>
+        <p class="textGray"> 42 abonnés 666 abonnements
+        <form action="http://localhost:4000/group/join/users_id" method="POST">
+        </form>
+        </p>
     </div>
 
     <div class="contentBtn">

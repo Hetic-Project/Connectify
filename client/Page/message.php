@@ -74,7 +74,7 @@ session_start();
 	<form action="http://localhost:4000/message/1/2/" method="POST" id="messageForm">
     	<input name="message_content" class="sendMessage" type="text" placeholder="Envoyer un message">
 	</form>
-
+	<meta http-equiv="refresh" content="5">
 </main>
 <script src="../js/sliderFriends.js"></script>
 </body>
