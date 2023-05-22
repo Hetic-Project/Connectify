@@ -1,7 +1,11 @@
 function updateMessages() {
 
+    let formData = new FormData()
+    formData.append('receiver_id', '1')
     fetch('http://localhost:4000/message', {
-        method: 'POST'
+        body: formData,
+        method: 'POST',
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
@@ -15,4 +19,4 @@ function updateMessages() {
     });
 }
 
-  setInterval(updateMessages, 5000);
+  setInterval(updateMessages, 1000);

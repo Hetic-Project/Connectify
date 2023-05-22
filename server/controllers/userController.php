@@ -164,6 +164,7 @@ class User {
 
         // Ouverture de la connection
         $connection = $db->getConnection();
+        $_SESSION['user'] = $userInfos;
 
         // récupérer les champs du formulaire login
         $username = $_POST['username'];

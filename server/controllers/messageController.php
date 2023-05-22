@@ -10,20 +10,12 @@ require_once './database/client.php';
 class Message {
 
     function sendPrivateMessage($id_receiver, $id_transmitter) {
-        // Vérifie si l'id du transmitteur et du receiver sont égaux
-        if ($id_receiver == $id_transmitter) {
-            header('HTTP/1.1 400 Bad Request');
-            echo json_encode(array('message' => 'Les ID du "receiver" et du "transmitter" ne peuvent pas être les mêmes.'));
-            return;
-        }
     
         // Récupère le contenu du message privé depuis la requête POST
         $message_content = $_POST['message_content'];
     
         // Récupère l'identité de l'utilisateur émetteur depuis la session
         $id = $_SESSION['user']['id'];
-        $firstname = ""; // Set the firstname of the user
-        $lastname = ""; // Set the lastname of the user
     
         // Connexion à la base de données
         $db = new Database();
@@ -66,18 +58,17 @@ class Message {
     
         // Je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connection = $db->getConnection();
-    
         $id = $_SESSION['user']['id'];
     
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
         $sql = "SELECT private_message.message_content, user.firstname, user.lastname
                 FROM private_message
                 JOIN user ON private_message.transmitter_id = user.id
-                WHERE private_message.receiver_id = :id";
+                WHERE private_message.receiver_id = :id OR private_message.transmitter_id = :id";
         $statement = $connection->prepare($sql);
     
         // J'exécute la requête en fournissant les valeurs des paramètres
-        if ($statement->execute(array(':id' => $receiver_id))) {
+        if ($statement->execute(array(':id' => $id))) {
             // La requête s'est exécutée avec succès
     
             // Récupérer tous les résultats dans un tableau
@@ -100,7 +91,7 @@ class Message {
             header('Content-Type: application/json');
             echo json_encode($response);
         }
-    }    
+    }
 
     // Le formulaire en front doit contenir un champ new_message_content qui contient le nouveau contenu du message
     function ifAuthorUpdateMessage($id_message, $new_message_content) {
