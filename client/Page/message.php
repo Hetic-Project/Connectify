@@ -15,7 +15,7 @@ session_start();
 	<div class="containerMessage">
 		<div class="slider">
 			<div class="unMessage">
-				<form action="http://localhost:4000/message/1/2/" method="GET">
+				<form action="http://localhost:4000/message" method="POST">
 					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 						<div class="userMessage">
 							<h3 name="firstname" name="lastname" class="textWhite"></h3>

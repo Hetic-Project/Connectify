@@ -18,12 +18,22 @@ switch ($url) {
             if ($method == 'POST') {
                 $controller->sendPrivateMessage($matches[1], $matches[2]);
                 $matched = true;
-            } else if ($method == 'GET') {
-                $controller->receivePrivateMessage($matches[1], $matches[2]);
+            } else {
+                header('HTTP/1.1 405 Method Not Allowed');
+                header('Allow: POST');
+            }
+            break;
+
+        case '/message':
+            session_start();
+            $controller = new Message();
+            if ($method == 'POST') {
+                $receiver_id = filter_input(INPUT_POST, "receiver_id", FILTER_VALIDATE_INT);
+                $controller->receivePrivateMessage($receiver_id);
                 $matched = true;
             } else {
                 header('HTTP/1.1 405 Method Not Allowed');
-                header('Allow: POST, GET');
+                header('Allow: POST');
             }
             break;
 

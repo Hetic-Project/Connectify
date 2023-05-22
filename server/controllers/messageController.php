@@ -60,22 +60,24 @@ class Message {
     }
     
 
-    function receivePrivateMessage($id_receiver, $id_transmitter) {
+    function receivePrivateMessage($receiver_id) {
         // J'appelle l'objet base de données
         $db = new Database();
     
         // Je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connection = $db->getConnection();
     
+        $id = $_SESSION['user']['id'];
+    
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
-        $sql = "SELECT private_message.message_content, user.firstname
+        $sql = "SELECT private_message.message_content, user.firstname, user.lastname
                 FROM private_message
                 JOIN user ON private_message.transmitter_id = user.id
-                WHERE private_message.receiver_id = :receiver_id AND private_message.transmitter_id = :transmitter_id";
+                WHERE private_message.receiver_id = :id";
         $statement = $connection->prepare($sql);
     
         // J'exécute la requête en fournissant les valeurs des paramètres
-        if ($statement->execute(array(':receiver_id' => $id_receiver, ':transmitter_id' => $id_transmitter))) {
+        if ($statement->execute(array(':id' => $receiver_id))) {
             // La requête s'est exécutée avec succès
     
             // Récupérer tous les résultats dans un tableau
@@ -98,9 +100,7 @@ class Message {
             header('Content-Type: application/json');
             echo json_encode($response);
         }
-    }
-    
-    
+    }    
 
     // Le formulaire en front doit contenir un champ new_message_content qui contient le nouveau contenu du message
     function ifAuthorUpdateMessage($id_message, $new_message_content) {
