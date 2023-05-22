@@ -9,12 +9,27 @@
 
 input[type="radio"].demo1 {
     display: none;
-  }
-  input[type="radio"].demo1 + label {
+}
+
+input[type="radio"].demo1 + label {
     padding: 0.3rem 0.5rem;
     background-color: #fff;
     border-radius: 10px;
-  }
+    width: 100px;
+    text-align: center;
+}
+
+.buttonTop {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 30px;
+}
+
+.buttonBot {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30px 0 30px;
+}
 
 .recherche {
   margin-left: 20px;
