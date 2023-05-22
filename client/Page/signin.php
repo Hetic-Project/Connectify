@@ -17,6 +17,12 @@ session_start();
                 <input name="username" type="text" placeholder="Enter username">
                 <input name="mail" type="text" placeholder="Enter mail">
                 <input name="role_id" type="text" placeholder="Enter role">
+                <!-- TODO
+                    <select name="role_id"> 
+                    <option value="student">Etudiant</option>
+                    <option value="teacher">Professeur</option>
+                </select>
+                -->
                 <input name="promo_id" type="text" placeholder="Enter promo">
                 <input name="password" type="text" placeholder="Enter password">
                 <button class="Signin">Sign in</button>
