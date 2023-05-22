@@ -1,21 +1,22 @@
-.searchBarre{
-    width: 70%;
-    display: block;
-    padding: 15px;
-    margin: auto;
-    margin-top: 25px;
-    background-color: #fff;
+.searchBarre {
+  width: 70%;
+  display: block;
+  padding: 15px;
+  margin: auto;
+  margin-top: 25px;
+  background-color: #fff;
 }
 
 input[type="radio"].demo1 {
-    display: none;
-  }
-  input[type="radio"].demo1 + label {
-    padding: 0.3rem 0.5rem;
-    background-color: #fff;
-    border-radius: 10px;
-  }
+  display: none;
+}
 
-.recherche{
-    margin-left: 20px;
+input[type="radio"].demo1+label {
+  padding: 0.3rem 0.5rem;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.recherche {
+  margin-left: 20px;
 }
