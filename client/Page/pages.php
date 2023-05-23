@@ -33,6 +33,7 @@ session_start();
 
                         <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
 
+                        
                         <div class="containerInvitationButton">
                                 <button class="invitationButton textWhite red">Refuser</button>
                                 <button class="invitationButton textWhite green">Accepter</button>
