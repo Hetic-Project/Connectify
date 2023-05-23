@@ -13,7 +13,7 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
-        case preg_match('@^/message/(\d+)$@', $url, $matches) ? $url : '':
+        case preg_match('@^/message/([^/]+)$@', $url, $matches) ? $url : '':
             $controller = new Message();
             if ($method == 'POST') {
                 $controller->sendPrivateMessage($matches[1]);

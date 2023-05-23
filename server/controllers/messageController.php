@@ -9,17 +9,21 @@ require_once './database/client.php';
 
 class Message {
 
-    function sendPrivateMessage($id_receiver) {
-    
-        // Récupère le contenu du message privé depuis la requête POST
-        $message_content = $_POST['message_content'];
-    
-        // Récupère l'identité de l'utilisateur émetteur depuis la session
-        $id = $_SESSION['user']['id'];
+    function sendPrivateMessage($receiver_id) {
+        
+        session_start();
     
         // Connexion à la base de données
         $db = new Database();
         $connection = $db->getConnection();
+
+        // Récupère le contenu du message privé depuis la requête POST
+        $message_content = $_POST['message_content'];
+
+        // Récupère l'identité de l'utilisateur émetteur depuis la session
+        $id = $_SESSION['user']['id'];
+
+
     
         // Insertion du message dans la table private_message
         $sql = "INSERT INTO private_message (message_content, transmitter_id, receiver_id) VALUES (:message_content, :transmitter_id, :receiver_id)";
@@ -27,7 +31,7 @@ class Message {
         $statement->execute([
             ':message_content' => $message_content,
             ':transmitter_id' => $id,
-            ':receiver_id' => $id_receiver
+            ':receiver_id' => $receiver_id
         ]);
         
         $message_id = $connection->lastInsertId();
@@ -67,9 +71,10 @@ class Message {
     
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
         $sql = "SELECT private_message.message_content, user.firstname, user.lastname
-                FROM private_message
-                JOIN user ON private_message.transmitter_id = user.id
-                WHERE private_message.receiver_id = :id OR private_message.transmitter_id = :id";
+        FROM private_message
+        JOIN user ON private_message.transmitter_id = user.id
+        WHERE (private_message.receiver_id = :id AND private_message.transmitter_id = :transmitter_id) 
+        OR (private_message.receiver_id = :transmitter_id AND private_message.transmitter_id = :id)";
         $statement = $connection->prepare($sql);
     
         // J'exécute la requête en fournissant les valeurs des paramètres
