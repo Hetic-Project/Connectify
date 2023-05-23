@@ -23,7 +23,7 @@ session_start();
                 </select>
                 -->
                 <input name="promo_id" type="text" placeholder="Enter promo">
-                <input name="password" type="text" placeholder="Enter password">
+                <input name="password" type="password" placeholder="Password">
                 <button class="SignUp">Sign un</button>
             </form>
         </div>
