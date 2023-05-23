@@ -62,9 +62,10 @@ class Message {
     
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
         $sql = "SELECT private_message.message_content, user.firstname, user.lastname
-                FROM private_message
-                JOIN user ON private_message.transmitter_id = user.id
-                WHERE private_message.receiver_id = :id OR private_message.transmitter_id = :id";
+        FROM private_message
+        JOIN user ON private_message.transmitter_id = user.id
+        WHERE (private_message.receiver_id = :id AND private_message.transmitter_id = :transmitter_id) 
+        OR (private_message.receiver_id = :transmitter_id AND private_message.transmitter_id = :id)";
         $statement = $connection->prepare($sql);
     
         // J'exécute la requête en fournissant les valeurs des paramètres
