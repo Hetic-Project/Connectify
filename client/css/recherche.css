@@ -19,6 +19,9 @@ input[type="radio"].demo1 + label {
     text-align: center;
 }
 
+input[type="radio"].demo1:checked + label {
+  width: 50%; 
+}
 
 .radioSearch {
   display: flex;
