@@ -9,7 +9,7 @@ require_once './database/client.php';
 
 class Message {
 
-    function sendPrivateMessage($id_receiver, $id_transmitter) {
+    function sendPrivateMessage($id_receiver) {
     
         // Récupère le contenu du message privé depuis la requête POST
         $message_content = $_POST['message_content'];
@@ -24,17 +24,22 @@ class Message {
         // Insertion du message dans la table private_message
         $sql = "INSERT INTO private_message (message_content, transmitter_id, receiver_id) VALUES (:message_content, :transmitter_id, :receiver_id)";
         $statement = $connection->prepare($sql);
-        $statement->bindValue(':message_content', $message_content);
-        $statement->bindValue(':transmitter_id', $id_transmitter);
-        $statement->bindValue(':receiver_id', $id_receiver);
-    
-        if ($statement->execute()) {
+        $statement->execute([
+            ':message_content' => $message_content,
+            ':transmitter_id' => $id,
+            ':receiver_id' => $id_receiver
+        ]);
+        
+        $message_id = $connection->lastInsertId();
+
+        if ($message_id) {
             // Récupération du message inséré
-            $message_id = $connection->lastInsertId();
             $sql = "SELECT * FROM private_message WHERE id = :message_id";
             $statement = $connection->prepare($sql);
-            $statement->bindValue(':message_id', $message_id);
-            $statement->execute();
+            $statement->execute([
+                ':message_id' => $message_id
+            ]);
+            
             $message = $statement->fetch(PDO::FETCH_ASSOC);
     
             // Fermeture de la connexion à la base de données
