@@ -29,6 +29,10 @@ session_start();
 
                     <a href="../Page/modifierprofile.php"> Changer le Mot de Passe</a>
 
+                    <div class="desactiver">
+                        <a class="desactiverButton textWhite red" href="">Desactiver</a>
+                    </div>
+
                     <div class="containerModif">
                         <a class="modifButtonred textWhite red" href="../Page/profile.php">Annuler</a>
                         <a class="modifButtongreen textWhite green" href="../Page/profile.php">Modifier</a>
