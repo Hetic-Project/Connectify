@@ -11,18 +11,14 @@ session_start();
                         <img src="../asset/IconProfile.svg" alt="Image de profile creat post" class="imageProfileCreatPost">
 
                         <div class="nomPromoCreatGroupe">
-                                <h3 class="textWhite">Tom Cardonnel</h3>
+                                <h3 class="textWhite">Tom Cardonnel</h3>                                
                                 <p class="textGray">Promo</p>
                         </div>
                 </div>
-                <!-- <div class="ajoutezUnAmie">    
-                        <input class="textWhite inputName" type="text" placeholder="Nom du Groupe">
-                </div> -->
-
                 <div class="ajouterUnNom">    
                         <input class="textWhite inputName" type="text" placeholder="Nom du Groupe">
                 </div>
-                <textarea class="textWhite inputDescritpionGroupe" type="text" placeholder="Description du Groupe"></textarea>
+                <textarea class="textWhite inputDescritpion" type="text" placeholder="Description du Groupe"></textarea>
                 
                 <button class="buttonCréerGroupe2">CRÉER</button>
         </form>
