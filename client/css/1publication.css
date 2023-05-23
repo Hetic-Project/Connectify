@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .Commentaire {
     margin: 30px;
 }
@@ -13,4 +14,25 @@
     align-items: center;
     flex-direction: column;
     margin: 15px 0px 30px 0px;
+=======
+.Commentaire {
+    margin: 30px;
+}
+
+.leCommentaire {
+    margin: 30px;
+}
+
+.containerProfile {
+    margin: 30px;
+}
+
+.contentCommentaire {
+    display: flex;
+    overflow-y: scroll;
+    height: 400px;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+>>>>>>> 5273bcb8d18bc9cf3d4cf4f97c0e4a9b19a564f5
 }
