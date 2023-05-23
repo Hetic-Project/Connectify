@@ -20,11 +20,16 @@
 .modifProfile {
     margin: auto;
     align-items: center;
+}
+
+.modifProfil {
+    margin: auto;
+    align-items: center;
 
 }
 
 .photoProfil {
-    font-size: 15px;
+    font-size: 9px;
     margin-right: 135px;
 }
 
@@ -45,4 +50,12 @@
 
 .modifierespaceDesc {
     margin-top: 5px;
+}
+
+.desactiverButton {
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    right: 25px;
+    margin-left: 20px;
 }

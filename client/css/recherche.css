@@ -1,22 +1,22 @@
-.searchBarre{
-    width: 73vw;
-    display: block;
-    padding: 15px;
-    margin: auto;
-    margin-top: 25px;
-    background-color: #fff;
+.searchBarre {
+  width: 73vw;
+  display: block;
+  padding: 15px;
+  margin: auto;
+  margin-top: 25px;
+  background-color: #fff;
 }
 
 input[type="radio"].demo1 {
-    display: none;
+  display: none;
 }
 
-input[type="radio"].demo1 + label {
-    padding: 0.3rem 0.5rem;
-    background-color: #fff;
-    border-radius: 10px;
-    width: 100px;
-    text-align: center;
+input[type="radio"].demo1+label {
+  padding: 0.3rem 0.5rem;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100px;
+  text-align: center;
 }
 
 .buttonTop {
