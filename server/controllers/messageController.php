@@ -9,17 +9,21 @@ require_once './database/client.php';
 
 class Message {
 
-    function sendPrivateMessage($id_receiver) {
-    
-        // Récupère le contenu du message privé depuis la requête POST
-        $message_content = $_POST['message_content'];
-    
-        // Récupère l'identité de l'utilisateur émetteur depuis la session
-        $id = $_SESSION['user']['id'];
+    function sendPrivateMessage($receiver_id) {
+        
+        session_start();
     
         // Connexion à la base de données
         $db = new Database();
         $connection = $db->getConnection();
+
+        // Récupère le contenu du message privé depuis la requête POST
+        $message_content = $_POST['message_content'];
+
+        // Récupère l'identité de l'utilisateur émetteur depuis la session
+        $id = $_SESSION['user']['id'];
+
+
     
         // Insertion du message dans la table private_message
         $sql = "INSERT INTO private_message (message_content, transmitter_id, receiver_id) VALUES (:message_content, :transmitter_id, :receiver_id)";
@@ -27,7 +31,7 @@ class Message {
         $statement->execute([
             ':message_content' => $message_content,
             ':transmitter_id' => $id,
-            ':receiver_id' => $id_receiver
+            ':receiver_id' => $receiver_id
         ]);
         
         $message_id = $connection->lastInsertId();
