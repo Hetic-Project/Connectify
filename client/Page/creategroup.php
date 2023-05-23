@@ -15,10 +15,14 @@ session_start();
                                 <p class="textGray">Promo</p>
                         </div>
                 </div>
-                <div class="ajouterUnTitre">    
+                <!-- <div class="ajoutezUnAmie">    
+                        <input class="textWhite inputName" type="text" placeholder="Nom du Groupe">
+                </div> -->
+
+                <div class="ajouterUnNom">    
                         <input class="textWhite inputName" type="text" placeholder="Nom du Groupe">
                 </div>
-                <textarea class="textWhite inputDescritpion" type="text" placeholder="Description du Groupe"></textarea>
+                <textarea class="textWhite inputDescritpionGroupe" type="text" placeholder="Description du Groupe"></textarea>
                 
                 <button class="buttonCréerGroupe2">CRÉER</button>
         </form>
