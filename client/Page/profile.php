@@ -39,7 +39,7 @@ session_start();
     <div class="Publication" id="contentPublication">
         <div class="contentPublication">
             <div>
-                <img class="img1" src=""></img
+                <img class="img1" src=""></img>
                 <img class="img1" src=""></img>
                 <img class="img1" src=""></img>
             </div>
