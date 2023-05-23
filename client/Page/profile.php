@@ -123,7 +123,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -133,7 +133,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -143,7 +143,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -153,7 +153,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -163,7 +163,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -173,7 +173,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -183,7 +183,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -193,7 +193,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -203,7 +203,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
