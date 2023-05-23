@@ -19,10 +19,6 @@
     align-items: center     ;
 }
 
-.test15 {
-    display: flex;
-    flex-direction: column;
-}
 
 .profileButtonInvitation {
     display: flex;
@@ -82,8 +78,9 @@
 }
 
 .imagePublication{
-    width: 100%;
+    width: calc(100% - 60px);
     border-radius: 10px;
+
 }
 
 .containerProfile{
