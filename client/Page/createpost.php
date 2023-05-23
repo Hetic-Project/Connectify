@@ -20,8 +20,7 @@ session_start();
                 </div>
                 <textarea class="textWhite inputDescritpion" type="text" placeholder="Ajouter une description"></textarea>
                 
-                <img src="../asset/IconPhotos.svg" alt="Image de poster des photo creat post" class="imagePhotosCreatPost"> </a>
-                <button class="buttonPhotos">Photos</button>
+                <input class="buttonPhotos" type="file" placeholder="Enter picture" accept=".jpeg, .jpg, .png">
                 
                 <button class="buttonPublier2">PUBLIER</button>
         </form>
