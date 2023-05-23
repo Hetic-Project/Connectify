@@ -156,16 +156,12 @@ class Group {
         echo json_encode("En attente ");
 
     }
-    
-    function getGroupPublicationForMembers ($id_group){
-
-    }
 
     function addRelationOnGroup ($id_group){
 
     }
 
-    function acceptOrDeniedCandidateInGroup (){
+    function acceptOrDeniedCandidateInGroup ($group_id){
         $_SESSION['id'];    
     }
 
