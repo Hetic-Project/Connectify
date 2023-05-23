@@ -6,10 +6,6 @@
     margin: 30px 0px;
 }
 
-.hube {
-    overflow: hidden;
-}
-
 .contentCommentaire {
     display: flex;
     overflow-y: scroll;

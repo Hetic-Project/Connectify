@@ -24,7 +24,7 @@ session_start();
                 -->
                 <input name="promo_id" type="text" placeholder="Enter promo">
                 <input name="password" type="password" placeholder="Password">
-                <button class="SignUp">Sign un</button>
+                <button class="SignUp" href="http://localhost:3000/Page/login.php">SignUp</button>
             </form>
         </div>
     </body>
