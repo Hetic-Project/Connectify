@@ -9,40 +9,41 @@ require_once './database/client.php';
 
 class Message {
 
-    function sendPrivateMessage($id_receiver, $id_transmitter) {
-        // Vérifie si l'id du transmitteur et du receiver sont égaux
-        if ($id_receiver == $id_transmitter) {
-            header('HTTP/1.1 400 Bad Request');
-            echo json_encode(array('message' => 'Les ID du "receiver" et du "transmitter" ne peuvent pas être les mêmes.'));
-            return;
-        }
-    
-        // Récupère le contenu du message privé depuis la requête POST
-        $message_content = $_POST['message_content'];
-    
-        // Récupère l'identité de l'utilisateur émetteur depuis la session
-        $id = $_SESSION['user']['id'];
-        $firstname = ""; // Set the firstname of the user
-        $lastname = ""; // Set the lastname of the user
+    function sendPrivateMessage($receiver_id) {
+        
+        session_start();
     
         // Connexion à la base de données
         $db = new Database();
         $connection = $db->getConnection();
+
+        // Récupère le contenu du message privé depuis la requête POST
+        $message_content = $_POST['message_content'];
+
+        // Récupère l'identité de l'utilisateur émetteur depuis la session
+        $id = $_SESSION['user']['id'];
+
+
     
         // Insertion du message dans la table private_message
         $sql = "INSERT INTO private_message (message_content, transmitter_id, receiver_id) VALUES (:message_content, :transmitter_id, :receiver_id)";
         $statement = $connection->prepare($sql);
-        $statement->bindValue(':message_content', $message_content);
-        $statement->bindValue(':transmitter_id', $id_transmitter);
-        $statement->bindValue(':receiver_id', $id_receiver);
-    
-        if ($statement->execute()) {
+        $statement->execute([
+            ':message_content' => $message_content,
+            ':transmitter_id' => $id,
+            ':receiver_id' => $receiver_id
+        ]);
+        
+        $message_id = $connection->lastInsertId();
+
+        if ($message_id) {
             // Récupération du message inséré
-            $message_id = $connection->lastInsertId();
             $sql = "SELECT * FROM private_message WHERE id = :message_id";
             $statement = $connection->prepare($sql);
-            $statement->bindValue(':message_id', $message_id);
-            $statement->execute();
+            $statement->execute([
+                ':message_id' => $message_id
+            ]);
+            
             $message = $statement->fetch(PDO::FETCH_ASSOC);
     
             // Fermeture de la connexion à la base de données
@@ -66,18 +67,18 @@ class Message {
     
         // Je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connection = $db->getConnection();
-    
         $id = $_SESSION['user']['id'];
     
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
         $sql = "SELECT private_message.message_content, user.firstname, user.lastname
-                FROM private_message
-                JOIN user ON private_message.transmitter_id = user.id
-                WHERE private_message.receiver_id = :id";
+        FROM private_message
+        JOIN user ON private_message.transmitter_id = user.id
+        WHERE (private_message.receiver_id = :id AND private_message.transmitter_id = :transmitter_id) 
+        OR (private_message.receiver_id = :transmitter_id AND private_message.transmitter_id = :id)";
         $statement = $connection->prepare($sql);
     
         // J'exécute la requête en fournissant les valeurs des paramètres
-        if ($statement->execute(array(':id' => $receiver_id))) {
+        if ($statement->execute(array(':id' => $id))) {
             // La requête s'est exécutée avec succès
     
             // Récupérer tous les résultats dans un tableau
@@ -100,7 +101,7 @@ class Message {
             header('Content-Type: application/json');
             echo json_encode($response);
         }
-    }    
+    }
 
     // Le formulaire en front doit contenir un champ new_message_content qui contient le nouveau contenu du message
     function ifAuthorUpdateMessage($id_message, $new_message_content) {

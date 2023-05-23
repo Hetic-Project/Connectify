@@ -16,7 +16,7 @@ switch ($url) {
     case '/users':
         $controller = new User();
         if ($method == 'GET') {
-            $controller->getAllUsers();
+            $controller->getOneUsers();
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');

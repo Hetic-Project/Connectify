@@ -9,18 +9,21 @@ require_once './database/client.php';
 
 class User {
 
-    function getAllUsers(){
+    function getOneUsers(){
 
         // j'appelle l'objet base de donnée
         $db = new Database();
+
+        // je récupère le user id
+        $id = $_SESSION['user']['id'];
 
         // je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connexion = $db->getConnection();
 
         // je prépare la requête
-        $request = $connexion->prepare("SELECT * FROM user");
+        $request = $connexion->prepare("SELECT * FROM user WHERE user.id = :id");
         // j'exécute la requête
-        $request->execute();
+        $request->execute([':id' => $id]);
         // je récupère tous les résultats dans users
         $users = $request->fetchAll(PDO::FETCH_ASSOC);
         // je ferme la connection
@@ -164,6 +167,7 @@ class User {
 
         // Ouverture de la connection
         $connection = $db->getConnection();
+        $_SESSION['user'] = $userInfos;
 
         // récupérer les champs du formulaire login
         $username = $_POST['username'];
@@ -291,34 +295,103 @@ class User {
         header('Location: http://localhost:3000');
 
     }
-    function searchRelation($params){
+    function searchRelation(){
         
+        // je récupère les champs
+        $searchBarre = $_POST['searchBarre'];
+        $query = $_POST['query'];
         //Connecter la BDD
         $db = new Database();
     
         // Ouverture de la connection
         $connection = $db->getConnection();
-    
-        $request = $connection->prepare("SELECT * FROM user WHERE firstname = :params OR lastname = :params");
-        $request->execute([
-            ':params' => $params
-        ]);
-        $results = $request->fetchAll(PDO::FETCH_ASSOC);
 
-        if(!$params){
-            header('Content-Type: application/json');
-            $error = array("error" => "veuillez renseigner un nom ou un prénom");
-            echo json_encode($error);
-        }
+        switch($query){
+
+            case 'user':
+
+                $request = $connection->prepare("SELECT * FROM user WHERE firstname = :searchBarre OR lastname = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+            
+            case 'group':
+
+                $request = $connection->prepare("SELECT * FROM group WHERE group.name = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+            
+            case 'promo':
+
+                $request = $connection->prepare("SELECT * FROM promo WHERE promo.promo_name = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+            
+            case 'publication':
+
+                $request = $connection->prepare("SELECT * FROM publication WHERE publication.title = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+                
+            default: 
+
+                if(!$query){
+                    $message = "Merci de choisir un filtre";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit; 
+                }
+            break;   
+        }  
+
     
-        if($results){
-            header('Content-Type: application/json');
-            echo json_encode($results);
-        }else{
-            header('Content-Type: application/json');
-            $error = array("error" => "Aucun résultats");
-            echo json_encode($error);
-        }
+        
     }
     
 

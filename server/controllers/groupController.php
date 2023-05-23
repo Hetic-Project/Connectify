@@ -74,6 +74,12 @@ class Group {
             'user_id' => $id
         ]);
 
+        $request = $connexion->prepare("INSERT INTO member (member.group_id, member.user_id, member.role_id, member.status) VALUES (:group_id, :user_id, 4, 1)");
+        $request->execute([
+            'group_id' => $group_id,
+            'user_id' => $id
+        ]);
+
         $connection = null;
 
         $message = "Félicitation vous avez rejoint le groupe";
@@ -119,7 +125,12 @@ class Group {
         // message a envoyer aux admis 
         $message = $result['lastname'] . ' ' . $result['firstname'] . ' ' . "Souhaite rejoindre votre groupe";
 
-        
+
+        $request = $connexion->prepare("INSERT INTO member (member.group_id, member.user_id, member.role_id) VALUES (:group_id, :user_id, 4)");
+        $request->execute([
+            'group_id' => $group_id,
+            'user_id' => $id
+        ]);
 
         // pour chaque admin dans admins
         foreach ($admins as $admin) {
@@ -142,14 +153,7 @@ class Group {
 
         header('Content-Type: application/json');
 
-        echo json_encode($message);
-
-
-        // j'envoie le message 
-
-    }
-    
-    function getGroupPublicationForMembers ($id_group){
+        echo json_encode("En attente ");
 
     }
 
@@ -157,7 +161,7 @@ class Group {
 
     }
 
-    function acceptOrDeniedCandidateInGroup (){
+    function acceptOrDeniedCandidateInGroup ($group_id){
         $_SESSION['id'];    
     }
 

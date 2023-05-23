@@ -28,18 +28,21 @@ session_start();
 
 		</div>
 	</div>
-
 	<div class="friendsSlider friendsSliderOff" id="sliderElement">
+		<div class="icons">
+			<button class="iconRetour retourSlider textWhite" id="sliderFriendsRetour"> <img src="../asset/iconRetour.svg"
+			alt="iconRetour">Retour</button>
 
-		<button class="iconRetour retourSlider textWhite" id="sliderFriendsRetour"> <img src="../asset/iconRetour.svg"
-				alt="iconRetour">Retour</button>
+			<button class="icongroup retourSlider textWhite" id="sliderFriendsgroupe"> <a href="/Page/creategroup.php"><img src="../asset/icon+.svg"
+				alt="icongroupe"></a></button>
+		</div>
+		
 
 		<div class="allFriends">
 
 			<button class="friendList">
 				<div class="profileInvitation sliderFriendsContent">
 					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
 					<div class="nomPromo">
 						<h3 class="textWhite">Tom Cardonnel</h3>
 						<p class="textGray">Promo</p>
@@ -71,7 +74,7 @@ session_start();
 		</div>
 	</div>
 
-	<form action="http://localhost:4000/message/1/2/" method="POST" id="messageForm">
+	<form action="http://localhost:4000/message/1/3/" method="POST" id="messageForm">
     	<input name="message_content" class="sendMessage" type="text" placeholder="Envoyer un message">
 	</form>
 </main>

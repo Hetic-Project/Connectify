@@ -13,10 +13,10 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
-        case preg_match('@^/message/(\d+)/(\d+)/?$@', $url, $matches) ? $url : '':
+        case preg_match('@^/message/([^/]+)$@', $url, $matches) ? $url : '':
             $controller = new Message();
             if ($method == 'POST') {
-                $controller->sendPrivateMessage($matches[1], $matches[2]);
+                $controller->sendPrivateMessage($matches[1]);
                 $matched = true;
             } else {
                 header('HTTP/1.1 405 Method Not Allowed');
@@ -27,6 +27,7 @@ switch ($url) {
         case '/message':
             session_start();
             header('Access-Control-Allow-Origin: http://localhost:3000');
+            header('Access-Control-Allow-Credentials: true');
             $controller = new Message();
             if ($method == 'POST') {
                 $receiver_id = filter_input(INPUT_POST, "receiver_id", FILTER_VALIDATE_INT);
