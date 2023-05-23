@@ -1,5 +1,5 @@
                 <div class="containerPublication">
-                        <button class="buttonPublication">
+                        <a class="buttonPublication" href="1publication.php">
                                 <div class="containerProfile">
                                         <img class="imageProfile" src="">
                                         <div class="profile">
@@ -10,5 +10,5 @@
                                 </div>
                                 <h3 class="titrePublication textWhite">Je suis un titre qui ne sert à rien</h3>
                                 <img class="imagePublication" src="../asset/Daniel Balavoine.jpg">
-                        </button>
+                        </a>
                 </div>
