@@ -34,56 +34,119 @@ class Comment {
 
         function addCommentInOnePublication ($id_publication) {
             
-                    // Vérifie si la méthode de requête est POST
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // j'appelle l'objet base de données
-                $db = new Database();
+            $user_id = 2;
+            $id_publication = 1;
 
-                // je me connecte à la BDD avec la fonction getConnection de l'objet Database
-                $connexion = $db->getConnection();
+            // Create a new instance of the Database class
+            $db = new Database();
 
-                // je récupère les données de la requête POST
-                $commentContent = $_POST['comment_content'];
-                $userId = $_POST['user_id'];
-                $publicationId = $_POST['publication_id'];
+            // Establish a connection to the database
+            $connection = $db->getConnection();
 
-                // je prépare la requête
-                $request = $connexion->prepare("INSERT INTO `comment` (comment_content, user_id, publication_id)
-                                                VALUES ('magnifique robe !' 2, 1)");
+            // Prepare the SQL statement to insert the relation
+            $sql = "INSERT INTO comment (comment_content, user_id, publication_id) VALUES (:comment_content, :user_id, :publication_id)";
+            $statement = $connection->prepare($sql);
 
-                // j'exécute la requête en liant les valeurs
-                // $request->bindParam(':comment_content', $commentContent);
-                // $request->bindParam(':user_id', $userId);
-                // $request->bindParam(':publication_id', $publicationId);
-                $request->execute();
+            // Bind the values to the parameters in the SQL statement
+            $statement->bindValue(':comment_content', 'magnifique robe!', PDO::PARAM_STR);
+            $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $statement->bindValue(':publication_id', $id_publication, PDO::PARAM_INT);
 
-                // je récupère l'ID du commentaire nouvellement inséré
-                // $commentId = $connexion->lastInsertId();
+            // Execute the SQL statement
+            if ($statement->execute()) {
+                // Get the last inserted comment ID
+                $id_comment = $connection->lastInsertId();
 
-                // je ferme la connexion
-                $connexion = null;
-
-                // // je renvoie l'ID du commentaire nouvellement inséré au front-end
-                // header('Content-Type: application/json');
-                // echo json_encode(['comment_id' => $commentId]);
+                // The relation was added successfully
+                $response = array('success' => true, 'message' => 'Commentaire ajouté !', 'id_comment' => $id_comment);
+                header('Content-Type: application/json');
+                echo json_encode($response);
             } else {
-                // Si la méthode de requête n'est pas POST, renvoie une erreur appropriée
-                http_response_code(405);
-                echo 'Method Not Allowed';
+                // An error occurred while adding the relation
+                $response = array('success' => false, 'message' => 'Échec envoi commentaire.');
+                header('Content-Type: application/json');
+                echo json_encode($response);
             }
+
+            // Close the database connection
+            $connection = null;
+
+
 
         }
 
         function ifAuthorUpdateComment ($id_comment) {
-            // $_SESSION['id'];
-            $role_id = 1;
-            $user_id = 1;
+            // // $_SESSION['id'];
+            $id_comment = 4; 
+           
 
+            // Create a new instance of the Database class
+            $db = new Database();
+
+            // Establish a connection to the database
+            $connection = $db->getConnection();
+
+            // Prepare the SQL statement to update the comment
+            $sql = "UPDATE comment SET comment_content = 'trop cool !' WHERE id = :id_comment";
+            $statement = $connection->prepare($sql);
+
+            // Bind the new comment content and comment ID to the parameters in the SQL statement
+            $statement->bindValue(':id_comment', $id_comment, PDO::PARAM_INT);
+
+            // Execute the SQL statement
+            if ($statement->execute()) {
+                // The comment was updated successfully
+                $response = array('success' => true, 'message' => 'Commentaire modifié !');
+                header('Content-Type: application/json');
+                echo json_encode($response);
+            } else {
+                // An error occurred while updating the comment
+                $response = array('success' => false, 'message' => 'Échec modification commentaire.');
+                header('Content-Type: application/json');
+                echo json_encode($response);
+            }
+
+            // Close the database connection
+            $connection = null;
+
+            
 
         }
 
         function ifAuthorDeleteComment ($id_comment) {
-            $_SESSION['id']; 
+            // $_SESSION['id']; 
+            
+            $id_comment = 3; // Remplacez 1 par l'ID du commentaire que vous souhaitez supprimer
+
+            // Create a new instance of the Database class
+            $db = new Database();
+
+            // Establish a connection to the database
+            $connection = $db->getConnection();
+
+            // Prepare the SQL statement to delete the comment
+            $sql = "DELETE FROM comment WHERE id = :id_comment";
+            $statement = $connection->prepare($sql);
+
+            // Bind the comment ID to the parameter in the SQL statement
+            $statement->bindParam(':id_comment', $id_comment, PDO::PARAM_INT);
+
+            // Execute the SQL statement
+            if ($statement->execute()) {
+                // The comment was deleted successfully
+                $response = array('success' => true, 'message' => 'Commentaire supprimé !');
+                header('Content-Type: application/json');
+                echo json_encode($response);
+            } else {
+                // An error occurred while deleting the comment
+                $response = array('success' => false, 'message' => 'Échec suppression commentaire.');
+                header('Content-Type: application/json');
+                echo json_encode($response);
+            }
+
+            // Close the database connection
+            $connection = null;
+
         }
     
 }
