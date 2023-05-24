@@ -9,127 +9,212 @@ require_once './database/client.php';
 
 class Page {
 
-    function getPageForOneUser ($id_user){
-        
-                    
-                    // 1. Connexion à la base de données
-                    $db = new Database();
-                    $conn = $db->getConnection();
-            
-                    // 2. Préparation et exécution de la requête SQL pour récupérer toutes les pages de l'utilisateur
-                    $stmt = $conn->prepare("SELECT * FROM pages WHERE id_user = ?");
-                    $stmt->bind_param("i", $id_user);
-                    $stmt->execute();
-            
-                    // 3. Récupération des résultats et stockage dans un tableau associatif
-                    $result = $stmt->get_result();
-                    $pages = array();
-                    while ($row = $result->fetch_assoc()) {
-                        $pages[] = $row;
-                    }
-            
-                    // 4. Fermeture de la connexion à la base de données
-                    $stmt->close();
-                    $conn->close();
-            
-                    // 5. Retour du tableau de pages
-                    return $pages;
-                }
-            }
-            
-        }
-        
+    function getAllPages (){
 
+        // j'appelle la base de donnée
+        $db = new Database();
+
+        // je me connecte à la BDD 
+        $connexion = $db->getConnection();
+
+        // Je prépare la requête
+        $request = $connexion->prepare("SELECT * FROM page");
+
+        // j'exécute la requête
+        $request->execute();
+
+        // je récupère le resultat de la requête
+        $pages = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        // je ferme la connection
+        $connexion = null;
+
+        // je renvoie au front les données au format json
+        header('Content-Type: application/json');
+        echo json_encode($pages);
     }
 
-    function addPageForOneUser ($id_user, $data){
-        
-        
-                
-                // 1. Connexion à la base de données
-                $db = new Database();
-                $conn = $db->getConnection();
-        
-                // 2. Préparation et exécution de la requête SQL pour récupérer toutes les pages de l'utilisateur
-                $stmt = $conn->prepare("SELECT * FROM pages WHERE id_user = ?");
-                $stmt->bind_param("i", $id_user);
-                $stmt->execute();
-        
-                // 3. Récupération des résultats et stockage dans un tableau associatif
-                $result = $stmt->get_result();
-                $pages = array();
-                while ($row = $result->fetch_assoc()) {
-                    $pages[] = $row;
-                }
-        
-                // 4. Fermeture de la connexion à la base de données
-                $stmt->close();
-                $conn->close();
-        
-                // 5. Retour du tableau de pages
-                return $pages;
-            
-        
-        
-        }
-        
+    function getOnePage ($page_id){
 
+        // j'appelle la base de donnée
+        $db = new Database();
+
+        // je me connecte à la BDD 
+        $connexion = $db->getConnection();
+
+        // Je prépare la requête
+        $request = $connexion->prepare("
+            SELECT * 
+            FROM page
+            WHERE page.id = :page_id
+        
+        ");
+
+        // j'exécute la requête
+        $request->execute([':page_id' => $page_id]);
+
+        // je récupère le resultat de la requête
+        $page = $request->fetch(PDO::FETCH_ASSOC);
+
+        // je ferme la connection
+        $connexion = null;
+
+        // je renvoie au front les données au format json
+        header('Content-Type: application/json');
+        echo json_encode($page);
     }
 
-    function updatePageForOneUserIfAdmin ($id_page){
-      
-            // Vérifier si l'utilisateur est connecté et est un administrateur
-            if ($_SESSION['id'] && $_SESSION['role'] == 'admin') {
-                // Récupérer les données envoyées dans la requête
-                $data = json_decode(file_get_contents('php://input'), true);
-                
-                // Mettre à jour la page pour l'utilisateur spécifié
-                $pageModel = new Page();
-                $updatedPage = $pageModel->updatePage($id_page, $data);
-                
-                // Retourner la page mise à jour en format JSON
-                echo json_encode($updatedPage);
-            } else {
-                // Si l'utilisateur n'est pas connecté ou n'est pas un administrateur, retourner une erreur
-                http_response_code(401);
-                echo json_encode(array("message" => "Vous devez être connecté en tant qu'administrateur pour accéder à cette ressource"));
-            }
-        }
+    function createPage (){
+
+        $id = $_SESSION['user']['id'];
+        // récupérer les champs du formulaire
+        $name = $_POST['name'];
+        $banner = $_POST['banner'];
+        $picture = $_POST['picture'];
+
+         // j'appelle la base de donnée
+         $db = new Database();
+
+         // je me connecte à la BDD 
+         $connexion = $db->getConnection();
+
+           // Je prépare la requête
+        $requestPage = $connexion->prepare("
+            INSERT INTO page(page.name, page.banner, page.picture)
+            VALUES (:name, :banner, :picture);
+        ");
+
+        // j'exécute la raquête
+        $requestPage->execute([
+            ':name' => $name,
+            ':banner' => $banner,
+            ':picture' => $picture
+        ]);
+
+        $page_id = $connexion->lastInsertId();
         
-       
+        // Je met l'utilisateur qui a créer la page en admin
+        $requestMember = $connexion->prepare("
+            INSERT INTO page_role (page_id, user_id, role_id)
+            VALUES (:page_id, :user_id, 3);
+        ");
+
+        $requestMember->execute([
+            'page_id' => $page_id,
+            'user_id' => $id
+        ]);
+
+
+        $message = "La page a été créer";
+        header('Location: http://localhost:3000/Page/#.php/' . $page_id . '?message=' . urlencode($message));
+        exit;
+
+         
+    }
+
+    function updatePageForOneUserIfAdmin ($page_id){
+        // je récupère l'id de l'utilisateur
+        $id = $_SESSION['user']['id'];
+
+        // récupérer les champs du formulaire
+        $name = $_POST['name'];
+        $banner = $_POST['banner'];
+        $picture = $_POST['picture'];
+
+         // j'appelle la base de donnée
+         $db = new Database();
+
+         // je me connecte à la BDD 
+         $connexion = $db->getConnection();
+
+        // je vérifie que l'utilisateur est admin
+
+        // Je prépare la requête
+        $request = $connexion->prepare("
+           SELECT page_role.role_id
+           FROM page_role
+           WHERE page_role.user_id = :id
+       ");
+
+       // j'exécute la raquête
+       $request->execute([':id' => $id]);
+
+       $role = $request->fetch(PDO::FETCH_ASSOC);
+
+       if($role['role_id'] == 3){
+
+            // je prépare ma requète
+            $request = $connexion->prepare("
+                UPDATE page SET(
+                    page.name = :name,
+                    page.banner = :banner,
+                    page.picture = :picture
+                WHERE
+                    page.id = :page_id;
+            )");
+
+            $request->execute(
+                [
+                    ":name" => $name,
+                    ":banner" => $banner,
+                    ":picture" => $picture,
+                    ":page_id" => $page_id
+                ]
+            );
+        // Fermeture de la connection
+        $connection = null;
+
+        $message = "les modifications ont bien été prit en compte";
+        header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+        exit;
+       }else{
+            $message = "vous ne pouvez pas faire cela";
+            header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+       }
+
     }
     
-    function deletePageForOneUserIfAdmin ($id_page){
-
-    
-            // Vérifier si l'utilisateur est connecté et est un administrateur
-            if (isset($_SESSION['id']) && $_SESSION['role'] == 'admin') {
-                // Se connecter à la base de données
-                $db = new Database();
-                $conn = $db->getConnection();
-        
-                // Préparer la requête de suppression de la page
-                $stmt = $conn->prepare("DELETE FROM pages WHERE id_page = ?");
-                $stmt->bind_param("i", $id_page);
-                $stmt->execute();
-        
-                // Vérifier si la suppression a été effectuée avec succès
-                if ($stmt->affected_rows > 0) {
-                    // Retourner un message de succès
-                    return array("message" => "La page a été supprimée avec succès.");
-                } else {
-                    // Retourner un message d'erreur
-                    return array("message" => "La page n'a pas pu être supprimée.");
-                }
-            } else {
-                // Retourner un message d'erreur si l'utilisateur n'est pas connecté ou n'est pas un administrateur
-                return array("message" => "Vous n'êtes pas autorisé à effectuer cette action.");
-            }
-        
-        
-       
-        
-      
+    function deletePageForOneUserIfAdmin ($page_id){
+         // je récupère l'id de l'utilisateur
+         $id = $_SESSION['user']['id'];
+ 
+          // j'appelle la base de donnée
+          $db = new Database();
+ 
+          // je me connecte à la BDD 
+          $connexion = $db->getConnection();
+ 
+         // je vérifie que l'utilisateur est admin
+ 
+         // Je prépare la requête
+         $request = $connexion->prepare("
+            SELECT page_role.role_id
+            FROM page_role
+            WHERE page_role.user_id = :id
+        ");
+ 
+        // j'exécute la raquête
+        $request->execute([':id' => $id]);
+ 
+        $role = $request->fetch(PDO::FETCH_ASSOC);
+ 
+        if($role['role_id'] == 3){
+ 
+             // je prépare ma requète
+             $request = $connexion->prepare("DELETE FROM page WHERE page.id = :page_id");
+ 
+             $request->execute([':page_id' => $page_id]);
+         // Fermeture de la connection
+         $connection = null;
+ 
+         $message = "la page a été supprimer";
+         header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+         exit;
+        }else{
+            $message = "vous ne pouvez pas faire cela";
+            header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+        }
+ 
     }
     
 }
