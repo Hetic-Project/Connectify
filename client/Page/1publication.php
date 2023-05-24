@@ -14,7 +14,7 @@ session_start();
 			Ajouter un Commentaire :
 		</h4>
 		<textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
-		<button class="buttonPublier2">PUBLIER</button>
+		<button class="buttonPublier3">PUBLIER</button>
 	</div>
 
 	<div class="hube">
