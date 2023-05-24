@@ -40,6 +40,7 @@ switch ($url) {
             break;
 
     case preg_match('@^/message/update/(\d+)$@', $url, $matches) ? $url : '':
+            session_start();
         $controller = new Message();
         if ($method == 'POST') {
             $controller->ifAuthorUpdateMessage($matches[1], $_POST['new_message_content']);
@@ -51,6 +52,7 @@ switch ($url) {
         break;
     
     case preg_match('@^/message/delete/(\d+)$@', $url, $matches) ? $url : '':
+            session_start();
         $controller = new Message();
         if ($method == 'POST') {
             $controller->ifAuthorDeleteMessage($matches[1]);
