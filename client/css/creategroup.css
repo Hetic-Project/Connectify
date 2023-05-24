@@ -67,12 +67,12 @@ a:link
     color: #FFFFFF;
 }
 
-.ajouterUnTitre{
+.ajouterUnNom{
     position: absolute;
-    width: 95%;
+    width: 360px;
     height: 46px;
     left: 30px;
-    top: 230px;
+    top: 360px;
 }
 
 .inputName{
@@ -84,22 +84,22 @@ a:link
     color: white;
 }
 
-.inputDescritpion{
+.inputDescritpionGroupe {
     position: absolute;
-    width: 330px;
+    width: 320px;
     height: 250px;
     left: 30px;
-    top: 300px;
+    top: 450px;
     background-color: #686868;
     border-radius: 10px;
     border: none;
 }
 
-.inputDescritpion::placeholder{
+.inputDescritpionGroupe::placeholder{
     color: white;
 }
 
-.inputDescritpion{
+.inputDescritpionGroupe {
     padding-top: 5px;
     padding-left: 13px;
     align-items: center;
@@ -112,7 +112,7 @@ a:link
     width: 330px;
     height: 40px;
     left: 30px;
-    top: 650px;
+    top: 750px;
 
     background: #3E7A0C;
     border-radius: 10px;

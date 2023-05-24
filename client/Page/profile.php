@@ -3,7 +3,7 @@ require_once '../TPL/header.php';
 session_start();
 ?>
 
-<main class="main">
+<main class="main" overflow="hidden">
 
     <img class="banniereProfil" src="<?= $gcef ?>">
     </img>
@@ -38,82 +38,25 @@ session_start();
 
     <div class="Publication" id="contentPublication">
         <div class="contentPublication">
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-
-
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
         </div>
-
     </div>
+
     <div class="Amis AmisOff" id="contentAmis">
 
         <div class="contentprofileFriend">
@@ -143,7 +86,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
+                        <h3 class="textWhite">Rubens Bonnin </h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>

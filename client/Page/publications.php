@@ -39,7 +39,8 @@ session_start();
                         <button class="iconsButton" id="buttonInvitationDroit"><img
                                         src="../asset/iconRetour.svg"></button>
                 </div>
-                <?php include "containerpublication.php" ?>
+        </div>
+        <?php include "containerpublication.php" ?>
 
 </main>
 </body>
