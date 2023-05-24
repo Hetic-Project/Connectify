@@ -6,6 +6,9 @@ body{
     position: relative;
     background-color: #3D3D3D;
     font-family: 'Kanit', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    
 }
 
 :root{
@@ -30,7 +33,6 @@ body{
     margin-left: 15px;
     
 }
-
 
 .main-title {
     color: var(--primary-color);
