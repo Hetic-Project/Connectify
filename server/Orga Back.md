@@ -28,14 +28,12 @@
 |Methodes| url | controllers |commentaires|
 |--------|-----|-------------|------------|
 | POST | /group/create | groupController | Créer un groupe public ou privé |
-| POST | /group/join/:id_group | groupController | S'inscrire à un groupe public |
-| POST | /group/apply/:id_group | groupController | Candidater à un groupe privé |
-| GET  | /group/publications/:id_group | groupController | Voir les publications d'un groupe pour les membres du groupe|
-| POST | /group/invite/:id_user/:id_group | groupController | Inviter ses relations au groupe |
-| POST | /group/approve/:id_user | groupController | Accepter ou refuser les candidatures à un groupe privé si l'utilisateur est admin |
-| POST | /group/user/update/rights/:id_user | groupController | Changer les droits d'un utilisateur si admin (admin/membre) |
-| POST | /group/user/delete/:id_user | groupController |Si admin exclure un membre d'un groupe |
-| POST | /group/update/info/:id_admin | groupController | Si admin changer les informations du groupe (nom, description, image) |
+| POST | /group/join/:id_group | groupController | S'inscrire à un groupe public ou privé |
+| POST | /group/relation/invite/:group_id/:user_id | groupController | Inviter ses relations au groupe |
+| POST | /group/member/accept/:group_id/:candidate_id | groupController | Accepter ou refuser les candidatures à un groupe privé ou une invitation a rejoindre si l'utilisateur est admin |
+| POST |/group/member/update/rights/:group_id/:user_id | groupController | Changer les droits d'un utilisateur si admin (admin/membre) |
+| POST | /group/member/banish/:group_id/:user_id | groupController |Si admin exclure un membre d'un groupe |
+| POST | /group/update/info/:group_id | groupController | Si admin changer les informations du groupe (nom, description, image) |
 
 
 # roleController => gérer les rôles des utilisateurs 
@@ -81,6 +79,7 @@
 
 |Methodes| url | controllers |commentaires|
 |--------|-----|-------------|------------|
+| GET  | /user           | userController | Afficher les informations d'un utilisateur |
 | POST | /profile/update | userController | Modifier ses informations personnelles |
 | POST | /profile/deactivate | userController | Désactiver son compte |
 | POST | /profile/reactivate | userController | Réactiver son compte |

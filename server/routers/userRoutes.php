@@ -13,7 +13,7 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
-    case '/users':
+    case '/user':
         $controller = new User();
         if ($method == 'GET') {
             $controller->getOneUsers();
