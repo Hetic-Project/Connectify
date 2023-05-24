@@ -276,7 +276,7 @@ class User {
             $connection = null;
 
             $message = "l'étudiant a bien été créé";
-            header('Location: http://localhost:3000/Page/accueil.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
             exit;
 
         }else {
