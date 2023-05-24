@@ -16,30 +16,8 @@ session_start();
 
         <div class="demandeInvitation">
 
-                <div class="profileButtonInvitation">
-                        <button class="iconsButton" id="buttonInvitationGauche"><img
-                                        src="../asset/iconRetour.svg"></button>
-
-                        <div class="test15">
-                                <div class="profileInvitation">
-                                        <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                                        <div class="nomPromo">
-                                                <h3 class="textWhite">Tom Cardonnel</h3>
-                                                <p class="textGray">Promo</p>
-                                        </div>
-                                </div>
-                                <div class="containerInvitationButton">
-                                        <button class="invitationButton textWhite red">Refuser</button>
-                                        <button class="invitationButton textWhite green">Accepter</button>
-                                </div>
-                        </div>
-
-
-                        <button class="iconsButton" id="buttonInvitationDroit"><img
-                                        src="../asset/iconRetour.svg"></button>
-                </div>
         </div>
+        <?php include "containerpublication.php" ?>
         <?php include "containerpublication.php" ?>
 
 </main>

@@ -32,9 +32,9 @@ input[type="radio"].demo1:checked + label {
 
 
 
-.recherche {
-  margin-left: 20px;
-}
+/* .recherche {
+  justify-content: center;
+} */
 
 .contentUsers{
   overflow-y: scroll;
