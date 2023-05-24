@@ -8,10 +8,14 @@ session_start();
 	<div class="onePublication">
 		<?php include "containerpublication.php" ?>
 	</div>
-
-
-	<h2 class="Commentaire textWhite">Commentaire</h2>
-	<textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
+	<h2 class="Commentaire textWhite">Espace Commentaire</h2>
+	<div class="ajoutCommentaire">
+		<h4 class="ajoutComment textWhite">
+			Ajouter un Commentaire :
+		</h4>
+		<textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
+		<button class="buttonPublier2">PUBLIER</button>
+	</div>
 
 	<div class="hube">
 		<div class="contentCommentaire">
@@ -25,8 +29,10 @@ session_start();
 					</div>
 				</div>
 				<h3 class="leCommentaire textWhite">
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-					industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+					the
+					industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+					type
 					and scrambled it to make a type specimen book. It has survived not only five centuries
 				</h3>
 			</div>
@@ -41,8 +47,10 @@ session_start();
 					</div>
 				</div>
 				<h3 class="leCommentaire textWhite">
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-					industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+					the
+					industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+					type
 					and scrambled it to make a type specimen book. It has survived not only five centuries
 				</h3>
 			</div>
