@@ -72,9 +72,9 @@ class Message {
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
         $sql = "SELECT private_message.message_content, user.firstname, user.lastname
         FROM private_message
-        JOIN user ON private_message.transmitter_id = user.id
-        WHERE (private_message.receiver_id = :id AND private_message.transmitter_id = :transmitter_id) 
-        OR (private_message.receiver_id = :transmitter_id AND private_message.transmitter_id = :id)";
+        JOIN user ON private_message.transmitter_id = user.id";
+        //WHERE (private_message.receiver_id = :id AND private_message.transmitter_id = :transmitter_id) 
+        // OR (private_message.receiver_id = :transmitter_id AND private_message.transmitter_id = :id)";
         $statement = $connection->prepare($sql);
     
         // J'exécute la requête en fournissant les valeurs des paramètres
@@ -156,7 +156,8 @@ class Message {
     
     function ifAuthorDeleteMessage($message_id) {
 
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
+
     
         // Connexion à la DDB
         $db = new Database();
@@ -166,7 +167,7 @@ class Message {
         $sql = "SELECT id FROM private_message WHERE id = :message_id AND transmitter_id = :user_id";
         $statement = $connection->prepare($sql);
         $statement->bindValue(':message_id', $message_id);
-        $statement->bindValue(':user_id', $user_id);
+        $statement->bindValue(':user_id', $id);
         $statement->execute();
     
         if ($statement->rowCount() > 0) {
