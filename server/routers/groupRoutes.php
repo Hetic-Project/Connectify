@@ -37,12 +37,12 @@ switch ($url) {
 
     case preg_match('@^/group/apply/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
-        if ($method == 'POST') {
+        if ($method == 'GET') {
             $controller->joinGroupPrivateForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
+            header('Allow: GET');
         };
         break;
     

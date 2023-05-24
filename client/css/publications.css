@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 30px;
+    margin: 30px 30px 0px 30px;
 
 }
 
@@ -12,25 +12,15 @@
     align-items: center;
 }
 
-.iconsButton {
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    border: 0;
-    width: 30px;
-    height: auto;
-}
-
 .demandeInvitation {
-    margin: 0 30px 30px 30px;
+    margin: 30px;
     display: flex;
     flex-direction: column;
     align-items: center     ;
-
 }
 
+
 .profileButtonInvitation {
-    /* width: calc(100vw - 60px); */
     display: flex;
     flex-direction: row;
     align-items: center; 
@@ -55,7 +45,6 @@
     width: 50px;
     height: 50px;
     border-radius: 100%;
-
 }
 
 .invitationText {
@@ -71,28 +60,27 @@
 
 .containerInvitationButton {
     display: flex;
-    gap: 20px   ;
+    margin-top: 15px;
+    gap: 20px;
 }
 
 .buttonPublication{
     background-color: transparent;
     border: none;
     width: 100%;
-    padding: 30px 0px;
     text-align: left;
-    
 }
 
 .containerPublication{
-    display: flex;
-    width: calc(100vw - 60px);
-    margin-left: 30px;
+    display: flex; 
+    width: 100%;
+    margin: 30px;
 }
 
 .imagePublication{
-    width: 100%;
+    width: calc(100% - 60px);
     border-radius: 10px;
-    background-color: red;
+
 }
 
 .containerProfile{
@@ -107,3 +95,10 @@
     margin: 15px 0px;
 }
 
+.red:hover{
+    background-color:#CB0000;
+}
+
+.green:hover{
+    background-color: #3E7A0C;
+}
