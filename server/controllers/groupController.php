@@ -64,7 +64,7 @@ class Group {
 
         $connexion = $db->getConnection();
 
-        // je vérifie le status du group
+        // je vérifie le status du groupe
         $request = $connexion->prepare("  
             SELECT group.status
             FROM group
@@ -114,7 +114,7 @@ class Group {
 
                 $request->execute(['group_id' => $group_id]);
 
-                //je récupère les admins du group
+                // je récupère les admins du group
                 $admins = $request->fetchAll(PDO::FETCH_ASSOC);
 
                 $request = $connexion->prepare("
@@ -125,7 +125,7 @@ class Group {
 
                 $request->execute(['id' => $id]);
 
-                // nom et prénom de l'utilisateur qui veut rejoindre le group 
+                // nom et prénom de l'utilisateur qui veut rejoindre le groupe 
                 $result = $request->fetch(PDO::FETCH_ASSOC);
 
                 // je vérifie que l'utilisateur n'est pas déja en attente dans le groupe
@@ -144,7 +144,7 @@ class Group {
 
                 $member = $request->fetch(PDO::FETCH_ASSOC);
 
-                // Si aucun résultats = pas de demande en attente
+                // Si aucun résultat = pas de demande en attente
                 if(!$member){
 
                     $request = $connexion->prepare("INSERT INTO member (member.group_id, member.user_id, member.role_id) VALUES (:group_id, :user_id, 4)");
@@ -153,7 +153,7 @@ class Group {
                         'user_id' => $id
                     ]);
                     
-                    // message a envoyer aux admis 
+                    // message à envoyer aux admins 
                     $message = $result['lastname'] . ' ' . $result['firstname'] . ' ' . "Souhaite rejoindre votre groupe";
 
                     // pour chaque admin dans admins
@@ -162,7 +162,7 @@ class Group {
                         $receiver_id = $admin;
                         $message_content = $message;
                         
-                        // j'envoi un message
+                        // j'envoie un message
                         $request = $connexion->prepare("
                             INSERT INTO private_message (transmitter_id, receiver_id, message_content)
                             VALUES (:transmitter_id, :receiver_id, :message_content);
@@ -193,7 +193,7 @@ class Group {
 
         $id = $_SESSION['user']['id'];
 
-        // je me connect a la base de donnée
+        // je me connecte a la base de donnée
         $db = new Database();
 
         $connexion = $db->getConnection();
@@ -212,7 +212,7 @@ class Group {
         switch($group['status']){
 
             case 'public':
-                // je récupère le nom et prénom de l'emetteur du message
+                // je récupère le nom et prénom de l'émetteur du message
                 $request = $connexion->prepare("
                     SELECT user.firstname, user.lastname
                     FROM user 
@@ -246,7 +246,7 @@ class Group {
                 break;
 
             case 'private' :
-                // je verifie que l'utilisateur est admin
+                // je vérifie que l'utilisateur est admin
                 $request = $connexion->prepare("
                     SELECT member.role_id
                     FROM member 
@@ -263,7 +263,7 @@ class Group {
                 $isAdmin = $request->fetch(PDO::FETCH_ASSOC);
 
                 if ($isAdmin == 3){
-                     // je récupère le nom et prénom de l'emetteur du message
+                     // je récupère le nom et prénom de l'émetteur du message
                     $request = $connexion->prepare("
                         SELECT user.firstname, user.lastname
                         FROM user 
@@ -313,12 +313,12 @@ class Group {
 
         $isAccepted = $_POST['isAccepted'];
         
-         // je me connect a la base de donnée
+         // je me connecte a la base de donnée
          $db = new Database();
 
          $connexion = $db->getConnection();
 
-         // vérifier que le candidat ne fait pas déja partie du groupe
+         // vérifier que le candidat ne fait pas déja parti du groupe
          $request = $connexion->prepare("
             SELECT *
             FROM member 
@@ -337,7 +337,7 @@ class Group {
         if(!$member){
             
             switch($isAccepted){
-                // si accepter 
+                // si accepté 
                case TRUE :
                    $request = $connexion->prepare("INSERT INTO member (member.group_id, member.user_id, member.role_id, member.status) VALUES (:group_id, :user_id, 4, 1)");
                    $request->execute([
@@ -349,7 +349,7 @@ class Group {
                    header('Location: http://localhost:3000/Page/#.php/' . $group_id . '?message=' . urlencode($message));
                    exit;
                    break;
-               // si refuser
+               // si refusé
                case FALSE :
                    $request = $connexion->prepare("
                        DELETE FROM member 
@@ -403,7 +403,7 @@ class Group {
 
         // si admin
         if ($isAdmin == 3){
-            // je modifie le role du user concernée
+            // je modifie le role du user concerné
             $request = $connection->prepare("
             UPDATE member 
             SET(
@@ -418,7 +418,7 @@ class Group {
                     ':group_id' => $group_id
                 ]
             );
-            // Fermeture de la connection
+            // Fermeture de la connexion
             $connection = null;
             $message = "L'utilisateur est maintenent admin";
             header('Location: http://localhost:3000/Page/#.php/' . $group_id . '?message=' . urlencode($message));
@@ -459,7 +459,7 @@ class Group {
         
         // si admin
         if ($isAdmin == 3){
-            // je modifie le status du user concernée
+            // je modifie le status du user concerné
             $request = $connection->prepare("
             UPDATE member 
             SET(

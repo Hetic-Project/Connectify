@@ -129,7 +129,7 @@ INSERT INTO `connect` (
 
 ) VALUES ( 
     1,
-    1
+    2
 );
 
 INSERT INTO `post` (

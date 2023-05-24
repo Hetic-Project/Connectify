@@ -20,59 +20,46 @@ class connect {
         $connection = $db->getConnection();
     
         // Je prépare la requête pour récupérer les relations de l'utilisateur
-        $sql = "SELECT * FROM connect WHERE user_id = :user_id OR friend_id = :user_id";
+        $sql = "
+            SELECT connect.friend_id, user.lastname, user.firstname, user.id  
+            FROM connect 
+            JOIN user
+            ON connect.friend_id = user.id
+            WHERE connect.user_id = :user_id
+        ";
         $statement = $connection->prepare($sql);
+
+        $statement->execute([':user_id' => $id]);
     
-        // J'exécute la requête en fournissant la valeur du paramètre
-        if ($statement->execute(array(':user_id' => $id))) {
-            // La requête s'est exécutée avec succès
-    
-            // Récupérer tous les résultats dans un tableau associatif
-            $relations = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-            // Fermeture de la connexion
-            $connection = null;
-    
-            // Réponse JSON indiquant les relations de l'utilisateur
-            header('Content-Type: application/json');
-            echo json_encode($relations);
-            
-        } else {
-            // Erreur lors de l'exécution de la requête
-    
-            // Fermeture de la connexion
-            $connection = null;
-    
-            // Réponse JSON indiquant l'erreur
-            $response = array('success' => false, 'message' => 'Failed to retrieve user relations.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
-        }
+        $relations = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+        echo json_encode($relations);
     }
     
     function addRelationForOneUser($id_user) {
     
         $id = $_SESSION['user']['id'];
         
-        // Create a new instance of the Database class
+        
         $db = new Database();
     
-        // Get the database connection
         $connection = $db->getConnection();
     
-        // Prepare the SQL statement
         $sql = "INSERT INTO connect (user_id, friend_id) VALUES (:user_id, :friend_id)";
         $statement = $connection->prepare($sql);
     
-        // Execute the statement with parameter values as an array
-        $statement->execute(array(':user_id' => $id, ':friend_id' => $id_user));
+        $statement->execute([
+            ':user_id' => $id, 
+            ':friend_id' => $id_user
+        ]);
     
-        // Close the database connection
         $connection = null;
     }
     
     
     function deleteRelationForOneUser($id_user) {
+
         $id = $_SESSION['user']['id'];
     
         // J'appelle l'objet base de données
@@ -82,30 +69,19 @@ class connect {
         $connection = $db->getConnection();
     
         // Je prépare la requête
-        $sql = "DELETE FROM connect WHERE (user_id = :user_id OR friend_id = :user_id) AND (user_id = :id_user OR friend_id = :id_user)";
+        $sql = "
+            DELETE FROM connect 
+            WHERE connect.friend_id = :id_user 
+            AND connect.user_id = :id
+        ";
         $statement = $connection->prepare($sql);
-    
-        // J'exécute la requête
-        if ($statement->execute(array(':user_id' => $id, ':id_user' => $id_user))) {
-            // La requête s'est exécutée avec succès
-    
-            // Fermeture de la connexion
-            $connection = null;
-    
-            // Réponse JSON indiquant le succès
-            $response = array('success' => true, 'message' => 'Relation deleted successfully.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
-        } else {
-            // Erreur lors de l'exécution de la requête
-    
-            // Fermeture de la connexion
-            $connection = null;
-    
-            // Réponse JSON indiquant l'erreur
-            $response = array('success' => false, 'message' => 'Failed to delete the relation.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
-        }
+        $statement->execute([
+            ':id_user' => $id_user, 
+            ':id' => $id
+        ]);
+            
+        $message = "l'utilisateur a bien été supprimé";
+        header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+        exit;
     }
 }

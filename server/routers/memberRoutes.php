@@ -12,18 +12,6 @@ $method = $_SERVER['REQUEST_METHOD'];
 $matched = false;
 
 switch ($url) {
-    // Route utilisateur de l'API
-    case preg_match('@^/group/join/(\d+)$@', $url, $matches) ? $url : '':
-        $controller = new Member();
-        if ($method == 'POST') {
-            $controller->joinGroup($matches[1]);
-            $matched = true;
-        } else {
-            header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
-        };
-        break;
-
     case preg_match('@^/group/quit/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Member();
         if ($method == 'POST') {

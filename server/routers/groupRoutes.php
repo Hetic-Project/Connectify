@@ -35,7 +35,7 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/group/relation/invite(\d+)$@/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/group/relation/invite/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'POST') {
             $controller->addRelationOnGroup($matches[1], $matches[2]);
@@ -46,7 +46,7 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/group/member/accept/(\d+)$@/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/group/member/accept/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
             $controller->acceptOrDeniedCandidateInGroup($matches[1], $matches[2]);
@@ -57,7 +57,7 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/group/member/update/rights/(\d+)$@/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/group/member/update/rights/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
             $controller->ifAdminSetOtherAdminInGroup($matches[1], $matches[2]);
@@ -68,7 +68,7 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/group/member/banish/(\d+)$@/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/group/member/banish/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
             $controller->ifAdminBanishMember($matches[1], $matches[2]);
