@@ -13,10 +13,11 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
-    case '/relations/search':
+    case '/relation/search':
+        session_start();
         $controller = new Connect();
         if ($method == 'GET') {
-            $controller->getRelationForOneUser($matches[1]);
+            $controller->getRelationForOneUser();
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -25,6 +26,7 @@ switch ($url) {
         break;
 
     case preg_match('@^/relation/add/(\d+)$@', $url, $matches) ? $url : '':
+        session_start();
         $controller = new Connect();
         if ($method == 'POST') {
             $controller->addRelationForOneUser($matches[1]);
@@ -36,6 +38,7 @@ switch ($url) {
         break;
 
     case preg_match('@^/relation/delete/(\d+)$@', $url, $matches) ? $url : '':
+        session_start();
         $controller = new Connect();
         if ($method == 'POST') {
             $controller->deleteRelationForOneUser($matches[1]);

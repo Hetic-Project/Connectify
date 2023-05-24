@@ -8,9 +8,8 @@ require_once './database/client.php';
 
 class Member {
     function joinGroup($id_group) {
-        $user_id = 1;
-        $role_id = 1;
-    
+        $id = $_SESSION['user']['id'];
+
         // J'appelle l'objet base de données
         $db = new Database();
     
@@ -32,7 +31,8 @@ class Member {
             // $response = array('success' => true, 'message' => 'User joined the group successfully.');
             // header('Content-Type: application/json');
             // echo json_encode($response);
-            header('Location: http://localhost:4000/');
+            $message = "l'étudiant a bien été créé";
+            header('Location: http://localhost:3000/Page/accueil.php?message=' . urlencode($message));
             exit();
         } else {
             header('HTTP/1.1 500 Internal Server Error');
@@ -41,7 +41,8 @@ class Member {
     }
     
     function quitGroup($id_group) {
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
+
     
         // J'appelle l'objet base de données
         $db = new Database();

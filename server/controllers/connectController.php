@@ -11,7 +11,7 @@ class connect {
     function getRelationForOneUser() {
     
         // Retrieve the user ID from the session
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
     
         // J'appelle l'objet base de données
         $db = new Database();
@@ -24,7 +24,7 @@ class connect {
         $statement = $connection->prepare($sql);
     
         // J'exécute la requête en fournissant la valeur du paramètre
-        if ($statement->execute(array(':user_id' => $user_id))) {
+        if ($statement->execute(array(':user_id' => $id))) {
             // La requête s'est exécutée avec succès
     
             // Récupérer tous les résultats dans un tableau associatif
@@ -36,6 +36,7 @@ class connect {
             // Réponse JSON indiquant les relations de l'utilisateur
             header('Content-Type: application/json');
             echo json_encode($relations);
+            
         } else {
             // Erreur lors de l'exécution de la requête
     
@@ -51,7 +52,7 @@ class connect {
     
     function addRelationForOneUser($id_user) {
 
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
     
         // Create a new instance of the Database class
         $db = new Database();
@@ -64,7 +65,7 @@ class connect {
         $statement = $connection->prepare($sql);
     
         // Bind the values to the parameters in the SQL statement
-        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->bindValue(':user_id', $id, PDO::PARAM_INT);
         $statement->bindValue(':friend_id', $id_user, PDO::PARAM_INT);
     
         // Execute the SQL statement
@@ -85,7 +86,7 @@ class connect {
     }
     
     function deleteRelationForOneUser($id_user) {
-        $user_id = 1;
+        $id = $_SESSION['user']['id'];
     
         // J'appelle l'objet base de données
         $db = new Database();

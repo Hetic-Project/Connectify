@@ -12,18 +12,18 @@ h1 {
     color: #07001f;
 }
 
-.textLogin {
+.textSignin {
     margin-bottom: 1.7rem;
 }
 
 form input {
-    width: 85%;
-    outline: none;
-    border: none;
-    background: #dfe9f5;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-    border-radius: 10px;
+        width: 85%;
+        outline: none;
+        border: none;
+        background: #dfe9f5;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        border-radius: 10px;
 }
 
 .recover {
@@ -37,7 +37,7 @@ form input {
     color: #07001f;
 }
 
-.Login {
+.SignUp {
     font-size: 1.1rem;
     margin-top: 1rem;
     padding: 8px 0;
@@ -50,7 +50,7 @@ form input {
     cursor: pointer;
 }
 
-.Login:hover {
+SignUp:hover {
     background: #2c5709;
     transition-duration: 0.2s;
 }

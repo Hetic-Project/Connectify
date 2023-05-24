@@ -1,8 +1,14 @@
 .banniereProfil {
-    width: 100vw;
-    height: 103px;
+    width: calc(100% - 60px);
+    height: 100px;
     top: 0px;
     background-color: aqua;
+    margin: 30px;
+    border-radius: 20px;
+}
+
+.main {
+    position: absolute;
 }
 
 .profileInvitation {
@@ -22,7 +28,7 @@
     border-radius: 25px;
 }
 
-.modifierProfil {
+.boutonModifier {
     position: absolute;
     cursor: pointer;
     padding: 5px;
@@ -62,9 +68,8 @@
 }
 
 .enlarge {
-    font-size: 20px;
+    width: 50%;
 }
-
 
 .img1 {
     background-color: aqua;
@@ -83,11 +88,13 @@
 
 .contentPublication {
     display: flex;
-    overflow-y: scroll;
-    height: 300px;
     align-items: center;
-    flex-direction: column;
+    justify-content: center;
+    overflow-y: scroll;
+    flex-wrap: wrap;
+    height: 32vh;
     margin-top: 15px;
+    max-width: 100%;
 }
 
 .contentprofileFriend {
@@ -98,38 +105,8 @@
 .Amis {
     margin-top: 15px;
     overflow: hidden;
-
 }
 
 .AmisOff {
     display: none;
 }
-
-/* .button-box {
-    width: 220px;
-    margin: 35px auto;
-    position: relative;
-    border-radius: 30px;
-    background: #fff
-}
-
-.toggle-button1 {
-    padding: 10px 40px;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    outline: none;
-    position: relative;
-    text-align: center;
-}
-
-#button1 {
-    left: 0;
-    top: 0;
-    position: absolute;
-    width: 110px;
-    height: 100%;
-    background: #5FB814;
-    border-radius: 30px;
-    transition: .5s;
-} */

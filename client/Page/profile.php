@@ -3,7 +3,7 @@ require_once '../TPL/header.php';
 session_start();
 ?>
 
-<main class="main">
+<main class="main" overflow="hidden">
 
     <img class="banniereProfil" src="<?= $gcef ?>">
     </img>
@@ -14,7 +14,9 @@ session_start();
             <h3 class="textWhite">Rubens Bonnin</h3>
             <p class="textGray">Promo</p>
         </div>
-        <btn class="modifierProfil textWhite"> Modifier le Profil</btn>
+        <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
+        <a class="boutonModifier textWhite" href="../page/modifierprofile.php">Modifier le Profil</a>
+        <!-- </btn> -->
     </div>
     <br>
     <div class="Description">
@@ -23,92 +25,38 @@ session_start();
             aliquip ex ea commodo consequat. </h4>
         <br>
 
-        <p class="textGray"> 42 abonnés 666 abonnements</p>
+        <p class="textGray"> 42 abonnés 666 abonnements
+        <form action="http://localhost:4000/group/join/users_id" method="POST">
+        </form>
+        </p>
     </div>
 
     <div class="contentBtn">
-        <button id="left-button" class="enlarge textWhite">Bouton de gauche</button>
-        <button id="right-button" class="textWhite">Bouton de droite</button>
+        <button id="left-button" class="enlarge textWhite">Publications</button>
+        <button id="right-button" class="textWhite">Liste d'Amis</button>
     </div>
 
     <div class="Publication" id="contentPublication">
         <div class="contentPublication">
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-            <div>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-                <img class="img1" src=""></img>
-            </div>
-
-
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
+            <img class="img1" src=""></img>
         </div>
-
     </div>
+
     <div class="Amis AmisOff" id="contentAmis">
 
         <div class="contentprofileFriend">
@@ -118,7 +66,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -128,7 +76,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -138,7 +86,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin </h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -148,7 +96,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -158,7 +106,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -168,7 +116,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -178,7 +126,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -188,7 +136,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>
@@ -198,7 +146,7 @@ session_start();
                     <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
                     <div class="nomPromo">
-                        <h3 class="textWhite">Tom Cardonnel</h3>
+                        <h3 class="textWhite">Rubens Bonnin</h3>
                         <p class="textGray">Promo</p>
                     </div>
                 </div>

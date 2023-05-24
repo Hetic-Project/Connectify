@@ -9,18 +9,21 @@ require_once './database/client.php';
 
 class User {
 
-    function getAllUsers(){
+    function getOneUsers(){
 
         // j'appelle l'objet base de donnée
         $db = new Database();
+
+        // je récupère le user id
+        $id = $_SESSION['user']['id'];
 
         // je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connexion = $db->getConnection();
 
         // je prépare la requête
-        $request = $connexion->prepare("SELECT * FROM user");
+        $request = $connexion->prepare("SELECT * FROM user WHERE user.id = :id");
         // j'exécute la requête
-        $request->execute();
+        $request->execute([':id' => $id]);
         // je récupère tous les résultats dans users
         $users = $request->fetchAll(PDO::FETCH_ASSOC);
         // je ferme la connection
@@ -102,16 +105,60 @@ class User {
         // Ouverture de la connection
         $connection = $db->getConnection();
         // je prépare ma requète
-        $request = $connection->prepare("UPDATE ");
+        $request = $connection->prepare("UPDATE user SET active = FALSE WHERE user.id = :id");
+
+        $request->execute([":id" => $id]);
+
+        // Fermeture de la connection
+        $connection = null;
+
+        $message = "Le compte a été désactivé avec succès";
+        header('Location: http://localhost:3000?message=' . urlencode($message));
+        exit;
 
     }
     function reactivateAccountforOneUser(){
-       // je récupère l'id de la session
-       $id = $_SESSION['user']['id'];
+        // je récupère l'id de la session
+        $id = $_SESSION['user']['id'];
+
+        // Connection la BDD
+        $db = new Database();
+
+        // Ouverture de la connection
+        $connection = $db->getConnection();
+        // je prépare ma requète
+        $request = $connection->prepare("UPDATE user SET active = TRUE WHERE user.id = :id");
+
+        $request->execute([":id" => $id]);
+
+        // Fermeture de la connection
+        $connection = null;
+
+        $message = "Le compte a été réactiver";
+        header('Location: http://localhost:3000?message=' . urlencode($message));
+        exit;
     }
     function delectAccountForOneUser(){
         // je récupère l'id de la session
         $id = $_SESSION['user']['id']; 
+
+        // j'appelle l'objet base de donnée
+        $db = new Database();
+
+        // je me connecte à la BDD avec la fonction getConnection de l'objet Database
+        $connexion = $db->getConnection();
+
+        // je prépare la requête
+        $request = $connexion->prepare("DELETE FROM user WHERE user.id = :id");
+        // j'exécute la requête
+        $request->execute([':id' => $id]);
+
+        $message = "Le compte a bien été suprimé";
+        header('Location: http://localhost:3000?message=' . urlencode($message));
+        exit;
+
+        // je requête la BDD
+
     }
     function loginAccount() {
 
@@ -120,6 +167,7 @@ class User {
 
         // Ouverture de la connection
         $connection = $db->getConnection();
+        $_SESSION['user'] = $userInfos;
 
         // récupérer les champs du formulaire login
         $username = $_POST['username'];
@@ -129,7 +177,7 @@ class User {
         if($username && $password) {
             // Requêtes SQL
             $request = $connection->prepare("
-                SELECT user.id, user.password, role.name
+                SELECT user.id, user.password, user.active, role.name
                 FROM user 
                 JOIN role
                 ON user.role_id = role.id
@@ -137,16 +185,22 @@ class User {
             ");
             $request->execute([":username" => $username]);
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
-            // password_verify($password, $userInfos['password'])
-            // si l'utilisateur existe
-            // if ($userInfos && password_verify($password, $userInfos['password'])) {
-            if ($userInfos && $userInfos['password']) {
-                session_start();
-                $_SESSION['user'] = $userInfos;
-                header('HTTP/1.1 200 OK');
-                $message = "Connexion réussie";
-                header('Location: http://localhost:3000/Page/accueil.php?message=' . urlencode($message));
-                exit;
+
+            if ($userInfos && password_verify($password, $userInfos['password'])) {
+                if ($userInfos['active']){
+
+                    session_start();
+                    $_SESSION['user'] = $userInfos;
+                    header('HTTP/1.1 200 OK');
+                    $message = "Connexion réussie";
+                    header('Location: http://localhost:3000/Page/publications.php?message=' . urlencode($message));
+                    exit;
+
+                }else {
+                    $message = "Le compte a été désactiver";
+                    header('Location: http://localhost:3000?message=' . urlencode($message));
+                    exit;
+                }
                 
             } else {
                 header("HTTP/1.1 402");
@@ -238,33 +292,106 @@ class User {
         session_unset();
         session_destroy();
 
+        header('Location: http://localhost:3000');
+
     }
-    function searchRelation($params){
+    function searchRelation(){
         
+        // je récupère les champs
+        $searchBarre = $_POST['searchBarre'];
+        $query = $_POST['query'];
         //Connecter la BDD
         $db = new Database();
     
         // Ouverture de la connection
         $connection = $db->getConnection();
-    
-        $request = $connection->prepare("SELECT * FROM user WHERE firstname LIKE :params OR lastname LIKE :params");
-        $request->execute([":params" => $params]);
-        $results = $request->fetchAll(PDO::FETCH_ASSOC);
 
-        if(!$params){
-            header('Content-Type: application/json');
-            $error = array("error" => "veuillez renseigner un nom ou un prénom");
-            echo json_encode($error);
-        }
+        switch($query){
+
+            case 'user':
+
+                $request = $connection->prepare("SELECT * FROM user WHERE firstname = :searchBarre OR lastname = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+            
+            case 'group':
+
+                $request = $connection->prepare("SELECT * FROM group WHERE group.name = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+            
+            case 'promo':
+
+                $request = $connection->prepare("SELECT * FROM promo WHERE promo.promo_name = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+            
+            case 'publication':
+
+                $request = $connection->prepare("SELECT * FROM publication WHERE publication.title = :searchBarre");
+                $request->execute([
+                    ':searchBarre' => $searchBarre
+                ]);
+                $results = $request->fetchAll(PDO::FETCH_ASSOC);
+            
+                if($results){
+                    header('Content-Type: application/json');
+                    echo json_encode($results);
+                }else{
+                    $message = "Aucun résultats";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit;
+                }
+                break;
+                
+            default: 
+
+                if(!$query){
+                    $message = "Merci de choisir un filtre";
+                    header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
+                    exit; 
+                }
+            break;   
+        }  
+
     
-        if($results){
-            header('Content-Type: application/json');
-            echo json_encode($results);
-        }else{
-            header('Content-Type: application/json');
-            $error = array("error" => "Aucun résultats");
-            echo json_encode($error);
-        }
+        
     }
     
 

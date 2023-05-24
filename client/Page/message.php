@@ -15,83 +15,34 @@ session_start();
 	<div class="containerMessage">
 		<div class="slider">
 			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage ! </p>
-				</div>
+				<form action="http://localhost:4000/message" method="POST">
+					<img src="<?php $transmitter_image ?>" alt="Image de profile" class="imageProfile">
+						<div class="userMessage">
+							<h3 name="firstname" name="lastname" class="textWhite"><?php $first_name . " " . $last_name ?></h3>
+							<p name="message_content" class="textWhite"><?php $message_content ?></p>
+						</div>
+				</form>
 			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage ! </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage ! </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
 
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
-			<div class="unMessage">
-				<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-				<div class="userMessage">
-					<h3 class="textWhite">Tom Cardonnel</h3>
-					<p class="textWhite">Je suis un messaaaaaaaaaaage !Je suis un messaaaaaaaaaaage !Jenrejfbna jn
-						jodzcnab jof nej nnao fnjoaz nfjoanzjfnajoanf jean jofnjanz fj afnzjo nafn afjfna joznfj aznjaf
-						naon anfjanfjf nazjo njnafjanf jann fjaon aefjn </p>
-				</div>
-			</div>
 		</div>
 	</div>
-
 	<div class="friendsSlider friendsSliderOff" id="sliderElement">
+		<div class="icons">
+			<button class="iconRetour retourSlider textWhite" id="sliderFriendsRetour"> <img src="../asset/iconRetour.svg"
+			alt="iconRetour">Retour</button>
 
-		<button class="iconRetour retourSlider textWhite" id="sliderFriendsRetour"> <img src="../asset/iconRetour.svg"
-				alt="iconRetour">Retour</button>
+			<button class="icongroup retourSlider textWhite" id="sliderFriendsgroupe"> <a href="/Page/creategroup.php"><img src="../asset/icon+.svg"
+				alt="icongroupe"></a></button>
+		</div>
+		
 
 		<div class="allFriends">
 
 			<button class="friendList">
 				<div class="profileInvitation sliderFriendsContent">
 					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
 					<div class="nomPromo">
 						<h3 class="textWhite">Tom Cardonnel</h3>
 						<p class="textGray">Promo</p>
@@ -120,13 +71,15 @@ session_start();
 					</div>
 				</div>
 			</button>
-
 		</div>
 	</div>
 
-	<input class="sendMessage" type="text" placeholder="Envoyer un message">
+	<form action="http://localhost:4000/message/1/3/" method="POST" id="messageForm">
+    	<input name="message_content" class="sendMessage" type="text" placeholder="Envoyer un message">
+	</form>
 </main>
 <script src="../js/sliderFriends.js"></script>
+<script src="../js/message.js"></script>
 </body>
 
 </html>

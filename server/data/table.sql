@@ -120,6 +120,7 @@ CREATE TABLE `member` (
     group_id INT NOT NULL,
     user_id INT NOT NULL,
     role_id INT NOT NULL,
+    status INT NOT NULL DEFAULT 0,
     FOREIGN KEY (group_id) REFERENCES `group`(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
@@ -140,7 +141,7 @@ CREATE TABLE `role_page` (
 
 CREATE TABLE `private_message` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    message_content VARCHAR(255) NOT NULL,
+    message_content VARCHAR(255) NOT NULL DEFAULT '',
     transmitter_id INT NOT NULL,
     receiver_id INT NOT NULL,
     FOREIGN KEY (transmitter_id) REFERENCES user(id) ON DELETE CASCADE,
