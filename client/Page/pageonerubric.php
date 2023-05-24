@@ -11,7 +11,7 @@ session_start();
 
 
     <h2 class="Commentaire textWhite">Commentaire</h2>
-
+    <textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
     <div class="hube">
         <div class="contentCommentaire">
             <div class="oneComment">
