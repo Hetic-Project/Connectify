@@ -26,7 +26,7 @@ switch ($url) {
 
     case preg_match('@^/profile/feed/delete/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Feed();
-        if ($method == 'GET') {
+        if ($method == 'POST') {
             $controller->deleteFeedOfUser($matches[1]);
             $matched = true;
         } else {
