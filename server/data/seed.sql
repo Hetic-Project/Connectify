@@ -127,7 +127,7 @@ INSERT INTO `connect` (
     `user_id`,
     `friend_id`
 
-) VALUES (
+) VALUES ( 
     1,
     1
 );
