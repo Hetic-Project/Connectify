@@ -4,7 +4,7 @@ session_start();
 ?>
 
         <main class="main">
-        <a class="iconRetour" href="../page/message.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
+        <a class="iconRetour" href="../page/messagegroup.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
         <form>
                 <button class="buttonCreerGroupe1">CRÉER</button>
                 <div class="profileCreatGroupe">
