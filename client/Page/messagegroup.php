@@ -6,10 +6,10 @@ session_start();
 <main class="main">
 	<div class="iconAndUser">
 		<button id="menuBurger" class="iconsButton"><img src="../asset/iconBurger.svg" alt="menu burger"></button>
-		<div class="friendMessage">
-			<h2 class="textWhite">Tom Cardonnel</h2>
-			<p class="textGray">Promo</p>
-		</div>
+        <div class="headerGroup">
+            <h2 class="textWhite">Name Group</h2>
+            <a href="/Page/modifiergroup.php"><img src="../asset/iconSetting.svg" alt="Rechercher"></a>
+        </div>
 	</div>
 
 	<div class="containerMessage">
