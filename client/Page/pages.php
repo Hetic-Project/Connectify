@@ -30,18 +30,8 @@ session_start();
                                 </div>
                         </div>
 
-<<<<<<< HEAD
-                        <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
-
-                        
-                        <div class="containerInvitationButton">
-                                <button class="invitationButton textWhite red">Refuser</button>
-                                <button class="invitationButton textWhite green">Accepter</button>
-                        </div>
-=======
                         <button class="iconsButton" id="buttonInvitationDroit"><img
                                         src="../asset/iconRetour.svg"></button>
->>>>>>> c1b40798b951a261939babdad1496cb0c73f537a
                 </div>
 
                 <h4 class="invitationText textWhite">Cette ttestutilisateur<br>veut rejoindre vôtre groupe.</h4>
