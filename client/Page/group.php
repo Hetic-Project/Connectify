@@ -6,11 +6,12 @@ session_start();
 <main class="main">
 
         <div class="headerPublication">
-                <h2 class="textWhite">Feeds</h2>
+                <h2 class="textWhite">Name Group</h2>
 
                 <div class="iconPublication">
-                        <a href="/Page/recherche.php"><img src="../asset/iconChercher.svg" alt="Rechercher"></a>
+                        <a href="/Page/modifiergroup.php"><img src="../asset/iconSetting.svg" alt="Paramettre"></a>
                         <a href="/Page/createpost.php"><img src="../asset/icon+.svg" alt="Publier un nouveau post"></a>
+                        <a href="/Page/messagegroup.php"><img src="../asset/iconMessage2.svg" alt="Meesage du groupe"></a>
                 </div>
         </div>
 
