@@ -13,20 +13,20 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
-    case '/user':
+    case preg_match('@^/user/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new User();
         if ($method == 'GET') {
-            $controller->getOneUsers();
+            $controller->getOneUsers($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
             header('Allow: GET');
         };
         break;
-    case '/profile/update':
+    case preg_match('@^/profile/update/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new User();
         if ($method == 'POST') {
-            $controller->updateInformationsForOneUser();
+            $controller->updateInformationsForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -115,7 +115,7 @@ switch ($url) {
     // si aucune route ne correspond j'envoi une erreur
     if($matched == false){
 
-        http_response_code(404);
+        http_response_code(200);
     }
     break;
 }

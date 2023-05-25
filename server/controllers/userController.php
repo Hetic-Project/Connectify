@@ -4,45 +4,43 @@
 require_once './debug.php';
 require_once './database/client.php';
 
-
 // Création du controller users
 
 class User {
 
-    function getOneUsers(){
+    function getOneUsers($id){
 
         // j'appelle l'objet base de donnée
         $db = new Database();
 
-        // je récupère le user id
-        $id = $_SESSION['user']['id'];
-
-        // je me connecte à la BDD avec la fonction getConnection de l'objet Database
-        $connexion = $db->getConnection();
+        // je me connecte à la BDD avec la fonction getconnexion de l'objet Database
+        $connexion = $db->getconnection();
 
         // je prépare la requête
-        $request = $connexion->prepare("SELECT * FROM user WHERE user.id = :id");
+        $request = $connexion->prepare("
+        SELECT * 
+        FROM user
+        JOIN promo
+        ON user.promo_id = promo.id 
+        WHERE user.id = :id
+        ");
         // j'exécute la requête
         $request->execute([':id' => $id]);
         // je récupère tous les résultats dans users
-        $users = $request->fetchAll(PDO::FETCH_ASSOC);
-        // je ferme la connection
+        $user = $request->fetch(PDO::FETCH_ASSOC);
+        // je ferme la connexion
         $connexion = null;
 
         // je renvoie au front les données au format json
         header('Content-Type: application/json');
-        echo json_encode($users);
+        echo json_encode($user);
     }
-    function updateInformationsForOneUser(){
-
-        // je récupère l'id de la session
-        $id = $_SESSION['user']['id'];
-
-        // Connection la BDD
+    function updateInformationsForOneUser($id){
+        // connexion la BDD
         $db = new Database();
 
-        // Ouverture de la connection
-        $connexion = $db->getConnection();
+        // Ouverture de la connexion
+        $connexion = $db->getconnection();
         // je récupère les champs du formulaire signin
         $username = $_POST['username'];
         $picture = $_FILES['picture'];
@@ -67,15 +65,15 @@ class User {
                     $request->execute([':id' => $id]);
                     $user = $request->fetch(PDO::FETCH_ASSOC);
 
-                    $request = $connection->prepare("
-                        UPDATE user SET(
+                    $request = $connexion->prepare("
+                        UPDATE user SET
                             username = :username,
                             picture = :picture,
                             banner = :banner,
                             description = :description
                         WHERE
                             id = :id;
-                    )");
+                    ");
 
                     $request->execute(
                         [
@@ -86,8 +84,8 @@ class User {
                             ":id" => $id
                         ]
                     );
-                    // Fermeture de la connection
-                    $connection = null;
+                    // Fermeture de la connexion
+                    $connexion = null;
 
                     $message = "les modifications ont bien été prit en compte";
                     header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
@@ -116,15 +114,15 @@ class User {
                     // Déplacer l'image du chemin temporaire vers le chemin final
                     if(move_uploaded_file($banner['tmp_name'], $targetPath)) {
                         // je prépare ma requète
-                        $request = $connection->prepare("
-                            UPDATE user SET(
+                        $request = $connexion->prepare("
+                            UPDATE user SET
                                 username = :username,
                                 picture = :picture,
                                 banner = :banner,
                                 description = :description
                             WHERE
                                 id = :id;
-                        )");
+                        ");
 
                         $bannerPath = 'http://localhost:4000/images/banners/' . $fileName;
 
@@ -137,8 +135,8 @@ class User {
                                 ":id" => $id
                             ]
                         );
-                        // Fermeture de la connection
-                        $connection = null;
+                        // Fermeture de la connexion
+                        $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
                         header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
@@ -171,15 +169,15 @@ class User {
                     // Déplacer l'image du chemin temporaire vers le chemin final
                     if(move_uploaded_file($picture['tmp_name'], $targetPath)) {
                         // je prépare ma requète
-                        $request = $connection->prepare("
-                            UPDATE user SET(
+                        $request = $connexion->prepare("
+                            UPDATE user SET
                                 username = :username,
                                 picture = :picture,
                                 banner = :banner,
                                 description = :description
                             WHERE
                                 id = :id;
-                        )");
+                        ");
 
                         $picturePath = 'http://localhost:4000/images/pictures/' . $fileName;
 
@@ -192,8 +190,8 @@ class User {
                                 ":id" => $id
                             ]
                         );
-                        // Fermeture de la connection
-                        $connection = null;
+                        // Fermeture de la connexion
+                        $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
                         header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
@@ -224,15 +222,15 @@ class User {
 
                     if(move_uploaded_file($banner['tmp_name'], $bannerPath) && move_uploaded_file($picture['tmp_name'], $picturePath)) {
                          // je prépare ma requète
-                        $request = $connection->prepare("
-                            UPDATE user SET(
+                        $request = $connexion->prepare("
+                            UPDATE user SET
                                 username = :username,
                                 picture = :picture,
                                 banner = :banner,
                                 description = :description
                             WHERE
                                 id = :id;
-                        )");
+                        ");
 
                         $pictPath = 'http://localhost:4000/images/pictures/' . $fileName;
                         $banPath = 'http://localhost:4000/images/banners/' . $fileName;
@@ -246,8 +244,8 @@ class User {
                                 ":id" => $id
                             ]
                         );
-                        // Fermeture de la connection
-                        $connection = null;
+                        // Fermeture de la connexion
+                        $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
                         header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
@@ -274,14 +272,14 @@ class User {
                 // Déplacer l'image du chemin temporaire vers le chemin final
                 if(move_uploaded_file($picture['tmp_name'], $targetPath)) {
                     // je prépare ma requète
-                    $request = $connection->prepare("
-                        UPDATE user SET(
+                    $request = $connexion->prepare("
+                        UPDATE user SET
                             username = :username,
                             picture = :picture,
                             description = :description
                         WHERE
                             id = :id;
-                    )");
+                    ");
 
                     $picturePath = 'http://localhost:4000/images/pictures/' . $fileName;
 
@@ -293,8 +291,8 @@ class User {
                             ":id" => $id
                         ]
                     );
-                    // Fermeture de la connection
-                    $connection = null;
+                    // Fermeture de la connexion
+                    $connexion = null;
 
                     $message = "les modifications ont bien été prit en compte";
                     header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
@@ -319,14 +317,14 @@ class User {
             // Déplacer l'image du chemin temporaire vers le chemin final
             if(move_uploaded_file($banner['tmp_name'], $targetPath)) {
                 // je prépare ma requète
-                $request = $connection->prepare("
-                    UPDATE user SET(
+                $request = $connexion->prepare("
+                    UPDATE user SET
                         username = :username,
                         banner = :banner,
                         description = :description
                     WHERE
                         id = :id;
-                )");
+                ");
 
                 $bannerPath = 'http://localhost:4000/images/banners/' . $fileName;
 
@@ -338,8 +336,8 @@ class User {
                         ":id" => $id
                     ]
                 );
-                // Fermeture de la connection
-                $connection = null;
+                // Fermeture de la connexion
+                $connexion = null;
 
                 $message = "les modifications ont bien été prit en compte";
                 header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
@@ -352,13 +350,13 @@ class User {
         } else {
             // Aucun des deux fichiers n'est présent
              // je prépare ma requète
-             $request = $connection->prepare("
-                UPDATE user SET(
+             $request = $connexion->prepare("
+                UPDATE user SET
                     username = :username,
                     description = :description
                 WHERE
                     id = :id;
-            )");
+            ");
 
             $request->execute(
                 [
@@ -367,8 +365,8 @@ class User {
                     ":id" => $id
                 ]
             );
-            // Fermeture de la connection
-            $connection = null;
+            // Fermeture de la connexion
+            $connexion = null;
 
             $message = "les modifications ont bien été prit en compte";
             header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
@@ -379,18 +377,18 @@ class User {
         // je récupère l'id de la session
         $id = $_SESSION['user']['id'];
 
-        // Connection la BDD
+        // connexion la BDD
         $db = new Database();
 
-        // Ouverture de la connection
-        $connection = $db->getConnection();
+        // Ouverture de la connexion
+        $connexion = $db->getconnection();
         // je prépare ma requète
-        $request = $connection->prepare("UPDATE user SET active = FALSE WHERE user.id = :id");
+        $request = $connexion->prepare("UPDATE user SET active = FALSE WHERE user.id = :id");
 
         $request->execute([":id" => $id]);
 
-        // Fermeture de la connection
-        $connection = null;
+        // Fermeture de la connexion
+        $connexion = null;
 
         $message = "Le compte a été désactivé avec succès";
         header('Location: http://localhost:3000?message=' . urlencode($message));
@@ -401,18 +399,18 @@ class User {
         // je récupère l'id de la session
         $id = $_SESSION['user']['id'];
 
-        // Connection la BDD
+        // connexion la BDD
         $db = new Database();
 
-        // Ouverture de la connection
-        $connection = $db->getConnection();
+        // Ouverture de la connexion
+        $connexion = $db->getconnection();
         // je prépare ma requète
-        $request = $connection->prepare("UPDATE user SET active = TRUE WHERE user.id = :id");
+        $request = $connexion->prepare("UPDATE user SET active = TRUE WHERE user.id = :id");
 
         $request->execute([":id" => $id]);
 
-        // Fermeture de la connection
-        $connection = null;
+        // Fermeture de la connexion
+        $connexion = null;
 
         $message = "Le compte a été réactiver";
         header('Location: http://localhost:3000?message=' . urlencode($message));
@@ -425,8 +423,8 @@ class User {
         // j'appelle l'objet base de donnée
         $db = new Database();
 
-        // je me connecte à la BDD avec la fonction getConnection de l'objet Database
-        $connexion = $db->getConnection();
+        // je me connecte à la BDD avec la fonction getconnexion de l'objet Database
+        $connexion = $db->getconnection();
 
         // je prépare la requête
         $request = $connexion->prepare("DELETE FROM user WHERE user.id = :id");
@@ -445,9 +443,8 @@ class User {
         //Connecter la BDD
         $db = new Database();
 
-        // Ouverture de la connection
-        $connection = $db->getConnection();
-        $_SESSION['user'] = $userInfos;
+        // Ouverture de la connexion
+        $connexion = $db->getconnection();
 
         // récupérer les champs du formulaire login
         $username = $_POST['username'];
@@ -456,7 +453,7 @@ class User {
         // si les champs son renseigner
         if($username && $password) {
             // Requêtes SQL
-            $request = $connection->prepare("
+            $request = $connexion->prepare("
                 SELECT user.id, user.password, user.active, role.name
                 FROM user 
                 JOIN role
@@ -469,7 +466,6 @@ class User {
             if ($userInfos && password_verify($password, $userInfos['password'])) {
                 if ($userInfos['active']){
 
-                    session_start();
                     $_SESSION['user'] = $userInfos;
                     header('HTTP/1.1 200 OK');
                     $message = "Connexion réussie";
@@ -494,8 +490,8 @@ class User {
             exit;
         }
         
-        // Fermeture de la connection
-        $connection = null;
+        // Fermeture de la connexion
+        $connexion = null;
 
 
     }
@@ -505,8 +501,8 @@ class User {
         //Connecter la BDD
         $db = new Database();
 
-        // Ouverture de la connection
-        $connection = $db->getConnection();
+        // Ouverture de la connexion
+        $connexion = $db->getconnection();
 
         // je récupère les champs du formulaire signin
         $firstname = $_POST['firstname'];
@@ -541,7 +537,7 @@ class User {
                     // Je hash le mot de passe
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                     // je prépare ma requète
-                    $request = $connection->prepare("
+                    $request = $connexion->prepare("
                     INSERT INTO user (
                         firstname,
                         lastname,
@@ -576,8 +572,8 @@ class User {
                             ":promo_id" => $promo_id
                         ]
                     );
-                    // Fermeture de la connection
-                    $connection = null;
+                    // Fermeture de la connexion
+                    $connexion = null;
 
                     $message = "l'étudiant a bien été créé";
                     header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
@@ -605,7 +601,7 @@ class User {
                 // Je hash le mot de passe
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 // je prépare ma requète
-                $request = $connection->prepare("
+                $request = $connexion->prepare("
                 INSERT INTO user (
                     firstname,
                     lastname,
@@ -634,8 +630,8 @@ class User {
                         ":promo_id" => $promo_id
                     ]
                 );
-                // Fermeture de la connection
-                $connection = null;
+                // Fermeture de la connexion
+                $connexion = null;
     
                 $message = "l'étudiant a bien été créé";
                 header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
@@ -665,14 +661,14 @@ class User {
         //Connecter la BDD
         $db = new Database();
     
-        // Ouverture de la connection
-        $connection = $db->getConnection();
+        // Ouverture de la connexion
+        $connexion = $db->getconnection();
 
         switch($query){
 
             case 'user':
 
-                $request = $connection->prepare("SELECT * FROM user WHERE firstname = :searchBarre OR lastname = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM user WHERE firstname = :searchBarre OR lastname = :searchBarre");
                 $request->execute([
                     ':searchBarre' => $searchBarre
                 ]);
@@ -690,7 +686,7 @@ class User {
             
             case 'group':
 
-                $request = $connection->prepare("SELECT * FROM group WHERE group.name = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM group WHERE group.name = :searchBarre");
                 $request->execute([
                     ':searchBarre' => $searchBarre
                 ]);
@@ -708,7 +704,7 @@ class User {
             
             case 'promo':
 
-                $request = $connection->prepare("SELECT * FROM promo WHERE promo.promo_name = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM promo WHERE promo.promo_name = :searchBarre");
                 $request->execute([
                     ':searchBarre' => $searchBarre
                 ]);
@@ -726,7 +722,7 @@ class User {
             
             case 'publication':
 
-                $request = $connection->prepare("SELECT * FROM publication WHERE publication.title = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM publication WHERE publication.title = :searchBarre");
                 $request->execute([
                     ':searchBarre' => $searchBarre
                 ]);
@@ -754,8 +750,5 @@ class User {
 
     
         
-    }
-    
-
-    
+    }  
 }

@@ -3,11 +3,62 @@
 //Inclusion du fichier pour la connexion a la BDD
 require_once './debug.php';
 require_once './database/client.php';
+session_start();
 
 
 // Création du controller users
 
 class Group {
+
+    function getAllgroupForOneUser ($id){
+        
+        $db = new Database();
+
+        $connexion = $db->getConnection();
+
+        // je récupère tout les group d'un utilisateur 
+        $request = $connexion->prepare("  
+            SELECT group.name, group.status, group.id
+            FROM member
+            JOIN `group`
+            ON member.group_id = group.id
+            WHERE member.user_id = :id
+        ");
+        
+        $request->execute([
+            ':id' => $id
+        ]);
+
+        $groups = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        // je renvoie au front les données au format json
+        header('Content-Type: application/json');
+        echo json_encode($groups);
+    }
+
+    function getOnegroupInfo ($group_id){
+
+        $db = new Database();
+
+        $connexion = $db->getConnection();
+
+        // je récupère tout les group d'un utilisateur 
+        $request = $connexion->prepare("  
+            SELECT group.name, group.description
+            FROM `group`
+            WHERE group.id = :group_id
+        ");
+        
+        $request->execute([
+            ':group_id' => $group_id
+        ]);
+
+        $group = $request->fetch(PDO::FETCH_ASSOC);
+
+        // je renvoie au front les données au format json
+        header('Content-Type: application/json');
+        echo json_encode($group);
+    }
 
     function addGroupPublicOrPrivateForOneUser (){
 
@@ -25,13 +76,8 @@ class Group {
         $connexion = $db->getConnection();
 
         $requestGroup = $connexion->prepare("
-            INSERT INTO `group` (name, description, status)
+            INSERT INTO `group` (group.name, group.description, group.status)
             VALUES (:name, :description, :status);
-        ");
-
-        $requestMember = $connexion->prepare("
-            INSERT INTO membre (group_id, user_id, role_id)
-            VALUES (:group_id, :user_id, 3);
         ");
 
         $requestGroup->execute([
@@ -42,15 +88,18 @@ class Group {
 
         $group_id = $connexion->lastInsertId();
 
+        $requestMember = $connexion->prepare("
+            INSERT INTO member (group_id, user_id, role_id)
+            VALUES (:group_id, :user_id, 3);
+        ");
+
         $requestMember->execute([
             'group_id' => $group_id,
             'user_id' => $id
         ]);
 
         $connection = null;
-
-        $message = "Le groupe a été créer avec succes";
-        header('Location: http://localhost:3000/Page/#.php/' . $group_id . '?message=' . urlencode($message));
+        header('Location: http://localhost:3000/Page/group.php');
         exit;
 
     }
