@@ -8,13 +8,17 @@ session_start();
 	<div class="onePublication">
 		<?php include "containerpublication.php" ?>
 	</div>
+
 	<h2 class="Commentaire textWhite">Espace Commentaire</h2>
+	
 	<div class="ajoutCommentaire">
-		<h4 class="ajoutComment textWhite">
-			Ajouter un Commentaire :
-		</h4>
-		<textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
-		<button class="buttonPublier3">PUBLIER</button>
+		<form action="">
+			<h4 class="ajoutComment textWhite">
+				Ajouter un Commentaire :
+			</h4>
+			<textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
+			<button class="buttonPublier3">PUBLIER</button>
+		</form>
 	</div>
 
 	<div class="hube">
