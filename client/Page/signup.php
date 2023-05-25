@@ -9,7 +9,7 @@ session_start();
         <div class="wrapper">
             <h1 class="titreConnexion textWhite">Inscription</h1>
             <p class="textSignin textWhite">Utilisez les identifiants fournis par votre établissement</p>
-            <form action="http://localhost:4000/profile/signup" method="POST">
+            <form action="http://localhost:4000/profile/signup" method="POST" enctype="multipart/form-data">
                 <input name="picture" type="file" placeholder="Enter picture" accept=".jpeg, .jpg, .png">
                 <input name="firstname" type="text" placeholder="Enter First name">
                 <input name="lastname" type="text" placeholder="Enter LastName">

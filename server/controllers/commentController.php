@@ -23,6 +23,7 @@ class Comment {
                                             JOIN user 
                                             ON comment.user_id = user.id 
                                             WHERE comment.publication_id = :publication_id
+
                                             "); 
             // j'exécute la requête
             $request->execute([

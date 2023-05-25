@@ -13,10 +13,22 @@ $matched = false;
 
 switch ($url) {
     // Route utilisateur de l'API
+
+    case 'pages/get':
+        $controller = new Page();
+        if ($method == 'GET') {
+            $controller->getAllPages();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: GET');
+        };
+        break;
+
     case preg_match('@^/page/get/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Page();
         if ($method == 'GET') {
-            $controller->getPageForOneUser($matches[1]);
+            $controller->getOnePage($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -27,7 +39,7 @@ switch ($url) {
     case '/page/add':
         $controller = new Page();
         if ($method == 'POST') {
-            $controller->addPageForOneUser($matches[1]);
+            $controller->createPage();
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');

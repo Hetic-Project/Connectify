@@ -11,8 +11,6 @@ class Message {
 
     function sendPrivateMessage($receiver_id) {
         
-        session_start();
-    
         // Connexion à la base de données
         $db = new Database();
         $connection = $db->getConnection();
@@ -23,8 +21,6 @@ class Message {
         // Récupère l'identité de l'utilisateur émetteur depuis la session
         $id = $_SESSION['user']['id'];
 
-
-    
         // Insertion du message dans la table private_message
         $sql = "INSERT INTO private_message (message_content, transmitter_id, receiver_id) VALUES (:message_content, :transmitter_id, :receiver_id)";
         $statement = $connection->prepare($sql);
@@ -34,7 +30,7 @@ class Message {
             ':receiver_id' => $receiver_id
         ]);
         
-        $message_id = $connection->lastInsertId();
+        $message_id = $connection->lastInsertId(); // lastInsertId prend le dernier id du message créé.
 
         if ($message_id) {
             // Récupération du message inséré
@@ -45,14 +41,10 @@ class Message {
             ]);
             
             $message = $statement->fetch(PDO::FETCH_ASSOC);
-    
-            // Fermeture de la connexion à la base de données
             $connection = null;
+
+            return json_encode($message);
     
-            // Retourne le message inséré en JSON
-            $message = "le message a été envoyé";
-            header('Location: http://localhost:3000/Page/message.php?message=' . urlencode($message));
-            exit;
         } else {
             // Retourne une réponse d'erreur en JSON
             header('HTTP/1.1 500 Internal Server Error');
@@ -60,127 +52,133 @@ class Message {
         }
     }
     
-
     function receivePrivateMessage($receiver_id) {
         // J'appelle l'objet base de données
         $db = new Database();
     
         // Je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connection = $db->getConnection();
-        $id = $_SESSION['user']['id'];
-    
+        // $id = $_SESSION['user']['id'];
+        
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
-        $sql = "SELECT private_message.message_content, user.firstname, user.lastname
-        FROM private_message
-        JOIN user ON private_message.transmitter_id = user.id";
-        //WHERE (private_message.receiver_id = :id AND private_message.transmitter_id = :transmitter_id) 
-        // OR (private_message.receiver_id = :transmitter_id AND private_message.transmitter_id = :id)";
+        $sql = "
+            SELECT private_message.message_content, user.firstname, user.lastname
+            FROM private_message
+            JOIN user ON private_message.transmitter_id = user.id
+            WHERE private_message.receiver_id = :id
+        ";
         $statement = $connection->prepare($sql);
+
+        $statement->execute([
+            ':id' => $receiver_id
+        ]);
     
-        // J'exécute la requête en fournissant les valeurs des paramètres
-        if ($statement->execute(array(':id' => $id))) {
-            // La requête s'est exécutée avec succès
-    
-            // Récupérer tous les résultats dans un tableau
-            $messages = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-            // Fermeture de la connexion
-            $connection = null;
-    
-            // Réponse JSON indiquant les messages privés
-            header('Content-Type: application/json');
-            echo json_encode($messages);
-        } else {
-            // Erreur lors de l'exécution de la requête
-    
-            // Fermeture de la connexion
-            $connection = null;
-    
-            // Réponse JSON indiquant l'erreur
-            $response = array('success' => false, 'message' => 'Failed to retrieve private messages.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
-        }
+        $messages = $statement->fetchAll(PDO::FETCH_ASSOC);
+        
+        header('Content-Type: application/json');
+        echo json_encode($messages);
+        
     }
-
     // Le formulaire en front doit contenir un champ new_message_content qui contient le nouveau contenu du message
-    function ifAuthorUpdateMessage($id_message, $new_message_content) {
+    function ifAuthorUpdateMessage($id_message) {
 
-        // $id_message = 1;
-        // $user_id = 1;
-        // $new_message_content = 1;
-        $new_message_content = $_POST['new_message_content'];
+        $id = $_SESSION['user']['id'];
+        $message_content = $_POST['message_content'];
         
         // J'appelle l'objet base de données
         $db = new Database();
         
         // Je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connection = $db->getConnection();
+
+        // vérififie si auteur du message
         
-        // Je prépare la requête pour sélectionner le message avec l'ID donné
-        $sql = "SELECT transmitter_id FROM private_message WHERE id = :id_message";
+        $sql = "
+            SELECT transmitter_id 
+            FROM private_message 
+            WHERE private_message.transmitter_id = :id
+            AND private_message.id = :id_message
+        ";
         $statement = $connection->prepare($sql);
         
         // J'exécute la requête en fournissant la valeur du paramètre
-        $statement->execute(array(':id_message' => $id_message));
+        $statement->execute([
+            ':id' => $id,
+            ':id_message' => $id_message
+        ]);
         
         // Je récupère le résultat de la requête
         $message = $statement->fetch(PDO::FETCH_ASSOC);
         
         if (!$message) {
-            // Message non trouvé
-            $response = array('success' => false, 'message' => 'Message not found.');
+            // n'est pas l'auteur de commentaire
+            $connection = null;
+            $response = array('success' => false, 'message' => 'Not Author of the message');
             header('Content-Type: application/json');
-            echo json_encode($response);
-            return;
+            return json_encode($response);
+        } else {
+            // lorsque l'utilisateur est l'auteur du message
+            $sql = "
+                UPDATE private_message 
+                SET message_content = :message_content
+                WHERE id = :id_message
+            ";
+            $statement = $connection->prepare($sql);
+            $statement->execute([
+                ':message_content' => $message_content,
+                ':id_message' => $id_message
+            ]);
+            $connection = null;
+            $response = array('success' => true, 'message' => 'Message updated successfully.');
+            header('Content-Type: application/json');
+            return json_encode($response);
         }
-        
-        // if ($message['transmitter_id'] !== $user_id) {
-        //     // L'utilisateur n'est pas l'auteur du message
-        //     $response = array('success' => false, 'message' => 'You are not the author of this message.');
-        //     header('Content-Type: application/json');
-        //     echo json_encode($response);
-        //     return;
-        // }
-        
-        // lorsque l'utilisateur est l'auteur du message
-        $sql = "UPDATE private_message SET message_content = :new_message_content, updated_at = CURRENT_TIMESTAMP WHERE id = :id_message";
-        $statement = $connection->prepare($sql);
-        $statement->execute(array(':id_message' => $id_message, ':new_message_content' => $new_message_content));
-        
-        $response = array('success' => true, 'message' => 'Message updated successfully.');
-        header('Content-Type: application/json');
-        echo json_encode($response);
     }
-    
-    
     function ifAuthorDeleteMessage($message_id) {
 
         $id = $_SESSION['user']['id'];
-
-    
-        // Connexion à la DDB
+        
+        // J'appelle l'objet base de données
         $db = new Database();
+        
+        // Je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connection = $db->getConnection();
-    
-        // Vérifier si l'utilisateur est l'auteur du message
-        $sql = "SELECT id FROM private_message WHERE id = :message_id AND transmitter_id = :user_id";
+
+        // vérififie si auteur du message
+        
+        $sql = "
+            SELECT transmitter_id 
+            FROM private_message 
+            WHERE private_message.transmitter_id = :id
+            AND private_message.id = :id_message
+        ";
         $statement = $connection->prepare($sql);
-        $statement->bindValue(':message_id', $message_id);
-        $statement->bindValue(':user_id', $id);
-        $statement->execute();
+        
+        // J'exécute la requête en fournissant la valeur du paramètre
+        $statement->execute([
+            ':id' => $id,
+            ':id_message' => $id_message
+        ]);
+        
+        // Je récupère le résultat de la requête
+        $message = $statement->fetch(PDO::FETCH_ASSOC);
     
-        if ($statement->rowCount() > 0) {
+        if ($message) {
             // L'utilisateur est l'auteur du message, procéder à la suppression
-            $sql = "DELETE FROM private_message WHERE id = :message_id";
-            $deleteStatement = $connection->prepare($sql);
-            $deleteStatement->bindValue(':message_id', $message_id);
+            $sql = "
+                DELETE FROM private_message 
+                WHERE id = :message_id
+            ";
+            $deleteMessage = $connection->prepare($sql);
+
+            $deleteMessage->execute([
+                ':message_id' => $message_id
+            ]);
+
+            $message = "le message a bien été supprimé";
+            header('Location: http://localhost:3000/Page/message.php?message=' . urlencode($message));
+            exit;
     
-            if ($deleteStatement->execute()) {
-                $response = array('success' => true, 'message' => 'Message deleted successfully.');
-            } else {
-                $response = array('success' => false, 'message' => 'Failed to delete message.');
-            }
         } else {
             // L'utilisateur n'est pas l'auteur du message
             $response = array('success' => false, 'message' => 'User is not the author of the message.');
@@ -188,9 +186,6 @@ class Message {
     
         // Éteindre la connexion à la DDB
         $connection = null;
-    
-        // Retourner la réponse en JSON
-        header('Content-Type: application/json');
-        echo json_encode($response);
+
     }
 }

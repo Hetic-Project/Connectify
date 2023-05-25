@@ -12,33 +12,12 @@ $method = $_SERVER['REQUEST_METHOD'];
 $matched = false;
 
 switch ($url) {
-    // Route utilisateur de l'API
-    case preg_match('@^/group/create/(\d+)$@', $url, $matches) ? $url : '':
-        $controller = new Group();
-        if ($method == 'POST') {
-            $controller->addGroupPublicOrPrivateForOneUser($matches[1]);
-            $matched = true;
-        } else {
-            header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: GET');
-        };
-        break;
-        
-    case preg_match('@^/group/join/(\d+)$@', $url, $matches) ? $url : '':
-        $controller = new Group();
-        if ($method == 'POST') {
-            $controller->joinGroupPublicForOneUser($matches[1]);
-            $matched = true;
-        } else {
-            header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
-        };
-        break;
 
-    case preg_match('@^/group/apply/(\d+)$@', $url, $matches) ? $url : '':
+    // Route utilisateur de l'API
+    case preg_match('@^/group/user/get/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
-            $controller->joinGroupPrivateForOneUser($matches[1]);
+            $controller->getAllgroupForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -46,10 +25,32 @@ switch ($url) {
         };
         break;
     
-    case preg_match('@^/group/publications/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/group/info/(\d+)$@', $url, $matches) ? $url : '':
+        $controller = new Group();
+        if ($method == 'GET') {
+            $controller->getOnegroupInfo($matches[1]);
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: GET');
+        };
+        break;
+
+    case '/group/create':
         $controller = new Group();
         if ($method == 'POST') {
-            $controller->getGroupPublicationForMembers($matches[1]);
+            $controller->addGroupPublicOrPrivateForOneUser();
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: POST');
+        };
+        break;
+        
+    case preg_match('@^/group/join/(\d+)$@', $url, $matches) ? $url : '':
+        $controller = new Group();
+        if ($method == 'POST') {
+            $controller->joinGroupPublicOrPrivateForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -57,10 +58,10 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/group/invite/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/group/relation/invite/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'POST') {
-            $controller->addRelationOnGroup($matches[1]);
+            $controller->addRelationOnGroup($matches[1], $matches[2]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -68,10 +69,10 @@ switch ($url) {
         };
         break;
 
-    case '/group/approve':
+    case preg_match('@^/group/member/accept/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
-            $controller->acceptOrDeniedCandidateInGroup($matches[1]);
+            $controller->acceptOrDeniedCandidateInGroup($matches[1], $matches[2]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -79,10 +80,10 @@ switch ($url) {
         };
         break;
 
-    case '/group/user/update/rights':
+    case preg_match('@^/group/member/update/rights/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
-            $controller->ifAdminSetOtherAdminInGroup($matches[1]);
+            $controller->ifAdminSetOtherAdminInGroup($matches[1], $matches[2]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -90,10 +91,10 @@ switch ($url) {
         };
         break;
 
-    case '/group/user/delete':
+    case preg_match('@^/group/member/banish/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
-            $controller->ifAdminBanishMember($matches[1]);
+            $controller->ifAdminBanishMember($matches[1], $matches[2]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
@@ -101,7 +102,7 @@ switch ($url) {
         };
         break;
 
-    case '/group/update/info':
+    case preg_match('@^/group/update/info/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Group();
         if ($method == 'GET') {
             $controller->ifAdminUpdateGroupInfo($matches[1]);

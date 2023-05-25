@@ -1,39 +1,43 @@
 <?php
+ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
+
+$id = $_SESSION['user']['id'];
+
+$userInfo = "http://localhost:4000/user/" . $id;
+// Effectuer la requête GET
+$json = file_get_contents($userInfo);
+$user = json_decode($json, true);
 ?>
 
 <main class="main" overflow="hidden">
 
-    <img class="banniereProfil" src="<?= $gcef ?>">
+    <img class="banniereProfil" src="<?= $user['banner'] ?>">
     </img>
 
     <div class="profileInvitation">
-        <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
+        <img src="<?=$user['picture']?>" alt="Image de profile" class="imageProfile">
         <div class="nomPromo">
-            <h3 class="textWhite">Rubens Bonnin</h3>
-            <p class="textGray">Promo</p>
+            <h3 class="textWhite"><?=$user['firstname']?> <?=$user['lastname']?></h3>
+            <p class="textGray"><?=$user['promo_name'] ?></p>
         </div>
         <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
-        <a class="boutonModifier textWhite" href="../page/modifierprofile.php">Modifier le Profil</a>
+        <a class="boutonModifier textWhite" href="../Page/modifierprofile.php">Modifier le Profil</a>
         <!-- </btn> -->
     </div>
     <br>
     <div class="Description">
-        <h4 class="textWhite">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. </h4>
-        <br>
-
-        <p class="textGray"> 42 abonnés 666 abonnements
-        <form action="http://localhost:4000/group/join/users_id" method="POST">
-        </form>
-        </p>
+        <p class="textWhite"><?=$user['description'] ?></p>
     </div>
 
     <div class="contentBtn">
         <button id="left-button" class="enlarge textWhite">Publications</button>
         <button id="right-button" class="textWhite">Liste d'Amis</button>
+        <form action="http://localhost:4000/profile/logout" method="POST">
+            <button id="right-button" class="textWhite">déconnection</button>
+
+        </form>
     </div>
 
     <div class="Publication" id="contentPublication">
