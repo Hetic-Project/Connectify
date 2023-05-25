@@ -42,29 +42,319 @@ class User {
         $db = new Database();
 
         // Ouverture de la connection
-        $connection = $db->getConnection();
-
+        $connexion = $db->getConnection();
         // je récupère les champs du formulaire signin
-        $firstname = filter_input(INPUT_POST, 'firstname');
-        $lastname = filter_input(INPUT_POST, 'lastname');
-        $mail = filter_input(INPUT_POST, 'mail');
-        $username = filter_input(INPUT_POST, 'username');
-        $picture = filter_input(INPUT_POST, 'picture');
-        $banner = filter_input(INPUT_POST, 'banner');
-        $description = filter_input(INPUT_POST, 'description');
+        $username = $_POST['username'];
+        $picture = $_FILES['picture'];
+        $banner = $_FILES['banner'];
+        $description = $_POST['description'];
 
-        // si tous les champs sont remplies
-        if($firstname && $lastname && $mail && $username && $picture && $banner && $description){
+        $pictureDir = './images/pictures/';
+        $bannerDir = './images/banners/';
 
-            // je prépare ma requète
-            $request = $connection->prepare("
+        // Vérification pour la picture
+        if (isset($picture['name'])) {
+            $picturePath = $pictureDir . basename($picture['name']);
+
+            // Vérification pour le banner
+            if (isset($banner['name'])) {
+                $bannerPath = $bannerDir . basename($banner['name']);
+
+                if (file_exists($picturePath) && file_exists($bannerPath)) {
+                    // Les deux fichiers existent déjà
+                    // je récupère le banner et la picture
+                    $request = $connexion->prepare("SELECT user.picture, user.banner FROM user WHERE user.id = :id");
+                    $request->execute([':id' => $id]);
+                    $user = $request->fetch(PDO::FETCH_ASSOC);
+
+                    $request = $connection->prepare("
+                        UPDATE user SET(
+                            username = :username,
+                            picture = :picture,
+                            banner = :banner,
+                            description = :description
+                        WHERE
+                            id = :id;
+                    )");
+
+                    $request->execute(
+                        [
+                            ":username" => $username,
+                            ":picture" => $user['picture'],
+                            ":banner" => $user['banner'],
+                            ":description" => $description,
+                            ":id" => $id
+                        ]
+                    );
+                    // Fermeture de la connection
+                    $connection = null;
+
+                    $message = "les modifications ont bien été prit en compte";
+                    header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                    exit;
+
+                } elseif (file_exists($picturePath)) {
+                    // Seule la picture existe déjà
+
+                    // je récupère la picture
+                    $request = $connexion->prepare("SELECT user.picture FROM user WHERE user.id = :id");
+                    $request->execute([':id' => $id]);
+                    $user = $request->fetch(PDO::FETCH_ASSOC);
+
+                    $targetDir = './images/banners/';
+                    $fileName = basename($banner['name']);
+                    $targetPath = $targetDir . $fileName;
+
+                    $imageFileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+
+                    if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+                        header('HTTP/1.1 400 Bad Request');
+                        echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                        return;
+                    }
+
+                    // Déplacer l'image du chemin temporaire vers le chemin final
+                    if(move_uploaded_file($banner['tmp_name'], $targetPath)) {
+                        // je prépare ma requète
+                        $request = $connection->prepare("
+                            UPDATE user SET(
+                                username = :username,
+                                picture = :picture,
+                                banner = :banner,
+                                description = :description
+                            WHERE
+                                id = :id;
+                        )");
+
+                        $bannerPath = 'http://localhost:4000/images/banners/' . $fileName;
+
+                        $request->execute(
+                            [
+                                ":username" => $username,
+                                ":picture" => $user['picture'],
+                                ":banner" => $bannerPath,
+                                ":description" => $description,
+                                ":id" => $id
+                            ]
+                        );
+                        // Fermeture de la connection
+                        $connection = null;
+
+                        $message = "les modifications ont bien été prit en compte";
+                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        exit;
+
+                    }else{
+                        $uploadMaxFileSize = ini_get('upload_max_filesize');
+                        echo $uploadMaxFileSize; // 2Mo
+                        return "la taille maximal de l'image ne dois pas etre supérieur a " . ' ' . $uploadMaxFileSize;
+                    }
+                    
+                } elseif (file_exists($bannerPath)) {
+                    // Seul le banner existe déjà
+                    $request = $connexion->prepare("SELECT user.banner FROM user WHERE user.id = :id");
+                    $request->execute([':id' => $id]);
+                    $user = $request->fetch(PDO::FETCH_ASSOC);
+
+                    $targetDir = './images/pictures/';
+                    $fileName = basename($picture['name']);
+                    $targetPath = $targetDir . $fileName;
+
+                    $imageFileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+
+                    if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+                        header('HTTP/1.1 400 Bad Request');
+                        echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                        return;
+                    }
+
+                    // Déplacer l'image du chemin temporaire vers le chemin final
+                    if(move_uploaded_file($picture['tmp_name'], $targetPath)) {
+                        // je prépare ma requète
+                        $request = $connection->prepare("
+                            UPDATE user SET(
+                                username = :username,
+                                picture = :picture,
+                                banner = :banner,
+                                description = :description
+                            WHERE
+                                id = :id;
+                        )");
+
+                        $picturePath = 'http://localhost:4000/images/pictures/' . $fileName;
+
+                        $request->execute(
+                            [
+                                ":username" => $username,
+                                ":picture" => $picturePath,
+                                ":banner" => $user['banner'],
+                                ":description" => $description,
+                                ":id" => $id
+                            ]
+                        );
+                        // Fermeture de la connection
+                        $connection = null;
+
+                        $message = "les modifications ont bien été prit en compte";
+                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        exit;
+                    }else{
+                        $uploadMaxFileSize = ini_get('upload_max_filesize');
+                        echo $uploadMaxFileSize; // 2Mo
+                        return "la taille maximal de l'image ne dois pas etre supérieur a " . ' ' . $uploadMaxFileSize;
+                    }
+                } else {
+                    // Aucun des deux fichiers n'existe
+                    $bannerDir = './images/banners/';
+                    $bannerName = basename($banner['name']);
+                    $bannerPath = $targetDir . $fileName;
+
+                    $pictureDir = './images/pictures/';
+                    $pictureName = basename($picture['name']);
+                    $picturePath = $targetDir . $fileName;
+
+                    $bannerFileType = strtolower(pathinfo($bannerPath, PATHINFO_EXTENSION));
+                    $pictureFileType = strtolower(pathinfo($picturePath, PATHINFO_EXTENSION));
+
+                    if (!in_array($bannerFileType, ['jpg', 'jpeg', 'png']) && !in_array($pictureFileType, ['jpg', 'jpeg', 'png'])) {
+                        header('HTTP/1.1 400 Bad Request');
+                        echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                        return;
+                    }
+
+                    if(move_uploaded_file($banner['tmp_name'], $bannerPath) && move_uploaded_file($picture['tmp_name'], $picturePath)) {
+                         // je prépare ma requète
+                        $request = $connection->prepare("
+                            UPDATE user SET(
+                                username = :username,
+                                picture = :picture,
+                                banner = :banner,
+                                description = :description
+                            WHERE
+                                id = :id;
+                        )");
+
+                        $pictPath = 'http://localhost:4000/images/pictures/' . $fileName;
+                        $banPath = 'http://localhost:4000/images/banners/' . $fileName;
+
+                        $request->execute(
+                            [
+                                ":username" => $username,
+                                ":picture" => $pictPath,
+                                ":banner" => $banPath,
+                                ":description" => $description,
+                                ":id" => $id
+                            ]
+                        );
+                        // Fermeture de la connection
+                        $connection = null;
+
+                        $message = "les modifications ont bien été prit en compte";
+                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        exit;
+                    }else{
+                        $uploadMaxFileSize = ini_get('upload_max_filesize');
+                        echo $uploadMaxFileSize; // 2Mo
+                        return "la taille maximal de l'image ne dois pas etre supérieur a " . ' ' . $uploadMaxFileSize;
+                    }
+                }
+            } else {
+                // Seule la picture est présente
+                $targetDir = './images/pictures/';
+                $fileName = basename($picture['name']);
+                $targetPath = $targetDir . $fileName;
+    
+                $imageFileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+                if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+                    header('HTTP/1.1 400 Bad Request');
+                    echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                    return;
+                }
+                
+                // Déplacer l'image du chemin temporaire vers le chemin final
+                if(move_uploaded_file($picture['tmp_name'], $targetPath)) {
+                    // je prépare ma requète
+                    $request = $connection->prepare("
+                        UPDATE user SET(
+                            username = :username,
+                            picture = :picture,
+                            description = :description
+                        WHERE
+                            id = :id;
+                    )");
+
+                    $picturePath = 'http://localhost:4000/images/pictures/' . $fileName;
+
+                    $request->execute(
+                        [
+                            ":username" => $username,
+                            ":picture" => $picturePath,
+                            ":description" => $description,
+                            ":id" => $id
+                        ]
+                    );
+                    // Fermeture de la connection
+                    $connection = null;
+
+                    $message = "les modifications ont bien été prit en compte";
+                    header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                    exit;
+                }
+    
+            }
+        } elseif (isset($banner['name'])) {
+            // Seul le banner est présent
+            $targetDir = './images/banners/';
+            $fileName = basename($banner['name']);
+            $targetPath = $targetDir . $fileName;
+
+            $imageFileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+
+            if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                return;
+            }
+
+            // Déplacer l'image du chemin temporaire vers le chemin final
+            if(move_uploaded_file($banner['tmp_name'], $targetPath)) {
+                // je prépare ma requète
+                $request = $connection->prepare("
+                    UPDATE user SET(
+                        username = :username,
+                        banner = :banner,
+                        description = :description
+                    WHERE
+                        id = :id;
+                )");
+
+                $bannerPath = 'http://localhost:4000/images/banners/' . $fileName;
+
+                $request->execute(
+                    [
+                        ":username" => $username,
+                        ":banner" => $bannerPath,
+                        ":description" => $description,
+                        ":id" => $id
+                    ]
+                );
+                // Fermeture de la connection
+                $connection = null;
+
+                $message = "les modifications ont bien été prit en compte";
+                header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                exit;
+            }else{
+                $uploadMaxFileSize = ini_get('upload_max_filesize');
+                echo $uploadMaxFileSize; // 2Mo
+                return "la taille maximal de l'image ne dois pas etre supérieur a " . ' ' . $uploadMaxFileSize;
+            }
+        } else {
+            // Aucun des deux fichiers n'est présent
+             // je prépare ma requète
+             $request = $connection->prepare("
                 UPDATE user SET(
-                    firstname = :firstname ,
-                    lastname = :lastname,
-                    mail = :mail,
                     username = :username,
-                    picture = :picture,
-                    banner = :banner,
                     description = :description
                 WHERE
                     id = :id;
@@ -72,12 +362,7 @@ class User {
 
             $request->execute(
                 [
-                    ":firstname" => $firstname,
-                    ":lastname" => $lastname,
-                    ":mail" => $mail,
                     ":username" => $username,
-                    ":picture" => $picture,
-                    ":banner" => $banner,
                     ":description" => $description,
                     ":id" => $id
                 ]
@@ -86,11 +371,6 @@ class User {
             $connection = null;
 
             $message = "les modifications ont bien été prit en compte";
-            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
-            exit;
-
-        }else {
-            $message = "Tout les champs sont requis";
             header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
             exit;
         }
@@ -236,56 +516,138 @@ class User {
         $username = $_POST['username'];
         $role_id = $_POST['role_id'];
         $promo_id = $_POST['promo_id'];
+        $picture = $_FILES['picture'];
 
-        // jsi tous les champs sont remplies
-        if($firstname && $lastname && $mail && $password && $username && $role_id && $promo_id){
+        // Vérifier si une image a été envoyée
+        if(isset($picture)) {
 
-            // Je hash le mot de passe
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            // je prépare ma requète
-            $request = $connection->prepare("
-            INSERT INTO user (
-                firstname,
-                lastname,
-                mail,
-                password,
-                username,
-                role_id,
-                promo_id
-            ) VALUES (
-                :firstname,
-                :lastname,
-                :mail,
-                :password,
-                :username,
-                :role_id,
-                :promo_id);");
+            $targetDir = './images/pictures/';
+            $fileName = basename($picture['name']);
+            $targetPath = $targetDir . $fileName;
 
-            $request->execute(
-                [
-                    ":firstname" => $firstname,
-                    ":lastname" => $lastname,
-                    ":mail" => $mail,
-                    ":password" => $hashed_password,
-                    ":username" => $username,
-                    ":role_id" => $role_id,
-                    ":promo_id" => $promo_id
-                ]
-            );
-            // Fermeture de la connection
-            $connection = null;
+            $imageFileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+            if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                return;
+            }
+            
+            // Déplacer l'image du chemin temporaire vers le chemin final
+            if(move_uploaded_file($picture['tmp_name'], $targetPath)) {
 
-            $message = "l'étudiant a bien été créé";
-            header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
-            exit;
+                // jsi tous les champs sont remplies
+                if($firstname && $lastname && $mail && $password && $username && $role_id && $promo_id){
 
-        }else {
-            $message = "Tout les champs sont requis";
-            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
-            exit;
-        }
+                    // Je hash le mot de passe
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    // je prépare ma requète
+                    $request = $connection->prepare("
+                    INSERT INTO user (
+                        firstname,
+                        lastname,
+                        mail,
+                        password,
+                        username,
+                        picture,
+                        role_id,
+                        promo_id
+                    ) VALUES (
+                        :firstname,
+                        :lastname,
+                        :mail,
+                        :password,
+                        :username,
+                        :picture,
+                        :role_id,
+                        :promo_id
+                    )");
+
+                    $picturePath = 'http://localhost:4000/images/pictures/' . $fileName;
+
+                    $request->execute(
+                        [
+                            ":firstname" => $firstname,
+                            ":lastname" => $lastname,
+                            ":mail" => $mail,
+                            ":password" => $hashed_password,
+                            ":username" => $username,
+                            ":picture" => $picturePath,
+                            ":role_id" => $role_id,
+                            ":promo_id" => $promo_id
+                        ]
+                    );
+                    // Fermeture de la connection
+                    $connection = null;
+
+                    $message = "l'étudiant a bien été créé";
+                    header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
+                   
+                    exit;
+
+                }else {
+                    $message = "Tout les champs sont requis";
+                    header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                    exit;
+                }
+            } else {
+                $uploadMaxFileSize = ini_get('upload_max_filesize');
+                echo $uploadMaxFileSize; // 2Mo
+                return "la taille maximal de l'image ne dois pas etre supérieur a " . ' ' . $uploadMaxFileSize;
+            }
+    
+        };
         
-
+        if (!isset($picture)) {
+            
+            // jsi tous les champs sont remplies
+            if($firstname && $lastname && $mail && $password && $username && $role_id && $promo_id){
+    
+                // Je hash le mot de passe
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                // je prépare ma requète
+                $request = $connection->prepare("
+                INSERT INTO user (
+                    firstname,
+                    lastname,
+                    mail,
+                    password,
+                    username,
+                    role_id,
+                    promo_id
+                ) VALUES (
+                    :firstname,
+                    :lastname,
+                    :mail,
+                    :password,
+                    :username,
+                    :role_id,
+                    :promo_id);");
+    
+                $request->execute(
+                    [
+                        ":firstname" => $firstname,
+                        ":lastname" => $lastname,
+                        ":mail" => $mail,
+                        ":password" => $hashed_password,
+                        ":username" => $username,
+                        ":role_id" => $role_id,
+                        ":promo_id" => $promo_id
+                    ]
+                );
+                // Fermeture de la connection
+                $connection = null;
+    
+                $message = "l'étudiant a bien été créé";
+                header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
+                exit;
+    
+            }else {
+                $message = "Tout les champs sont requis";
+                header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                exit;
+            }
+        }
+    
     }
     function logoutAccount(){
 
