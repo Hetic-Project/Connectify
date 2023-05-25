@@ -13,18 +13,18 @@ require_once './database/client.php';
 
 //         $db = new Database();
 //         $conn = $db->getConnection();
-       
+
 //         // requete la table rubric pour récupeérer toutes les rubriques d'une page (id_page)
 //         // renvoyer en json le résultat de la requête sql
-        
-        
+
+
 //     }
 
 //     function addOneRubricForOnePage ($id_page){
 
 
 //             // 1. je récupère les champs du formulaire
-        
+
 //             // 2. Vérifier que l'utilisateur est connecté et qu'il est un administrateur
 //             // 2.a recupérer l'id de l'utilisateur dans la session
 
@@ -54,12 +54,12 @@ require_once './database/client.php';
 //             }
 //              else {
 //                 // Renvoyer un message d'erreur, en json
-                
+
 //             }
 //     }
 
 
-    
+
 //         function addOneRubricForOnePage($id_page) {
 //         // Vérifier que l'utilisateur est connecté et qu'il est un administrateur
 //         session_start();
@@ -94,70 +94,70 @@ require_once './database/client.php';
 //         }
 
 //     }
-        
-        
 
-        
-        
-        
-    
-   
+
+
+
+
+
+
+
 //     function deleteRubricsForOnePage ($id_rubric){
-        
-//             // Vérifier que l'utilisateur est bien connecté et est un administrateur
-//             if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
-//                 return json_encode(['error' => 'Unauthorized access']);
-//             }
-            
-//             // Créer une instance de la classe Rubric pour accéder aux méthodes permettant de manipuler les rubriques
-//             $rubricModel = new Rubric();
-            
-//             // Récupérer la rubrique spécifiée par $id_rubric
-//             $rubric = $rubricModel->getRubricById($id_rubric);
-            
-//             // Vérifier que la rubrique existe
-//             if (!$rubric) {
-//                 return json_encode(['error' => 'Rubric not found']);
-//             }
-            
-//             // Supprimer la rubrique
-//             $rubricModel->deleteRubricById($id_rubric);
-            
-//             // Retourner un message de succès
-//             return json_encode(['message' => 'Rubric deleted successfully']);
-        
-        
 
-        
-        
-//     }
-    
-//     function updateRubricsForOnePage ($id_rubric){
-        
-    
 //             // Vérifier que l'utilisateur est bien connecté et est un administrateur
 //             if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
 //                 return json_encode(['error' => 'Unauthorized access']);
 //             }
-            
+
 //             // Créer une instance de la classe Rubric pour accéder aux méthodes permettant de manipuler les rubriques
 //             $rubricModel = new Rubric();
-            
+
 //             // Récupérer la rubrique spécifiée par $id_rubric
 //             $rubric = $rubricModel->getRubricById($id_rubric);
-            
+
 //             // Vérifier que la rubrique existe
 //             if (!$rubric) {
 //                 return json_encode(['error' => 'Rubric not found']);
 //             }
-            
+
 //             // Supprimer la rubrique
 //             $rubricModel->deleteRubricById($id_rubric);
-            
+
 //             // Retourner un message de succès
 //             return json_encode(['message' => 'Rubric deleted successfully']);
-       
-        
+
+
+
+
+
 //     }
-    
+
+//     function updateRubricsForOnePage ($id_rubric){
+
+
+//             // Vérifier que l'utilisateur est bien connecté et est un administrateur
+//             if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
+//                 return json_encode(['error' => 'Unauthorized access']);
+//             }
+
+//             // Créer une instance de la classe Rubric pour accéder aux méthodes permettant de manipuler les rubriques
+//             $rubricModel = new Rubric();
+
+//             // Récupérer la rubrique spécifiée par $id_rubric
+//             $rubric = $rubricModel->getRubricById($id_rubric);
+
+//             // Vérifier que la rubrique existe
+//             if (!$rubric) {
+//                 return json_encode(['error' => 'Rubric not found']);
+//             }
+
+//             // Supprimer la rubrique
+//             $rubricModel->deleteRubricById($id_rubric);
+
+//             // Retourner un message de succès
+//             return json_encode(['message' => 'Rubric deleted successfully']);
+
+
+//     }
+
 // }
