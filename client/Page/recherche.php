@@ -72,7 +72,7 @@ $results = json_decode($json, true);
             <?php if($query == "group"): ?>
                 <div style="display: flex;">
                     <?php foreach($results as $result): ?>
-                        <a href="#">
+                        <a href="http://localhost:3000/Page/group.php?id=<?= $result["id"]?>">
                             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                 <?php if($result["picture"]): ?>
                                     <img class="img1" src="<?= $result["picture"] ?>"></img>

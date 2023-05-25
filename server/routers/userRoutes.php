@@ -34,36 +34,36 @@ switch ($url) {
         };
         break;
 
-    case '/profile/deactivate':
+    case preg_match('@^/profile/deactivate/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new User();
-        if ($method == 'POST') {
-            $controller->deactivateAccountForOneUser();
+        if ($method == 'GET') {
+            $controller->deactivateAccountForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
+            header('Allow: GET');
         };
         break;
         
-    case '/profile/reactivate':
+    case preg_match('@^/profile/reactivate/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new User();
-        if ($method == 'POST') {
-            $controller->reactivateAccountForOneUser();
+        if ($method == 'GET') {
+            $controller->reactivateAccountForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
+            header('Allow: GET');
         };
         break;
 
-    case '/profile/delete':
+    case preg_match('@^/profile/delete/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new User();
-        if ($method == 'POST') {
-            $controller->delectAccountForOneUser();
+        if ($method == 'GET') {
+            $controller->delectAccountForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
+            header('Allow: GET');
         };
         break;
 

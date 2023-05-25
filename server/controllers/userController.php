@@ -88,7 +88,7 @@ class User {
                     $connexion = null;
 
                     $message = "les modifications ont bien été prit en compte";
-                    header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                    header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                     exit;
 
                 } elseif (file_exists($picturePath)) {
@@ -139,7 +139,7 @@ class User {
                         $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
-                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                         exit;
 
                     }else{
@@ -194,7 +194,7 @@ class User {
                         $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
-                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                         exit;
                     }else{
                         $uploadMaxFileSize = ini_get('upload_max_filesize');
@@ -248,7 +248,7 @@ class User {
                         $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
-                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                         exit;
                     }else{
                         $uploadMaxFileSize = ini_get('upload_max_filesize');
@@ -295,7 +295,7 @@ class User {
                     $connexion = null;
 
                     $message = "les modifications ont bien été prit en compte";
-                    header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                    header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                     exit;
                 }
     
@@ -340,7 +340,7 @@ class User {
                 $connexion = null;
 
                 $message = "les modifications ont bien été prit en compte";
-                header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                 exit;
             }else{
                 $uploadMaxFileSize = ini_get('upload_max_filesize');
@@ -369,13 +369,11 @@ class User {
             $connexion = null;
 
             $message = "les modifications ont bien été prit en compte";
-            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
             exit;
         }
     }
-    function deactivateAccountForOneUser(){
-        // je récupère l'id de la session
-        $id = $_SESSION['user']['id'];
+    function deactivateAccountForOneUser($id){
 
         // connexion la BDD
         $db = new Database();
@@ -395,10 +393,7 @@ class User {
         exit;
 
     }
-    function reactivateAccountforOneUser(){
-        // je récupère l'id de la session
-        $id = $_SESSION['user']['id'];
-
+    function reactivateAccountforOneUser($id){
         // connexion la BDD
         $db = new Database();
 
@@ -413,13 +408,10 @@ class User {
         $connexion = null;
 
         $message = "Le compte a été réactiver";
-        header('Location: http://localhost:3000?message=' . urlencode($message));
+        header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
         exit;
     }
-    function delectAccountForOneUser(){
-        // je récupère l'id de la session
-        $id = $_SESSION['user']['id']; 
-
+    function delectAccountForOneUser($id){
         // j'appelle l'objet base de donnée
         $db = new Database();
 
@@ -461,6 +453,7 @@ class User {
                 WHERE username = :username
             ");
             $request->execute([":username" => $username]);
+
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
 
             if ($userInfos && password_verify($password, $userInfos['password'])) {
@@ -473,8 +466,8 @@ class User {
                     exit;
 
                 }else {
-                    $message = "Le compte a été désactiver";
-                    header('Location: http://localhost:3000?message=' . urlencode($message));
+
+                    header('Location: http://localhost:3000/Page/login.php?id=' . urlencode($userInfos['id']));
                     exit;
                 }
                 
@@ -576,7 +569,7 @@ class User {
                     $connexion = null;
 
                     $message = "l'étudiant a bien été créé";
-                    header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
+                    header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
                    
                     exit;
 

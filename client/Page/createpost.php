@@ -4,7 +4,7 @@ session_start();
 ?>
 
         <main class="main">
-                <a class="iconRetour" href="../page/publications.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
+                <a class="iconRetour" href="../Page/publications.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
         <form>
                 <button class="buttonPublier1">PUBLIER</button>
                 <div class="profileCreatPost">

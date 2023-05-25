@@ -89,8 +89,8 @@ class Group {
         $group_id = $connexion->lastInsertId();
 
         $requestMember = $connexion->prepare("
-            INSERT INTO member (group_id, user_id, role_id)
-            VALUES (:group_id, :user_id, 3);
+            INSERT INTO member (group_id, user_id, role_id, status)
+            VALUES (:group_id, :user_id, 3, 1);
         ");
 
         $requestMember->execute([

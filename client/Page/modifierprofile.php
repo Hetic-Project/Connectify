@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
 $id = $_SESSION['user']['id'];
@@ -37,8 +38,9 @@ $id = $_SESSION['user']['id'];
                 </div>
             </form>
         </div>
-        <div class="desactiver">
-            <a class="desactiverButton textWhite red" href="">Desactiver le Compte </a>
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;" class="desactiver">
+            <a class="desactiverButton textWhite red" href="http://localhost:4000/profile/deactivate/<?=$id?>">Desactiver le compte </a>
+            <a class="red textWhite" href="http://localhost:4000/profile/delete/<?=$id?>">Supprimer le compte </a>
         </div>
     </body>
 </main>
