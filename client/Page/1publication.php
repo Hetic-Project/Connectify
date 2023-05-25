@@ -1,6 +1,19 @@
 <?php
 require_once '../TPL/header.php';
 session_start();
+
+if (isset($_GET['id'])) {
+	$valeur = $_GET['id'];
+	$commentURL = "http://localhost:4000/comment/add" . $valeur;
+
+	// Effectuer la requête GET
+	$jsonPages = file_get_contents($pagesURL);
+	$dataPages = json_decode($jsonPages, true);
+
+	// Utiliser les données récupérées
+	// Par exemple, afficher le contenu de la réponse JSON
+	echo $dataPages['content'];
+}
 ?>
 
 <main class="main">
@@ -10,7 +23,7 @@ session_start();
 	</div>
 
 	<h2 class="Commentaire textWhite">Espace Commentaire</h2>
-	
+
 	<div class="ajoutCommentaire">
 		<form action="">
 			<h4 class="ajoutComment textWhite">
@@ -20,7 +33,6 @@ session_start();
 			<button class="buttonPublier3">PUBLIER</button>
 		</form>
 	</div>
-
 	<div class="hube">
 		<div class="contentCommentaire">
 			<div class="oneComment">
