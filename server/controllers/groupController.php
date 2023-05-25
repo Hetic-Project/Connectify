@@ -3,7 +3,6 @@
 //Inclusion du fichier pour la connexion a la BDD
 require_once './debug.php';
 require_once './database/client.php';
-session_start();
 
 
 // Création du controller users

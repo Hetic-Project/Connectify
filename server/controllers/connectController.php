@@ -8,10 +8,7 @@ require_once './database/client.php';
 // Création du controller users
 
 class connect {
-    function getRelationForOneUser() {
-    
-        // Retrieve the user ID from the session
-        $id = $_SESSION['user']['id'];
+    function getRelationForOneUser($id) {
     
         // J'appelle l'objet base de données
         $db = new Database();
@@ -24,7 +21,7 @@ class connect {
             SELECT connect.friend_id, user.lastname, user.firstname, user.id  
             FROM connect 
             JOIN user
-            ON connect.friend_id = user.id
+            ON connect.user_id = user.id
             WHERE connect.user_id = :user_id
         ";
         $statement = $connection->prepare($sql);
@@ -33,20 +30,21 @@ class connect {
     
         $relations = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+        $connection = null;
         header('Content-Type: application/json');
         echo json_encode($relations);
     }
     
-    function addRelationForOneUser($id_user) {
+    function addRelationForOneUser($id_user, $id) {
     
-        $id = $_SESSION['user']['id'];
-        
-        
         $db = new Database();
     
         $connection = $db->getConnection();
     
-        $sql = "INSERT INTO connect (user_id, friend_id) VALUES (:user_id, :friend_id)";
+        $sql = "
+                INSERT INTO connect (user_id, friend_id) 
+                VALUES (:user_id, :friend_id)
+            ";
         $statement = $connection->prepare($sql);
     
         $statement->execute([
@@ -55,6 +53,9 @@ class connect {
         ]);
     
         $connection = null;
+        $message = "l'utilisateur a bien été ajouté en ami";
+        header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
+        exit;
     }
     
     
