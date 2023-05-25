@@ -1,12 +1,19 @@
 <?php
 require_once '../TPL/header.php';
 session_start();
+
+$valeur = $_GET['id'];
+$oneGroupInfo = "http://localhost:4000/group/info/" . $valeur;
+
+// Effectuer la requête GET
+$json = file_get_contents($oneGroupInfo);
+$group = json_decode($json, true);
 ?>
 
 <main class="main">
 
         <div class="headerPublication">
-                <h2 class="textWhite">Name Group</h2>
+                <h2 class="textWhite"><?=$group['name']?></h2>
 
                 <div class="iconPublication">
                         <a href="/Page/modifiergroup.php"><img src="../asset/iconSetting.svg" alt="Paramettre"></a>
@@ -15,11 +22,10 @@ session_start();
                 </div>
         </div>
 
-        <div class="demandeInvitation">
+        <!-- <div class="demandeInvitation">
 
                 <div class="profileButtonInvitation">
-                        <button class="iconsButton" id="buttonInvitationGauche"><img
-                                        src="../asset/iconRetour.svg"></button>
+                        <button class="iconsButton" id="buttonInvitationGauche"><imgsrc="../asset/iconRetour.svg"></button>
 
                         <div class="test15">
                                 <div class="profileInvitation">
@@ -40,7 +46,7 @@ session_start();
                         <button class="iconsButton" id="buttonInvitationDroit"><img
                                         src="../asset/iconRetour.svg"></button>
                 </div>
-        </div>
+        </div> -->
         <?php include "containerpublication.php" ?>
 
 </main>
