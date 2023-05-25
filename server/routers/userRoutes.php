@@ -100,14 +100,14 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/profile/relation/search/([\w-]+)$@', $url, $matches) ? $url : '':
+    case '/profile/relation/search':
         $controller = new User();
-        if ($method == 'GET') {
-            $controller->searchRelation($matches[1]);
+        if ($method == 'POST') {
+            $controller->searchRelation();
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: GET');
+            header('Allow: POST');
         };
         break;
 
