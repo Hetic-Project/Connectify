@@ -1,6 +1,8 @@
 <?php
 require_once '../TPL/header.php';
 session_start();
+$id = $_SESSION['user']['id'];
+
 ?>
 
 <main class="main">
@@ -8,12 +10,12 @@ session_start();
     <body>
         <div class="wrappers">
             <h1 class="modifProfil textWhite">Veuillez modifier votre profil </h1>
-            <form action="http://localhost:4000/profile/signup" method="POST" class="   ">
+            <form action="http://localhost:4000/profile/update/<?= $id ?>" method="POST" class="   "  enctype="multipart/form-data">
 
                 <h1 class="banniere textWhite">
                     Modifier la Bannière :
                 </h1>
-                <input name="picture" type="file" placeholder="Enter picture" accept=".jpeg, .jpg, .png">
+                <input name="banner" type="file" placeholder="Enter picture" accept=".jpeg, .jpg, .png">
                 <h1 class="photoProfil textWhite">
                     Modifier la Photo de Profil :
                 </h1>
@@ -25,13 +27,13 @@ session_start();
                 <h1 class="modifierDescription textWhite">
                     Modifier la Description :
                 </h1>
-                <textarea class="modifierespaceDesc" rows="4" cols="36"></textarea>
+                <textarea name='description' class="modifierespaceDesc" rows="4" cols="36"></textarea>
 
                 <a class="textWhite" href="../Page/modifierprofile.php"> Changer le Mot de Passe</a>
 
                 <div class="containerModif">
                     <a class="modifButtonred textWhite red" href="../Page/profile.php">Annuler</a>
-                    <a class="modifButtongreen textWhite green" href="../Page/profile.php">Modifier</a>
+                    <button class="modifButtongreen textWhite green">Modifier</button>
                 </div>
             </form>
         </div>

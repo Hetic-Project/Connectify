@@ -1,6 +1,14 @@
 <?php
 require_once '../TPL/header.php';
 session_start();
+
+$id = $_SESSION['user']['id'];
+
+$allGroupForUser = "http://localhost:4000/group/user/get/" . $id;
+// Effectuer la requête GET
+$json = file_get_contents($allGroupForUser);
+$groups = json_decode($json, true);
+
 ?>
 
 <main class="main">
@@ -18,7 +26,7 @@ session_start();
 				<form action="http://localhost:4000/message" method="POST">
 					<img src="<?php $transmitter_image ?>" alt="Image de profile" class="imageProfile">
 						<div class="userMessage">
-							<h3 name="firstname" name="lastname" class="textWhite"><?php $first_name . " " . $last_name ?></h3>
+							<h3 name="firstname" name="lastname" class="textWhite"></h3>
 							<p name="message_content" class="textWhite"><?php $message_content ?></p>
 						</div>
 				</form>
@@ -37,46 +45,27 @@ session_start();
 
 		<div class="allFriends">
 
-			<button class="friendList">
-				<div class="profileInvitation sliderFriendsContent">
-					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-					<div class="nomPromo">
-						<h3 class="textWhite">Tom Cardonnel</h3>
-						<p class="textGray">Promo</p>
+			<?php foreach($groups as $group): ?>
+				<a href='./group.php?id=<?=$group["id"]?>' class="friendList">
+					<div class="profileInvitation sliderFriendsContent">
+						<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
+						<div class="nomPromo">
+							<h3 class="textWhite"><?=$group["name"]?></h3>
+							<p class="textGray"><?=$group["status"]?></p>
+						</div>
 					</div>
-				</div>
-			</button>
+				</button>
+			<?php endforeach; ?>
 
-			<button class="friendList">
-				<div class="profileInvitation sliderFriendsContent">
-					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-					<div class="nomPromo">
-						<h3 class="textWhite">Tom Cardonnel</h3>
-						<p class="textGray">Promo</p>
-					</div>
-				</div>
-			</button>
-
-			<button class="friendList">
-				<div class="profileInvitation sliderFriendsContent">
-					<img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-					<div class="nomPromo">
-						<h3 class="textWhite">Tom Cardonnel</h3>
-						<p class="textGray">Promo</p>
-					</div>
-				</div>
-			</button>
 		</div>
 	</div>
 
-	<form action="http://localhost:4000/message/1/3/" method="POST" id="messageForm">
+	<form action="" method="POST" id="messageForm">
     	<input name="message_content" class="sendMessage" type="text" placeholder="Envoyer un message">
 	</form>
 </main>
 <script src="../js/sliderFriends.js"></script>
-<script src="../js/message.js"></script>
+<!-- <script src="../js/message.js"></script> -->
 </body>
 
 </html>
