@@ -76,7 +76,7 @@ INSERT INTO `promo` (
     `promo_name`,
     `page_id`,
     `group_id`,
-    `description`
+    `promo_description`
 ) VALUES (
     'PROMO WEB1 P2025',
     1,

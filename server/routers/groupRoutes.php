@@ -12,15 +12,38 @@ $method = $_SERVER['REQUEST_METHOD'];
 $matched = false;
 
 switch ($url) {
+
     // Route utilisateur de l'API
-    case 'group/create':
+    case preg_match('@^/group/user/get/(\d+)$@', $url, $matches) ? $url : '':
+        $controller = new Group();
+        if ($method == 'GET') {
+            $controller->getAllgroupForOneUser($matches[1]);
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: GET');
+        };
+        break;
+    
+    case preg_match('@^/group/info/(\d+)$@', $url, $matches) ? $url : '':
+        $controller = new Group();
+        if ($method == 'GET') {
+            $controller->getOnegroupInfo($matches[1]);
+            $matched = true;
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
+            header('Allow: GET');
+        };
+        break;
+
+    case '/group/create':
         $controller = new Group();
         if ($method == 'POST') {
             $controller->addGroupPublicOrPrivateForOneUser();
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: GET');
+            header('Allow: POST');
         };
         break;
         
