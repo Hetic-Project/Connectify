@@ -11,7 +11,8 @@ class Publication {
 
     function getAllPublicationsInGroup ($group_id) {
         
-        $group_id = 1;
+        // récupérer l'id de la session
+        $id = $_SESSION['user']['id'];
 
         // j'appelle l'objet base de donnée
         $db = new Database();
@@ -19,26 +20,58 @@ class Publication {
         // je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connexion = $db->getConnection();
 
-        // je prépare la requête
-        $request = $connexion->prepare("SELECT * FROM publication WHERE group_id = :group_id");
-        // j'attribue la valeur de $group_id au paramètre :group_id de la requête
-        $request->bindParam(':group_id', $group_id);
-        // j'exécute la requête
-        $request->execute();
-        // je récupère tous les résultats dans publications
-        $publications = $request->fetchAll(PDO::FETCH_ASSOC);
-        // je ferme la connexion
-        $connexion = null;
+        // vérifie que l'utilisateur est membre du goupe (table membre)
+        $sql= "
+            SELECT member.status
+            FROM member
+            WHERE member.user_id = :id
+            AND member.group_id = :group_id
+        ";
+        $request = $connexion->prepare($sql);
 
-        // je renvoie au front les données au format json
-        header('Content-Type: application/json');
-        echo json_encode($publications);
+        $request->execute([
+            ':id' => $id,
+            ':group_id' => $group_id
+        ]);
+
+        $member = $request->fetchAll(PDO::FETCH_ASSO);
+
+        if($member['status'] == 1){
+
+            // je prépare la requête
+            $request = $connexion->prepare("SELECT * FROM publication WHERE group_id = :group_id");
+
+            // j'exécute la requête
+            $request->execute([':group_id' => $group_id]);
+            // je récupère tous les résultats dans publications
+            $publications = $request->fetchAll(PDO::FETCH_ASSOC);
+            // je ferme la connexion
+            $connexion = null;
+    
+            // je renvoie au front les données au format json
+            header('Content-Type: application/json');
+            echo json_encode($publications);
+
+        }else if ($member['status'] == 2){
+            $message = "vous avez été bannis !";
+                header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+                exit;
+
+        }else if ($member['status'] == 0){
+            $message = "vous n'avez pas encore intégré le group";
+            header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+            exit;
+        }else if (!$member['status']) {
+            //rediriger l'utilisateur sur la page pour candidater a un group
+            header('Location: http://localhost:3000/Page/#.php?message=' . urlencode($message));
+            exit;
+        }
+
 
     }
 
     
     function getOnePublication ($id_publication) {
-        $publication_id = 3;
 
         // j'appelle l'objet base de donnée
         $db = new Database();
@@ -53,13 +86,13 @@ class Publication {
         // j'exécute la requête
         $request->execute();
         // je récupère tous les résultats dans publications
-        $publications = $request->fetchAll(PDO::FETCH_ASSOC);
+        $publication = $request->fetch(PDO::FETCH_ASSOC);
         // je ferme la connexion
         $connexion = null;
 
         // je renvoie au front les données au format json
         header('Content-Type: application/json');
-        echo json_encode($publications);
+        echo json_encode($publication);
 
     }
 
