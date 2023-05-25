@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
 
@@ -23,7 +24,7 @@ $groups = json_decode($json, true);
 	<div class="containerMessage">
 		<div class="slider">
 			<div class="unMessage">
-				<form action="http://localhost:4000/message" method="POST">
+				<form action="" method="POST">
 					<img src="<?php $transmitter_image ?>" alt="Image de profile" class="imageProfile">
 						<div class="userMessage">
 							<h3 name="firstname" name="lastname" class="textWhite"></h3>
@@ -54,7 +55,7 @@ $groups = json_decode($json, true);
 							<p class="textGray"><?=$group["status"]?></p>
 						</div>
 					</div>
-				</button>
+				</a>
 			<?php endforeach; ?>
 
 		</div>
@@ -65,7 +66,6 @@ $groups = json_decode($json, true);
 	</form>
 </main>
 <script src="../js/sliderFriends.js"></script>
-<!-- <script src="../js/message.js"></script> -->
 </body>
 
 </html>

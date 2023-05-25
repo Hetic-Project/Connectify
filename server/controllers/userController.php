@@ -107,7 +107,7 @@ class User {
 
                     if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
                         header('HTTP/1.1 400 Bad Request');
-                        echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                        return json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
                         return;
                     }
 
@@ -653,11 +653,8 @@ class User {
         header('Location: http://localhost:3000');
 
     }
-    function searchRelation(){
+    function searchRelation($searchBarre, $query){
         
-        // je récupère les champs
-        $searchBarre = $_POST['searchBarre'];
-        $query = $_POST['query'];
         //Connecter la BDD
         $db = new Database();
     
@@ -677,6 +674,7 @@ class User {
                 if($results){
                     header('Content-Type: application/json');
                     echo json_encode($results);
+                   
                 }else{
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
@@ -686,16 +684,17 @@ class User {
             
             case 'group':
 
-                $request = $connexion->prepare("SELECT * FROM group WHERE group.name = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM `group` WHERE group.name LIKE :searchBarre");
                 $request->execute([
-                    ':searchBarre' => $searchBarre
+                    ':searchBarre' => '%' . $searchBarre . '%'
                 ]);
                 $results = $request->fetchAll(PDO::FETCH_ASSOC);
             
                 if($results){
                     header('Content-Type: application/json');
-                    echo json_encode($results);
-                }else{
+                    echo json_encode($results); 
+                }else{ 
+                    
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
                     exit;
@@ -704,15 +703,15 @@ class User {
             
             case 'promo':
 
-                $request = $connexion->prepare("SELECT * FROM promo WHERE promo.promo_name = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM promo WHERE promo.promo_name LIKE :searchBarre");
                 $request->execute([
-                    ':searchBarre' => $searchBarre
+                    ':searchBarre' => '%' . $searchBarre . '%'
                 ]);
                 $results = $request->fetchAll(PDO::FETCH_ASSOC);
             
                 if($results){
                     header('Content-Type: application/json');
-                    echo json_encode($results);
+                    return json_encode($results);
                 }else{
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
@@ -730,7 +729,7 @@ class User {
             
                 if($results){
                     header('Content-Type: application/json');
-                    echo json_encode($results);
+                    return json_encode($results);
                 }else{
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));

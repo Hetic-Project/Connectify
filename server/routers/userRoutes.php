@@ -100,19 +100,19 @@ switch ($url) {
         };
         break;
 
-    case '/profile/relation/search':
+    case preg_match('@^/user/profile/relation/search/([\w-]+)/([\w-]+)$@', $url, $matches) ? $url : '':
         $controller = new User();
-        if ($method == 'POST') {
-            $controller->searchRelation();
+        if ($method == 'GET') {
+            $controller->searchRelation($matches[1], $matches[2]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
-            header('Allow: POST');
+            header('Allow: GET');
         };
         break;
 
     default:
-    // si aucune route ne correspond j'envoi une erreur
+    // si aucune route ne correspond j'envoie une erreur
     if($matched == false){
 
         http_response_code(200);

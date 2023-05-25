@@ -3,12 +3,17 @@ ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
 
-$id = $_SESSION['user']['id'];
-
-$userInfo = "http://localhost:4000/user/" . $id;
-// Effectuer la requête GET
-$json = file_get_contents($userInfo);
-$user = json_decode($json, true);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $userInfo = "http://localhost:4000/user/" . $id;
+    $json = file_get_contents($userInfo);
+    $user = json_decode($json, true);
+}else{
+    $id = $_SESSION['user']['id'];
+    $userInfo = "http://localhost:4000/user/" . $id;
+    $json = file_get_contents($userInfo);
+    $user = json_decode($json, true);
+}
 ?>
 
 <main class="main" overflow="hidden">
@@ -23,7 +28,9 @@ $user = json_decode($json, true);
             <p class="textGray"><?=$user['promo_name'] ?></p>
         </div>
         <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
-        <a class="boutonModifier textWhite" href="../Page/modifierprofile.php">Modifier le Profil</a>
+        <?php if(!isset($_GET['id'])): ?>
+            <a class="boutonModifier textWhite" href="../Page/modifierprofile.php">Modifier le Profil</a>
+        <?php endif; ?>
         <!-- </btn> -->
     </div>
     <br>
@@ -33,11 +40,12 @@ $user = json_decode($json, true);
 
     <div class="contentBtn">
         <button id="left-button" class="enlarge textWhite">Publications</button>
-        <button id="right-button" class="textWhite">Liste d'Amis</button>
-        <form action="http://localhost:4000/profile/logout" method="POST">
-            <button id="right-button" class="textWhite">déconnection</button>
-
-        </form>
+        <?php if(!isset($_GET['id'])): ?>
+            <button id="right-button" class="textWhite">Liste d'Amis</button>
+            <form action="http://localhost:4000/profile/logout" method="POST">
+                <button id="right-button" class="textWhite">déconnection</button>
+            </form>
+        <?php endif; ?>
     </div>
 
     <div class="Publication" id="contentPublication">
