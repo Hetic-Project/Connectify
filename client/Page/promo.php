@@ -1,6 +1,17 @@
 <?php
 require_once '../TPL/header.php';
 session_start();
+
+// Utilisation de la superglobale $_GET
+if (isset($_GET['id'])) {
+    $valeur = $_GET['id'];
+    $promoControllerURL = "http://localhost:4000/pageController/" .$valeur;
+
+    // Effectuer la requête GET
+    $jsonPromo = file_get_contents($promoControllerUrl);
+    $dataPromo = json_decode($jsonPromo, true);
+    echo($dataPromo);
+}
 ?>
 
 <main class="main" overflow="hidden">
@@ -11,7 +22,7 @@ session_start();
     <div class="profileInvitation">
         <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
         <div class="nomPromo">
-            <h3 class="textWhite">Rubens Bonnin</h3>
+            <h3 class="textWhite"><?= $dataPromo ?></h3>
             <p class="textGray">Promo</p>
         </div>
         <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
@@ -58,7 +69,6 @@ session_start();
     </div>
 
     <div class="Amis AmisOff" id="contentAmis">
-
         <div class="contentprofileFriend">
 
             <button class=" friendList">
@@ -154,16 +164,6 @@ session_start();
         </div>
     </div>
 
-
-
-
-    <!-- <div class="form-box">
-        <div class="button-box">
-            <div id="button1"></div>
-            <button type="button" class="toggle-button1" onclick="leftClick()">Left</button>
-            <button type="button" class="toggle-button1" onclick="rightClick()">Right</button>
-        </div>
-    </div> -->
 </main>
 <script src="../js/profile.js"></script>
 </body>
