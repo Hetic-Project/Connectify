@@ -66,7 +66,7 @@ class Page {
 
     function createPage (){
 
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
         // récupérer les champs du formulaire
         $name = $_POST['name'];
         $banner = $_POST['banner'];
@@ -114,7 +114,7 @@ class Page {
 
     function updatePageForOneUserIfAdmin ($page_id){
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // récupérer les champs du formulaire
         $name = $_POST['name'];
@@ -176,7 +176,7 @@ class Page {
     
     function deletePageForOneUserIfAdmin ($page_id){
          // je récupère l'id de l'utilisateur
-         $id = $_SESSION['user']['id'];
+         $id = $_SESSION['id'];
  
           // j'appelle la base de donnée
           $db = new Database();

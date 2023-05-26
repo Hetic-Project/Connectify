@@ -35,7 +35,7 @@ class Promo {
     function addPromo (){
 
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // récupérer les champs du formulaire
         $name = $_POST['promo_name'];
@@ -69,7 +69,7 @@ class Promo {
     
     function showPromo ($promo_id){
          // je récupère l'id de l'utilisateur
-         $id = $_SESSION['user']['id'];
+         $id = $_SESSION['id'];
 
          // Je me connecte à la BDD
         $connexion = $db->getConnection();
@@ -117,7 +117,7 @@ class Promo {
     function updatePromo ($promo_id){
 
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // récupérer les champs du formulaire
         $name = $_POST['promo_name'];
@@ -182,7 +182,7 @@ class Promo {
 
     function deletePromo ($promoId){
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // j'appelle la base de donnée
         $db = new Database();

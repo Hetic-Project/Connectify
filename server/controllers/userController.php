@@ -35,6 +35,7 @@ class User {
         header('Content-Type: application/json');
         echo json_encode($user);
     }
+    
     function updateInformationsForOneUser($id){
         // connexion la BDD
         $db = new Database();
@@ -458,8 +459,9 @@ class User {
 
             if ($userInfos && password_verify($password, $userInfos['password'])) {
                 if ($userInfos['active']){
-
-                    $_SESSION['user'] = $userInfos;
+                    session_start();
+                    $_SESSION['id'] = $userInfos['id'];
+                    $_SESSION['role'] = $userInfos['role'];
                     header('HTTP/1.1 200 OK');
                     $message = "Connexion réussie";
                     header('Location: http://localhost:3000/Page/publications.php?message=' . urlencode($message));

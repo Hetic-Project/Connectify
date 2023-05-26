@@ -3,22 +3,26 @@ ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
 
+$id = $_SESSION['id'];
+
 if (isset($_GET['id'])) {
+
     $id = $_GET['id'];
     $userInfo = "http://localhost:4000/user/" . $id;
     $json = file_get_contents($userInfo);
     $user = json_decode($json, true);
+
 }else{
-    $id = $_SESSION['user']['id'];
+    
     $userInfo = "http://localhost:4000/user/" . $id;
     $json = file_get_contents($userInfo);
     $user = json_decode($json, true);
+
+    $searchRelation = "http://localhost:4000/relation/search/" . $id;
+    $jsonSearchRelation = file_get_contents($searchRelation);
+    $searchRelations = json_decode($jsonSearchRelation, true);
 }
 
-    $id = $_SESSION['user']['id'];
-    $searchRelation = "http://localhost:4000/relation/search" . $id;
-    $json = file_get_contents($searchRelation);
-    $searchRelations = json_decode($json, true);
 ?>
 
 <main class="main" overflow="hidden">
@@ -45,7 +49,7 @@ if (isset($_GET['id'])) {
 
     <div class="contentBtn">
         <?php if(isset($_GET['id'])): ?>
-            <a class="enlarge textWhite" href="http://localhost:4000/relation/add/<?=$id?>/<?= $_GET['id']?>" >Ajouter en ami.</a>
+            <a class="enlarge textWhite" href="http://localhost:4000/relation/add/<?= $_GET['id']?>" >Ajouter en ami.</a>
         <?php endif; ?>
         <button id="left-button" class="enlarge textWhite">Publications</button>
         <?php if(!isset($_GET['id'])): ?>
@@ -86,7 +90,7 @@ if (isset($_GET['id'])) {
                         <?php foreach($searchRelations as $searchR): ?>
                             <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
                             <div class="nomPromo">
-                                <h3 class="textWhite"><?=$searchR['firstname']?><?=$searchR['lastname']?></h3>
+                                <h3 class="textWhite"><?=$searchR['firstname']?> <?=$searchR['lastname']?></h3>
                             </div>
                         <?php endforeach; ?>
                     </div>

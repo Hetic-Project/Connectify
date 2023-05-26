@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
 
-$id = $_SESSION['user']['id'];
+$id = $_SESSION['id'];
 
 $allGroupForUser = "http://localhost:4000/group/user/get/" . $id;
 // Effectuer la requête GET

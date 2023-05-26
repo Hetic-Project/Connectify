@@ -24,11 +24,11 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/relation/add/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/relation/add/(\d+)$@', $url, $matches) ? $url : '':
         session_start();
         $controller = new Connect();
         if ($method == 'GET') {
-            $controller->addRelationForOneUser($matches[1], $matches[2]);
+            $controller->addRelationForOneUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');

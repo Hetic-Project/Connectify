@@ -4,7 +4,6 @@
 require_once './debug.php';
 require_once './database/client.php';
 
-
 // Création du controller users
 
 class connect {
@@ -17,12 +16,14 @@ class connect {
         $connection = $db->getConnection();
     
         // Je prépare la requête pour récupérer les relations de l'utilisateur
+        // Utilisez un alias pour distinguer le user_id et le friend_id
+        // Utilisez friend_id pour faire la jointure
         $sql = "
-            SELECT connect.friend_id, user.lastname, user.firstname, user.id  
-            FROM connect 
-            JOIN user
-            ON connect.user_id = user.id
-            WHERE connect.user_id = :user_id
+            SELECT connect.friend_id, friend.firstname, friend.lastname, friend.id
+            FROM connect
+            JOIN user AS friend 
+            ON connect.friend_id = friend.id 
+            WHERE connect.user_id = :user_id  
         ";
         $statement = $connection->prepare($sql);
 
@@ -31,18 +32,27 @@ class connect {
         $relations = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $connection = null;
-        header('Content-Type: application/json');
-        echo json_encode($relations);
+
+        if($relations){
+            header('Content-Type: application/json');
+            echo json_encode($relations);
+        }else{
+            $message ='aucune relation touvé !';
+            header('Content-Type: application/json');
+            echo json_encode($message);
+        }
     }
     
-    function addRelationForOneUser($id_user, $id) {
-    
+    function addRelationForOneUser($id_user) {
+
+        $id = $_SESSION['id'];
+
         $db = new Database();
     
         $connection = $db->getConnection();
     
         $sql = "
-                INSERT INTO connect (user_id, friend_id) 
+                INSERT INTO connect (connect.user_id, connect.friend_id) 
                 VALUES (:user_id, :friend_id)
             ";
         $statement = $connection->prepare($sql);
@@ -61,7 +71,7 @@ class connect {
     
     function deleteRelationForOneUser($id_user) {
 
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
     
         // J'appelle l'objet base de données
         $db = new Database();

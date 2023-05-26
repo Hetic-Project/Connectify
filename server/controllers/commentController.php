@@ -68,7 +68,7 @@ class Comment {
 
         function ifAuthorUpdateComment ($id_comment) {
             // id du user
-            $id = $_SESSION['user']['id'];
+            $id = $_SESSION['id'];
             $comment_content = $_POST['comment_content'];
         
 
@@ -126,7 +126,7 @@ class Comment {
         function ifAuthorDeleteComment ($comment_id) {
 
             // l'id de l'utilisateur
-            $id = $_SESSION['user']['id']; 
+            $id = $_SESSION['id']; 
             
 
             // Create a new instance of the Database class

@@ -12,7 +12,7 @@ class Publication {
     function getAllPublicationsInGroup ($group_id) {
         
         // récupérer l'id de la session
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // j'appelle l'objet base de donnée
         $db = new Database();
@@ -104,7 +104,7 @@ class Publication {
 
     function addPublicationInGroup($group_id) {
          // l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
         $title = $_POST['title'];
         $content = $_POST['content'];
         $picture = $_POST['picture'];
@@ -178,7 +178,7 @@ class Publication {
 
     function updatePublication ($publication_id) {
         // l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
         $title = $_POST['title'];
         $content = $_POST['content'];
         $picture = $_POST['picture'];
@@ -231,7 +231,7 @@ class Publication {
     
     function deletePublication ($publication_id) {
          // l'id de l'utilisateur
-         $id = $_SESSION['user']['id']; 
+         $id = $_SESSION['id']; 
 
          // Create a new instance of the Database class
          $db = new Database();

@@ -10,7 +10,7 @@ class Member {
     
     function quitGroup($id_group) {
 
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // J'appelle l'objet base de données
         $db = new Database();
