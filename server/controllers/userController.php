@@ -572,7 +572,6 @@ class User {
 
                     $message = "l'étudiant a bien été créé";
                     header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
-                   
                     exit;
 
                 }else {

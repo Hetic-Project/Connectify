@@ -46,10 +46,10 @@ switch ($url) {
         };
         break;
     
-    case '/profile/feed/add':
+    case preg_match('@^/profile/feed/add/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Feed();
         if ($method == 'POST') {
-            $controller->addFeedOfUser();
+            $controller->addFeedOfUser($matches[1]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
