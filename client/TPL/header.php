@@ -29,7 +29,7 @@
         <div class="flex-content-header">
 
             <a class="main-title" href="../Page/publications.php">
-                <h1 class="main-title">Conectify</h1>
+                <h1 class="main-title">Connectify</h1>
             </a>
 
             <div class="header-link">

@@ -3,41 +3,62 @@ ini_set('display_errors', 1);
 require_once '../TPL/header.php';
 session_start();
 
-$id = $_SESSION['user']['id'];
+$id = $_SESSION['id'];
 
-$userInfo = "http://localhost:4000/user/" . $id;
-// Effectuer la requête GET
-$json = file_get_contents($userInfo);
-$user = json_decode($json, true);
+if (isset($_GET['id'])) {
+
+    $id = $_GET['id'];
+    $userInfo = "http://localhost:4000/user/" . $id;
+    $json = file_get_contents($userInfo);
+    $user = json_decode($json, true);
+
+}else{
+    
+    $userInfo = "http://localhost:4000/user/" . $id;
+    $json = file_get_contents($userInfo);
+    $user = json_decode($json, true);
+
+    $searchRelation = "http://localhost:4000/relation/search/" . $id;
+    $jsonSearchRelation = file_get_contents($searchRelation);
+    $searchRelations = json_decode($jsonSearchRelation, true);
+}
+
 ?>
 
 <main class="main" overflow="hidden">
 
-    <img class="banniereProfil" src="<?= $user['banner'] ?>">
-    </img>
-
+    <img class="banniereProfil" src="<?= $user['banner'] ?>"/>
+    
+    
     <div class="profileInvitation">
         <img src="<?=$user['picture']?>" alt="Image de profile" class="imageProfile">
         <div class="nomPromo">
             <h3 class="textWhite"><?=$user['firstname']?> <?=$user['lastname']?></h3>
             <p class="textGray"><?=$user['promo_name'] ?></p>
+            <a class="textWhite" href="../Page/creategroup.php">Créer un groupe</a>
         </div>
         <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
-        <a class="boutonModifier textWhite" href="../Page/modifierprofile.php">Modifier le Profil</a>
-        <!-- </btn> -->
-    </div>
-    <br>
-    <div class="Description">
-        <p class="textWhite"><?=$user['description'] ?></p>
-    </div>
-
-    <div class="contentBtn">
-        <button id="left-button" class="enlarge textWhite">Publications</button>
-        <button id="right-button" class="textWhite">Liste d'Amis</button>
-        <form action="http://localhost:4000/profile/logout" method="POST">
-            <button id="right-button" class="textWhite">déconnection</button>
-
-        </form>
+            <?php if(!isset($_GET['id'])): ?>
+                <a class="boutonModifier textWhite" href="../Page/modifierprofile.php">Modifier le Profil</a>
+                <?php endif; ?>
+                <!-- </btn> -->
+            </div>
+            <br>
+            <div class="Description">
+                <p class="textWhite"><?=$user['description'] ?></p>
+            </div>
+            
+            <div class="contentBtn">
+                <?php if(isset($_GET['id'])): ?>
+                    <a class="enlarge textWhite" href="http://localhost:4000/relation/add/<?= $_GET['id']?>" >Ajouter en ami.</a>
+                    <?php endif; ?>
+                    <button id="left-button" class="enlarge textWhite">Publications</button>
+                    <?php if(!isset($_GET['id'])): ?>
+                        <button id="right-button" class="textWhite">Liste d'Amis</button>
+                        <form action="http://localhost:4000/profile/logout" method="POST">
+                        <button id="right-button" class="textWhite">déconnection</button>
+                </form>
+            <?php endif; ?>
     </div>
 
     <div class="Publication" id="contentPublication">
@@ -66,108 +87,17 @@ $user = json_decode($json, true);
         <div class="contentprofileFriend">
 
             <button class=" friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
+                    <div class="profileInvitation sliderFriendsContent">
+                        <?php foreach($searchRelations as $searchR): ?>
+                            <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
+                            <div class="nomPromo">
+                                <h3 class="textWhite"><?=$searchR['firstname']?> <?=$searchR['lastname']?></h3>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin </h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
-            </button>
-            <button class="friendList">
-                <div class="profileInvitation sliderFriendsContent">
-                    <img src="../asset/IconProfile.svg" alt="Image de profile" class="imageProfile">
-
-                    <div class="nomPromo">
-                        <h3 class="textWhite">Rubens Bonnin</h3>
-                        <p class="textGray">Promo</p>
-                    </div>
-                </div>
             </button>
         </div>
     </div>
-
-
-
-
-    <!-- <div class="form-box">
-        <div class="button-box">
-            <div id="button1"></div>
-            <button type="button" class="toggle-button1" onclick="leftClick()">Left</button>
-            <button type="button" class="toggle-button1" onclick="rightClick()">Right</button>
-        </div>
-    </div> -->
 </main>
 <script src="../js/profile.js"></script>
 </body>

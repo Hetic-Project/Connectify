@@ -19,48 +19,70 @@ class Feed {
         $connexion = $db->getConnection();
         
         // je prépare la requête
-        $request = $connexion->prepare("SELECT * FROM post");
+        $request = $connexion->prepare("
+            SELECT post.title, post.content, post.picture, user.firstname, user.lastname, user.picture AS picture_user 
+            FROM post
+            JOIN user
+            ON post.user_id = user.id 
+            WHERE post.user_id = :id_user
+        ");
         // j'exécute la requête
-                    $request->execute();
-                    // je récupère tous les résultats dans users
-                    $comments = $request->fetchAll(PDO::FETCH_ASSOC);
-                    // je ferme la connection
-                    $connexion = null;
-        
-                    // je renvoie au front les données au format json
-                    header('Content-Type: application/json');
-                    echo json_encode($comments);
+        $request->execute([':id_user' => $id_user]);
+        // je récupère tous les résultats dans users
+        $feeds = $request->fetchAll(PDO::FETCH_ASSOC);
+        // je ferme la connection
+        $connexion = null;
+
+        // je renvoie au front les données au format json
+        header('Content-Type: application/json');
+        echo json_encode($feeds);
 
     }
 
 
-    function addFeedOfUser () {
-        // $_SESSION['id']; 
+    function addFeedOfUser ($id) {
 
-        
+        $title = $_POST['title'];
+        $content = $_POST['content'];
+        $picture = $_FILES['picture'];
+
         $db = new Database();
 
         $connection = $db->getConnection();
 
-        $sql = "INSERT INTO post (user_id, title, content, picture) VALUES (:user_id, :title, :content, :picture)";
-        $statement = $connection->prepare($sql);
+        $targetDir = './images/feeds/';
+        $fileName = basename($picture['name']);
+        $targetPath = $targetDir . $fileName;
 
-        $statement->bindValue(':user_id', 1, PDO::PARAM_INT);
-        $statement->bindValue(':title', 'Moi', PDO::PARAM_STR);
-        $statement->bindValue(':content', 'photo de moi', PDO::PARAM_STR);
-        $statement->bindValue(':picture', 'url', PDO::PARAM_STR);
+        $imageFileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+        if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+            return;
+        }
+        
+        // Déplacer l'image du chemin temporaire vers le chemin final
+        if(move_uploaded_file($picture['tmp_name'], $targetPath)) {
 
-        if ($statement->execute()) {
-            $response = array('success' => true, 'message' => 'Post ajouté !.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
-        } else {
-            $response = array('success' => false, 'message' => 'echec envoi du post.');
-            header('Content-Type: application/json');
-            echo json_encode($response);
+            $sql = "INSERT INTO post (user_id, title, content, picture) VALUES (:user_id, :title, :content, :picture)";
+            $statement = $connection->prepare($sql);
+    
+            $picturePath = 'http://localhost:4000/images/feeds/' . $fileName;
+
+            $statement->execute([
+                ':user_id' => $id,
+                ':title' => $title,
+                ':content' => $content,
+                ':picture' => $picturePath
+            ]);
+    
+            $connection = null;
+    
+            $message = "Le post a été créer";
+            header('Location: http://localhost:3000/Page/publications.php?message=' . urlencode($message));
+            exit;
         }
 
-        $connection = null;
     }
 
 

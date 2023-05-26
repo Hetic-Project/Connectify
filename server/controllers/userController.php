@@ -35,6 +35,7 @@ class User {
         header('Content-Type: application/json');
         echo json_encode($user);
     }
+    
     function updateInformationsForOneUser($id){
         // connexion la BDD
         $db = new Database();
@@ -88,7 +89,7 @@ class User {
                     $connexion = null;
 
                     $message = "les modifications ont bien été prit en compte";
-                    header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                    header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                     exit;
 
                 } elseif (file_exists($picturePath)) {
@@ -107,7 +108,7 @@ class User {
 
                     if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
                         header('HTTP/1.1 400 Bad Request');
-                        echo json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
+                        return json_encode(array('message' => 'Le fichier doit être une image (jpg, jpeg, png).'));
                         return;
                     }
 
@@ -139,7 +140,7 @@ class User {
                         $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
-                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                         exit;
 
                     }else{
@@ -194,7 +195,7 @@ class User {
                         $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
-                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                         exit;
                     }else{
                         $uploadMaxFileSize = ini_get('upload_max_filesize');
@@ -248,7 +249,7 @@ class User {
                         $connexion = null;
 
                         $message = "les modifications ont bien été prit en compte";
-                        header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                        header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                         exit;
                     }else{
                         $uploadMaxFileSize = ini_get('upload_max_filesize');
@@ -295,7 +296,7 @@ class User {
                     $connexion = null;
 
                     $message = "les modifications ont bien été prit en compte";
-                    header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                    header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                     exit;
                 }
     
@@ -340,7 +341,7 @@ class User {
                 $connexion = null;
 
                 $message = "les modifications ont bien été prit en compte";
-                header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+                header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
                 exit;
             }else{
                 $uploadMaxFileSize = ini_get('upload_max_filesize');
@@ -369,13 +370,11 @@ class User {
             $connexion = null;
 
             $message = "les modifications ont bien été prit en compte";
-            header('Location: http://localhost:3000/Page/signin.php?message=' . urlencode($message));
+            header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
             exit;
         }
     }
-    function deactivateAccountForOneUser(){
-        // je récupère l'id de la session
-        $id = $_SESSION['user']['id'];
+    function deactivateAccountForOneUser($id){
 
         // connexion la BDD
         $db = new Database();
@@ -395,10 +394,7 @@ class User {
         exit;
 
     }
-    function reactivateAccountforOneUser(){
-        // je récupère l'id de la session
-        $id = $_SESSION['user']['id'];
-
+    function reactivateAccountforOneUser($id){
         // connexion la BDD
         $db = new Database();
 
@@ -413,13 +409,10 @@ class User {
         $connexion = null;
 
         $message = "Le compte a été réactiver";
-        header('Location: http://localhost:3000?message=' . urlencode($message));
+        header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
         exit;
     }
-    function delectAccountForOneUser(){
-        // je récupère l'id de la session
-        $id = $_SESSION['user']['id']; 
-
+    function delectAccountForOneUser($id){
         // j'appelle l'objet base de donnée
         $db = new Database();
 
@@ -461,20 +454,22 @@ class User {
                 WHERE username = :username
             ");
             $request->execute([":username" => $username]);
+
             $userInfos = $request->fetch(PDO::FETCH_ASSOC);
 
             if ($userInfos && password_verify($password, $userInfos['password'])) {
                 if ($userInfos['active']){
-
-                    $_SESSION['user'] = $userInfos;
+                    session_start();
+                    $_SESSION['id'] = $userInfos['id'];
+                    $_SESSION['role'] = $userInfos['role'];
                     header('HTTP/1.1 200 OK');
                     $message = "Connexion réussie";
                     header('Location: http://localhost:3000/Page/publications.php?message=' . urlencode($message));
                     exit;
 
                 }else {
-                    $message = "Le compte a été désactiver";
-                    header('Location: http://localhost:3000?message=' . urlencode($message));
+
+                    header('Location: http://localhost:3000/Page/login.php?id=' . urlencode($userInfos['id']));
                     exit;
                 }
                 
@@ -576,8 +571,7 @@ class User {
                     $connexion = null;
 
                     $message = "l'étudiant a bien été créé";
-                    header('Location: http://localhost:3000/Page/profile.php?message=' . urlencode($message));
-                   
+                    header('Location: http://localhost:3000/Page/login.php?message=' . urlencode($message));
                     exit;
 
                 }else {
@@ -653,11 +647,8 @@ class User {
         header('Location: http://localhost:3000');
 
     }
-    function searchRelation(){
+    function searchRelation($searchBarre, $query){
         
-        // je récupère les champs
-        $searchBarre = $_POST['searchBarre'];
-        $query = $_POST['query'];
         //Connecter la BDD
         $db = new Database();
     
@@ -677,6 +668,7 @@ class User {
                 if($results){
                     header('Content-Type: application/json');
                     echo json_encode($results);
+                   
                 }else{
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
@@ -686,16 +678,17 @@ class User {
             
             case 'group':
 
-                $request = $connexion->prepare("SELECT * FROM group WHERE group.name = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM `group` WHERE group.name LIKE :searchBarre");
                 $request->execute([
-                    ':searchBarre' => $searchBarre
+                    ':searchBarre' => '%' . $searchBarre . '%'
                 ]);
                 $results = $request->fetchAll(PDO::FETCH_ASSOC);
             
                 if($results){
                     header('Content-Type: application/json');
-                    echo json_encode($results);
-                }else{
+                    echo json_encode($results); 
+                }else{ 
+                    
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
                     exit;
@@ -704,15 +697,15 @@ class User {
             
             case 'promo':
 
-                $request = $connexion->prepare("SELECT * FROM promo WHERE promo.promo_name = :searchBarre");
+                $request = $connexion->prepare("SELECT * FROM promo WHERE promo.promo_name LIKE :searchBarre");
                 $request->execute([
-                    ':searchBarre' => $searchBarre
+                    ':searchBarre' => '%' . $searchBarre . '%'
                 ]);
                 $results = $request->fetchAll(PDO::FETCH_ASSOC);
             
                 if($results){
                     header('Content-Type: application/json');
-                    echo json_encode($results);
+                    return json_encode($results);
                 }else{
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));
@@ -730,7 +723,7 @@ class User {
             
                 if($results){
                     header('Content-Type: application/json');
-                    echo json_encode($results);
+                    return json_encode($results);
                 }else{
                     $message = "Aucun résultats";
                     header('Location: http://localhost:3000/Page/recherche.php?message=' . urlencode($message));

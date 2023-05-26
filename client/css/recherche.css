@@ -20,21 +20,22 @@ input[type="radio"].demo1 + label {
 }
 
 input[type="radio"].demo1:checked + label {
-  width: 50%; 
+  background-color: var(--primary-color);
 }
 
 .radioSearch {
   display: flex;
   justify-content: center;
-  margin: 30px;
   gap: 30px;
 }
 
-
-
-/* .recherche {
-  justify-content: center;
-} */
+.buttonSearch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  gap: 15px;
+}
 
 .contentUsers{
   overflow-y: scroll;
@@ -51,5 +52,13 @@ input[type="radio"].demo1:checked + label {
   height: 500px;
   align-items: center;
   flex-direction: column;
+  margin-top: 15px;
+}
+
+.sendSearch {
+  padding: 10px 20px;
+  border-radius: 10px ;
+  border: none;
+  width: 73vw;
   margin-top: 15px;
 }

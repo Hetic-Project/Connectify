@@ -19,7 +19,7 @@ class Message {
         $message_content = $_POST['message_content'];
 
         // Récupère l'identité de l'utilisateur émetteur depuis la session
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // Insertion du message dans la table private_message
         $sql = "INSERT INTO private_message (message_content, transmitter_id, receiver_id) VALUES (:message_content, :transmitter_id, :receiver_id)";
@@ -58,7 +58,7 @@ class Message {
     
         // Je me connecte à la BDD avec la fonction getConnection de l'objet Database
         $connection = $db->getConnection();
-        // $id = $_SESSION['user']['id'];
+        // $id = $_SESSION['id'];
         
         // Je prépare la requête pour sélectionner les messages privés entre le récepteur et l'émetteur
         $sql = "
@@ -82,7 +82,7 @@ class Message {
     // Le formulaire en front doit contenir un champ new_message_content qui contient le nouveau contenu du message
     function ifAuthorUpdateMessage($id_message) {
 
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
         $message_content = $_POST['message_content'];
         
         // J'appelle l'objet base de données
@@ -136,7 +136,7 @@ class Message {
     }
     function ifAuthorDeleteMessage($message_id) {
 
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
         
         // J'appelle l'objet base de données
         $db = new Database();

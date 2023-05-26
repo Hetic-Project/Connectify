@@ -23,6 +23,7 @@ class Group {
             JOIN `group`
             ON member.group_id = group.id
             WHERE member.user_id = :id
+            AND member.status = 1
         ");
         
         $request->execute([
@@ -68,7 +69,7 @@ class Group {
         $status = $_POST['status'];
        
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
 
         $db = new Database();
@@ -88,9 +89,10 @@ class Group {
 
         $group_id = $connexion->lastInsertId();
 
-        $requestMember = $connexion->prepare("INSERT INTO member (group_id, user_id, role_id , status)
-                                              VALUES (:group_id, :user_id, 3 , 1);
-                                            ");
+        $requestMember = $connexion->prepare("
+            INSERT INTO member (group_id, user_id, role_id)
+            VALUES (:group_id, :user_id, 3);
+        ");
 
         $requestMember->execute([
             'group_id' => $group_id,
@@ -106,7 +108,7 @@ class Group {
     function joinGroupPublicOrPrivateForOneUser ($group_id){
 
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         $db = new Database();
 
@@ -239,7 +241,7 @@ class Group {
 
     function addRelationOnGroup ($group_id, $relation_id){
 
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // je me connecte a la base de donnée
         $db = new Database();
@@ -427,7 +429,7 @@ class Group {
     function ifAdminSetOtherAdminInGroup ($group_id, $user_id){
 
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         $db = new Database();
 
@@ -483,7 +485,7 @@ class Group {
     function ifAdminBanishMember ($group_id, $user_id){
 
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         $db = new Database();
 
@@ -539,7 +541,7 @@ class Group {
     function ifAdminUpdateGroupInfo ($group_id){
 
         // je récupère l'id de l'utilisateur
-        $id = $_SESSION['user']['id'];
+        $id = $_SESSION['id'];
 
         // je récupère les champs du formulaire
         $name = filter_input(INPUT_POST, 'name');

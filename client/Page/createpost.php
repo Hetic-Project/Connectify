@@ -9,11 +9,11 @@ $id = $_GET['id'];
         <form action="http://localhost:4000/publication/add/<?=$id?>" method="POST">
                                 <button class="buttonPublier1">PUBLIER</button>
                 <div class="profileCreatPost">
-                        <img src="../asset/IconProfile.svg" alt="Image de profile creat post" class="imageProfileCreatPost">
-
+                        <img src="<?=$user['picture']?>" alt="Image de profile creat post" class="imageProfileCreatPost">
+                        
                         <div class="nomPromoCreatPost">
-                                <h3 class="textWhite">Tom Cardonnel</h3>
-                                <p class="textGray">Promo</p>
+                                <h3 class="textWhite"><?=$user['firstname']?> <?=$user['lastname']?></h3>
+                                <p class="textGray"><?=$user['promo_name'] ?></p>
                         </div>
                 </div>
                 <div class="ajouterUnTitre">    
