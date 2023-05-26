@@ -26,8 +26,8 @@ $results = json_decode($json, true);
                 <input type="radio" name="query" class="demo1" id="demo1-d" value="publication">
                 <label for="demo1-d">Publication</label>
             </div>
+            <button class="sendSearch">Recherche</button>
         </div>
-        <button>Recherche</button>
     </form>
 
 
