@@ -19,17 +19,23 @@ class Feed {
         $connexion = $db->getConnection();
         
         // je prépare la requête
-        $request = $connexion->prepare("SELECT * FROM post");
+        $request = $connexion->prepare("
+            SELECT post.title, post.content, post.picture, user.firstname, user.lastname, user.picture AS picture_user 
+            FROM post
+            JOIN user
+            ON post.user_id = user.id 
+            WHERE post.user_id = :id_user
+        ");
         // j'exécute la requête
-                    $request->execute();
-                    // je récupère tous les résultats dans users
-                    $comments = $request->fetchAll(PDO::FETCH_ASSOC);
-                    // je ferme la connection
-                    $connexion = null;
-        
-                    // je renvoie au front les données au format json
-                    header('Content-Type: application/json');
-                    echo json_encode($comments);
+        $request->execute([':id_user' => $id_user]);
+        // je récupère tous les résultats dans users
+        $feeds = $request->fetchAll(PDO::FETCH_ASSOC);
+        // je ferme la connection
+        $connexion = null;
+
+        // je renvoie au front les données au format json
+        header('Content-Type: application/json');
+        echo json_encode($feeds);
 
     }
 
@@ -66,6 +72,7 @@ class Feed {
             $statement->execute([
                 ':user_id' => $id,
                 ':title' => $title,
+                ':content' => $content,
                 ':picture' => $picturePath
             ]);
     
