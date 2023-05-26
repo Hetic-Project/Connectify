@@ -1,10 +1,11 @@
 <?php
 require_once '../TPL/header.php';
 session_start();
+$id = $_SESSION['user']['id'];
 // Utilisation de la superglobale $_GET
 if (isset($_GET['id'])) {
         $valeur = $_GET['id'];
-        $pagesURL = "http://localhost:4000/publications/add" . $valeur;
+        $pagesURL = "http://localhost:4000/publications/add" . $valeur . $id;
 
         // Effectuer la requête GET
         $jsonPages = file_get_contents($pagesURL);

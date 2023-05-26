@@ -35,10 +35,10 @@ switch ($url) {
         };
         break;
 
-    case preg_match('@^/publication/add/(\d+)$@', $url, $matches) ? $url : '':
+    case preg_match('@^/publication/add/(\d+)/(\d+)$@', $url, $matches) ? $url : '':
         $controller = new Publication();
         if ($method == 'POST') {
-            $controller->addPublicationInGroup($matches[1]);
+            $controller->addPublicationInGroup($matches[1] , $matches[2]);
             $matched = true;
         } else {
             header('HTTP/1.1 405 Method Not Allowed');

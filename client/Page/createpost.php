@@ -1,12 +1,13 @@
 <?php
 require_once '../TPL/header.php';
 session_start();
+$id = $_GET['id'];
 ?>
 
         <main class="main">
                 <a class="iconRetour" href="../page/publications.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
-        <form>
-                <button class="buttonPublier1">PUBLIER</button>
+        <form action="http://localhost:4000/publication/add/<?=$id?>" method="POST">
+                                <button class="buttonPublier1">PUBLIER</button>
                 <div class="profileCreatPost">
                         <img src="../asset/IconProfile.svg" alt="Image de profile creat post" class="imageProfileCreatPost">
 
@@ -16,11 +17,11 @@ session_start();
                         </div>
                 </div>
                 <div class="ajouterUnTitre">    
-                        <input class="textWhite inputPost" type="text" placeholder="Ajouter titre">
+                        <input name="title" class="textWhite inputPost" type="text" placeholder="Ajouter titre">
                 </div>
-                <textarea class="textWhite inputDescritpion" type="text" placeholder="Ajouter une description"></textarea>
+                <textarea name="content" class="textWhite inputDescritpion" type="text" placeholder="Ajouter une description"></textarea>
                 
-                <input class="buttonPhotos" type="file" placeholder="Enter picture" accept=".jpeg, .jpg, .png">
+                <input name="picture" class="buttonPhotos" type="file" placeholder="Enter picture" accept=".jpeg, .jpg, .png">
                 
                 <button class="buttonPublier2">PUBLIER</button>
         </form>

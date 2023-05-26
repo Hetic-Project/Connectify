@@ -17,7 +17,7 @@ $group = json_decode($json, true);
 
                 <div class="iconPublication">
                         <a href="/Page/modifiergroup.php"><img src="../asset/iconSetting.svg" alt="Paramettre"></a>
-                        <a href="/Page/createpost.php"><img src="../asset/icon+.svg" alt="Publier un nouveau post"></a>
+                        <a href="/Page/createpost.php?id=<?=$valeur?>"><img src="../asset/icon+.svg" alt="Publier un nouveau post"></a>
                         <a href="/Page/messagegroup.php"><img src="../asset/iconMessage2.svg" alt="Meesage du groupe"></a>
                 </div>
         </div>

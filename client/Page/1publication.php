@@ -4,7 +4,7 @@ session_start();
 
 if (isset($_GET['id'])) {
 	$valeur = $_GET['id'];
-	$commentURL = "http://localhost:4000/comment/add" . $valeur;
+	$commentURL = "http://localhost:4000/comment/add/6" . $valeur;
 
 	// Effectuer la requête GET
 	$jsonPages = file_get_contents($pagesURL);

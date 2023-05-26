@@ -34,7 +34,7 @@ class Publication {
             ':group_id' => $group_id
         ]);
 
-        $member = $request->fetchAll(PDO::FETCH_ASSO);
+        $member = $request->fetch(PDO::FETCH_ASSOC);
 
         if($member['status'] == 1){
 
@@ -102,12 +102,14 @@ class Publication {
     
 
 
-    function addPublicationInGroup($group_id) {
+    function addPublicationInGroup($group_id , $author_id) {
          // l'id de l'utilisateur
         $id = $_SESSION['user']['id'];
         $title = $_POST['title'];
         $content = $_POST['content'];
         $picture = $_POST['picture'];
+        
+        
 
 
         // Create a new instance of the Database class
@@ -129,20 +131,23 @@ class Publication {
             ':group_id' => $group_id
         ]);
 
-        $member = $request->fetchAll(PDO::FETCH_ASSO);
+        $member = $request->fetch(PDO::FETCH_ASSOC);
 
         if($member['status'] == 1){
 
             // je prépare la requête
             $sql = "INSERT INTO publication (publication.title, publication.content, publication.picture, publication.author_id, publication.group_id) 
-                    VALUES (:title, :content, :picture, :group_id)
+                    VALUES (:title, :content, :picture, :author_id , :group_id)
                     ";
+
+            $request = $connection->prepare($sql);        
             
             // j'exécute la requête
             $request->execute([
                 ':title' => $title,
                 ':content' => $content,
                 ':picture' => $picture,
+                ':author_id' => $author_id,
                 ':group_id' => $group_id
             ]);
             // je récupère tous les résultats dans publications
@@ -151,8 +156,9 @@ class Publication {
             $connexion = null;
     
             // je renvoie au front les données au format json
-            header('Content-Type: application/json');
-            echo json_encode($publications);
+            $message = "La publication a été crée !";
+            header('Location: http://localhost:3000/Page/group.php/' . $group_id . '?message=' . urlencode($message));
+            exit;
 
         }
         else if ($member['status'] == 2){

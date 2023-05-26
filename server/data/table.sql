@@ -95,7 +95,7 @@ CREATE TABLE `publication` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
-    picture VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL DEFAULT '',
     author_id INT NOT NULL,
     group_id INT NOT NULL,
     FOREIGN KEY (group_id) REFERENCES `group`(id) ON DELETE CASCADE,

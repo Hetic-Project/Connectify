@@ -88,10 +88,9 @@ class Group {
 
         $group_id = $connexion->lastInsertId();
 
-        $requestMember = $connexion->prepare("
-            INSERT INTO member (group_id, user_id, role_id)
-            VALUES (:group_id, :user_id, 3);
-        ");
+        $requestMember = $connexion->prepare("INSERT INTO member (group_id, user_id, role_id , status)
+                                              VALUES (:group_id, :user_id, 3 , 1);
+                                            ");
 
         $requestMember->execute([
             'group_id' => $group_id,
@@ -453,7 +452,7 @@ class Group {
         // si admin
         if ($isAdmin == 3){
             // je modifie le role du user concerné
-            $request = $connection->prepare("
+            $request = $connexion->prepare("
             UPDATE member 
             SET(
                 member.role_id = 3 
@@ -509,7 +508,7 @@ class Group {
         // si admin
         if ($isAdmin == 3){
             // je modifie le status du user concerné
-            $request = $connection->prepare("
+            $request = $connexion->prepare("
             UPDATE member 
             SET(
                 member.status = 2 
@@ -573,7 +572,7 @@ class Group {
             if($name && $description && $status){
 
                 // je prépare ma requète
-                $request = $connection->prepare("
+                $request = $connexion->prepare("
                     UPDATE group SET(
                         group.name = :name,
                         group.description = :description,
