@@ -10,7 +10,7 @@ $user = json_decode($json, true);
 ?>
 
         <main class="main">
-        <a class="iconRetour" href="../page/messagegroup.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
+        <a class="iconRetour" href="../Page/profile.php"> <img src="../asset/iconRetour.svg" alt="iconRetour"> <button class="buttonRetour">Retour</button></a>
         <form action="http://localhost:4000/group/create" method="POST">
                 <button class="buttonCreerGroupe1">CRÉER</button>
                 <div class="profileCreatGroupe">

@@ -27,35 +27,36 @@ if (isset($_GET['id'])) {
 
 <main class="main" overflow="hidden">
 
-    <img class="banniereProfil" src="<?= $user['banner'] ?>">
-    </img>
-
+    <img class="banniereProfil" src="<?= $user['banner'] ?>"/>
+    
+    
     <div class="profileInvitation">
         <img src="<?=$user['picture']?>" alt="Image de profile" class="imageProfile">
         <div class="nomPromo">
             <h3 class="textWhite"><?=$user['firstname']?> <?=$user['lastname']?></h3>
             <p class="textGray"><?=$user['promo_name'] ?></p>
+            <a class="textWhite" href="../Page/creategroup.php">Créer un groupe</a>
         </div>
         <!-- <btn class="modifierProfil textWhite"> Modifier le Profil -->
-        <?php if(!isset($_GET['id'])): ?>
-            <a class="boutonModifier textWhite" href="../Page/modifierprofile.php">Modifier le Profil</a>
-        <?php endif; ?>
-        <!-- </btn> -->
-    </div>
-    <br>
-    <div class="Description">
-        <p class="textWhite"><?=$user['description'] ?></p>
-    </div>
-
-    <div class="contentBtn">
-        <?php if(isset($_GET['id'])): ?>
-            <a class="enlarge textWhite" href="http://localhost:4000/relation/add/<?= $_GET['id']?>" >Ajouter en ami.</a>
-        <?php endif; ?>
-        <button id="left-button" class="enlarge textWhite">Publications</button>
-        <?php if(!isset($_GET['id'])): ?>
-            <button id="right-button" class="textWhite">Liste d'Amis</button>
-                <form action="http://localhost:4000/profile/logout" method="POST">
-                    <button id="right-button" class="textWhite">déconnection</button>
+            <?php if(!isset($_GET['id'])): ?>
+                <a class="boutonModifier textWhite" href="../Page/modifierprofile.php">Modifier le Profil</a>
+                <?php endif; ?>
+                <!-- </btn> -->
+            </div>
+            <br>
+            <div class="Description">
+                <p class="textWhite"><?=$user['description'] ?></p>
+            </div>
+            
+            <div class="contentBtn">
+                <?php if(isset($_GET['id'])): ?>
+                    <a class="enlarge textWhite" href="http://localhost:4000/relation/add/<?= $_GET['id']?>" >Ajouter en ami.</a>
+                    <?php endif; ?>
+                    <button id="left-button" class="enlarge textWhite">Publications</button>
+                    <?php if(!isset($_GET['id'])): ?>
+                        <button id="right-button" class="textWhite">Liste d'Amis</button>
+                        <form action="http://localhost:4000/profile/logout" method="POST">
+                        <button id="right-button" class="textWhite">déconnection</button>
                 </form>
             <?php endif; ?>
     </div>
